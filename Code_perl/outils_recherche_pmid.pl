@@ -20,7 +20,7 @@ my $base = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&ret
 # récupération du résultat comme si vous l'aviez ouvert dans votre navigateur
 my $search = get($base.$pubmedid);
 
-$output =~ s/[\r\n] +/ /g;
+#$output =~ s/[\r\n] +/ /g;
 
 my $WebEnv = $1 if ($search =~ m/<WebEnv>([^"]+)<\/WebEnv>/);
 if($WebEnv eq '')
