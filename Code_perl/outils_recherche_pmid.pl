@@ -67,22 +67,32 @@ sub search_articles
 		$output = get($url);
 		$output =~ s/[\r\n]/ /g;
 		$output =~ s/'//g;
-		#print $output; die;
+		print $output; die;
 
 	######################################################################################################################################################################################
 		#récupération des éléments de l'article
+		my $pmid = "";
+		if ($output =~ m/<PMID Version=[^>]*>(.+?)<\/PMID>/)
+		{
+			$pmid = $1;
+		}
+		my $doi = "";
+		if($output =~ m/="doi"[^>]*>(.+?)</)
+		{
+			$doi = $1;
+		}
 		my $title = "";
 		if ($output =~ m/<ArticleTitle>(.+?)<\/ArticleTitle>/)
 		{
 			$title = $1;
 		}
 		$title =~ s/<.+?>//g;
-		my $authorList = '';
-		my $authors = '';
-		if ($output =~ /<AuthorList[^>]*>(.+?)<\/AuthorList>/g)
+		my $authors = "";
+		if ($output =~ m/<AuthorList[^>]*>(.+?)<\/AuthorList>/g)
 		{
 			$authors = $1;
 		}
+		my $authorList = '';
 		while ($authors =~ /<Author[^>]*>(.+?)<\/Author>/g)
 		{
 			my $tempString = $1;
@@ -96,19 +106,9 @@ sub search_articles
 				{
 					$name = $1;
 				}
-
-			if(!$authorList eq '')
-				{
-					$authorList .= ", ";
-				}
-			$authorList .= $name . " " . $foreName;
-		}
-		my $doi = "";
-		if($output =~ m/="doi"[^>]*>(.+?)</)
-		{
-			$doi = $1;
-		}
-		my $journal = ""; 
+			$authorList .= $name . ", " . $foreName;
+		} 
+		my $journal = "";
 		if ($output =~ m/<Title>(.+?)<\/Title>/)
 		{
 			$journal = $1;
@@ -127,7 +127,6 @@ sub search_articles
 		}
 
 		$abstractList =~ s/<.+?>//g;
-
 		my $years = "";
 		if($output =~ m/<PubDate>(.+?)<\/PubDate>/)
 		{	
@@ -138,26 +137,18 @@ sub search_articles
 			
 		}
 	#####################################################################################################################
-		my @list_descript_article = ($doi, $title, $authorList, $journal, $abstractList, $years);
-		#print Dumper(\@list_descript_article);
+		my @list_descript_article = ($pmid, $doi, $title, $authorList, $journal, $abstractList, $years);
 		$dico_article_descript{$pubmedid} = \@list_descript_article;
-		#print %dico_article_descript;
-		#print "PMID: " . $pubmedid . "\n";
-		#print "DOI: " . $doi . "\n\n";
-		#print "Titre: " . $title . "\n\n";
-		#print "Auteurs: \n" . $authorList . "\n\n";
-		#print "Journal: " . $journal . "\n\n";
-		#print "Resume: \n" . $abstractList . "\n\n";
-		#print "Annee: " . $years . "\n\n";
+		
 	}
-return %dico_article_descript
+return Dumper(\%dico_article_descript)
 }
 
-sub main
-{
-	my (%dico) = search_articles();
-	print Dumper(\%dico);
-}
+#sub main
+#{
+#	my (%dico) = search_articles();
+#	print Dumper(\%dico);
+#}
 	
-main() unless caller;
+print search_articles();
 
