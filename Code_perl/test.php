@@ -32,7 +32,10 @@
  			$output1 = new SimpleXMLElement($output);
  			#var_dump($output1);
  			$pmid1 = $output1->PubmedArticle->MedlineCitation->PMID;
- 			echo $pmid1;
+ 			echo $pmid1 . "\n";
+			$journal = $output1->PubmedArticle->MedlineCitation->Article->Journal->Title;
+			echo $journal;
+			#$doi = $output1->PubmedArticle->MedlineCitation->
  			
 		?>
 	</body>
