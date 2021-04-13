@@ -1,27 +1,29 @@
 <!DOCTYPE html >
-<html lang="fr">
+<html lang="en">
 	<head>
         	<meta charset="utf-8" />
         	<title>Page de recherche d'article</title>
     	</head>
     	<body>
-		<form method="post" action="insertion2.php">
-			<p>
-				<fieldset><legend>Votre recherche pour insertion</legend> <!-- Titre du fieldset -->
+		<form method="post" action="insertion2.php" enctype="multipart/form-data">
+			<fieldset><legend>Your search for insertion</legend> <!-- Titre du fieldset -->
 					<p>
-						<input type="radio" name="insertion" value="PMID" id="Pmid" checked/> <label for="Pmid">PMID</label><br>
-						<textarea name="insertion_pmid" id="insertion" cols="40" rows="4"></textarea><br>
-						<label for="file"></label><br>
-						<input type="file" name="insertion_file" value="insertion_file" id="file" /><br>
+					<select name="list_query" id="list_query">
+						<option value="PMID">PMID</option>
+						<option value="ELocationID">DOI</option>
+						<option value="Author">Author</option>
+						<option value="Title">Title</option>
+						<option value="Date-Publication">Year</option>
+					</select>
 					</p>
 					<p>
-						<input type="radio" name="insertion" value="Requete" id="Requete" /><label for="Requete">Requête</label><br>
-						<label for="requete"></label><br>
-						<input type="text" name="insertion_requete" id="requete" /><br>
+					<textarea name="insert_text" id="insert" cols="50" rows="4"></textarea>
 					</p>
-				</fieldset>
-			
-			</p>
+					<p>
+					<label for="file"></label><br>
+					<input type="file" name="myfile" id="file" accept=".txt", ".doc", ".docx", ".odt"/>
+					</p>
+			</fieldset>
 			<p>
 				<input type="submit" value="Lancer la recherche" />
 			</p>
