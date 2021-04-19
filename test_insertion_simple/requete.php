@@ -16,14 +16,23 @@ function search($listpmid, $i)
 function recovery($output)
 {
     $output1 = new SimpleXMLElement($output);
-    $pmid1 = strval($output1->PubmedArticle->MedlineCitation->PMID);
+    $pmid1 = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[0]);
+    $doi = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[1]);
+    $pmcid = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[3]);
     $title = strval($output1->PubmedArticle->MedlineCitation->Article->ArticleTitle);
+    $year = strval($output1->PubmedArticle->MedlineCitation->Article->Journal->JournalIssue->PubDate->Year);
     $abstract = "";
     foreach ($output1->PubmedArticle->MedlineCitation->Article->{'Abstract'}->AbstractText as $charac)
         {
             $abstract .= strval($charac);
         }
-    $liste_info = [$pmid1, $title, $abstract];
+    $authors = "";
+    foreach ($output1->PubmedArticle->MedlineCitation->Article->AuthorList->Author as $name)
+        {
+            $authors .= "'" . strval($name->LastName) . " " . strval($name->ForeName) . "',";
+        }
+    $journal = strval($output1->PubmedArticle->MedlineCitation->Article->Journal->Title);
+    $liste_info = [$pmid1, $doi, $pmcid, $title, $year, $abstract, $authors, $journal];
 
     return $liste_info;
 }

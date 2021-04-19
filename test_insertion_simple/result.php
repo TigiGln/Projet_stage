@@ -37,9 +37,14 @@
                         $output = search($listpmid, $i);
                         $list_info = recovery($output);
                         $pmid1 = $list_info[0];
-                        $title = $list_info[1];
-                        $abstract = $list_info[2];
-                        $object_article = new ArticleSimple($pmid1, $title, $abstract);
+                        $doi = $list_info[1];
+                        $pmcid = $list_info[2];
+                        $title = $list_info[3];
+                        $year = $list_info[4];
+                        $abstract = $list_info[5];
+                        $authors = $list_info[6];
+                        $journal = $list_info[7];
+                        $object_article = new ArticleSimple($pmid1, $doi, $pmcid, $title, $year, $abstract, $authors, $journal);
                         $list_objects[$pmid1] = $object_article;
                         $check = "<input type='checkbox' name='check[]' value= '" . $object_article . "'>";
                         $survol = '<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . '">';
@@ -55,14 +60,14 @@
                     echo "Merci de rentrer le champ demandés";
                 }
                 $_SESSION["liste"] = $list_objects;
-                var_dump($_SESSION["liste"]);
+                #var_dump($_SESSION["liste"]);
             ?>
             <script>
                         var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
                         var popoverList = popoverTriggerList.map
                         (function (popoverTriggerEl) 
                         {
-                        return new bootstrap.Popover(popoverTriggerEl)
+                            return new bootstrap.Popover(popoverTriggerEl)
                         }
                         )
                     function check(source) 

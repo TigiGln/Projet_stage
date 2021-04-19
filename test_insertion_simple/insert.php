@@ -19,18 +19,15 @@
                 
                 if (array_key_exists($value, $liste))
                 {
-                    
-                    $a = $manager->get($liste[$value]->pmid());
-                    #var_dump($a);
-                    if ($manager->get($liste[$value]->pmid()))
+                    if ($manager->get_exist("pub_db_acc" , $liste[$value]->pmid()))
                     {
 		                echo "L'article N°" . $value . " est déjà dans la base";
                     }
                     else
                     {
                         #var_dump($liste[$value]);
-                        echo "<p>Article N°" . $value . " a bien ajouté dans la base de données</p>";
                         $manager->add($liste[$value]);
+                        echo "<p>Article N°" . $value . " a bien été ajouté dans la base de données</p>";
                         #echo $liste[$value];
                     }
                 }
