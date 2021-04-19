@@ -76,6 +76,7 @@ document.addEventListener("mouseup", function() {
   if(document.getSelection() && !isOpen && document.getSelection().toString().length > 0) {
     document.getElementById("editor").style.visibility = "visible";
     document.querySelector("#selection").textContent = document.getSelection();
+    document.querySelector("#visual-view").textContent = "Your Comment"
     isOpen = true;
   } 
 });
