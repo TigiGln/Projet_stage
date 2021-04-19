@@ -1,0 +1,89 @@
+body {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+/* Sign-In */
+
+/* Menu */
+.menu {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+.menu .active {
+  	background-color: #56b9c7 !important;
+}
+
+.menu .nav-link:hover {
+  	transition: background-color 0.25s;
+  	background-color: #56b9c7;
+}
+
+
+/* Tab */
+.note, .note:hover {
+	color: gray;
+	text-decoration: none;
+}
+
+legend {
+  text-decoration: underline #56b9c7;
+}
+
+/*
+fieldset {
+  border: 0.25em solid #56b9c7 !important;
+  padding: 4em !important;
+  margin: 0 0 4em 0 !important;
+  width: 100% !important;
+}
+*/
+
+/* insertion reuslt temp */
+    #insertion
+    {
+      margin-right: 50px;
+    }
+    th
+    {
+      border: 1px black solid;
+      background-color: cyan;
+      text-align: center;
+    }
+    th:first-child
+    {
+      border-radius: 10px 0px 0px 0px;
+      
+    }
+    th:last-child
+    {
+      border-radius: 0px 10px 0px 0px;
+    }
+    td
+    {
+      border: 1px black solid;
+      padding:0px 50px;
+      text-align: center;
+    }
+    table
+    {
+      border-collapse: separate;
+      border-spacing: 0px ;
+      margin : auto;
+    }
+
+/* articles */
+.article-notes {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+.article-notes-title {
+  color: #56b9c7 !important;
+}
+
+/* insertion */
+h1, h2, h3, h4, h5 {
+  color: #56b9c7 !important;
+}
