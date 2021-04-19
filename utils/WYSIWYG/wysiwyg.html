@@ -1,0 +1,51 @@
+<link href="./utils/wysiwyg/wysiwyg.css" rel="stylesheet"/>
+<div id="editor" class="editor d-flex flex-column sticky-top" style="height: 100vh;">
+  <div class="toolbar">
+  	<div id="selection" class="alert alert-info" role="alert"></div>
+    <div class="line">
+      <!-- Actions -->
+    <div class="box">
+        <span class="action" data-action="bold" title="Bold">
+          <img src="https://image.flaticon.com/icons/svg/25/25432.svg">
+        </span>
+        <span class="action" data-action="italic" title="Italic">
+          <img src="https://image.flaticon.com/icons/svg/25/25392.svg">
+        </span>
+        <span class="action" data-action="underline" title="Underline">
+          <img src="https://image.flaticon.com/icons/svg/25/25433.svg">
+        </span>
+        <!--<span class="action" data-action="strikeThrough" title="Strike through">
+          <img src="https://image.flaticon.com/icons/svg/25/25626.svg">
+        </span>-->
+        <span class="action" data-action="createLink" title="Insert Link">
+          <img src="https://image.flaticon.com/icons/svg/25/25385.svg">
+        </span>
+        <span class="action" data-action="unlink" title="Unlink">
+          <img src="https://image.flaticon.com/icons/svg/25/25341.svg">
+        </span>
+        <span class="action" data-action="undo" title="Undo">
+          <img src="https://image.flaticon.com/icons/svg/25/25249.svg">
+        </span>
+        <span class="action" data-action="removeFormat" title="Remove format">
+          <img src="https://image.flaticon.com/icons/svg/25/25454.svg">  
+        </span>
+        <span class="action" data-action="code" title="Show HTML-Code">
+          <img src="https://image.flaticon.com/icons/svg/25/25185.svg">
+        </span>
+        <button type="button" class="btn btn-success">S</button>
+        <button type="button" onclick="commentClose()" class="btn btn-danger">X</button>
+    </div>
+  	</div>
+  <div class="comment-area">
+     <div class="visual-view" contenteditable>
+<i>Your comment</i>
+     </div>
+    <textarea class="html-view"></textarea>
+  </div>
+</div>
+<p><b><u><hr>[HISTORY]<hr></u></b></p>
+<div class="replies-area">
+	<!-- add content, div of each ID, if click js to pass then in visible and other in hidden -->
+</div>
+<script src="./utils/wysiwyg/wysiwyg.js"></script>
+</div>

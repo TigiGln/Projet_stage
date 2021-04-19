@@ -1,7 +1,7 @@
 <?php
 	require "class_article.php";
 	require "class_manager.php";
-	include("../../../Projet_stage/connexion.php");
+	include("../connexion.php");
 	$liste_objet = [];
 	// On admet que $db est un objet PDO.
 	$request = $bdd->query('SELECT pmid, doi, pmcid, title, years, abstract, authors, journal FROM Articles');
