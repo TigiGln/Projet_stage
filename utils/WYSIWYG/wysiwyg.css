@@ -68,13 +68,10 @@
 }
 
 #html-view {
-  width: 100%;
-  background-color: #f7f7f7;
   outline: none;
   display: none;
   border: none;
   resize: none;
-  max-height: 10vh;
-  min-height: 10vh;
-  height: 10vh;
+  width: 100%;
+  background-color: #f7f7f7;
 }

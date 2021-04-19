@@ -26,21 +26,19 @@ for(let i = 0; i < buttons.length; i++) {
 /* ACTIONS */
 
 function codeAction(button, editor) {
-  const commentArea = editor.getElementsByClassName('comment-area')[0];
-  const visuellView = commentArea.getElementsByClassName('visual-view')[0];
-  const htmlView = commentArea.getElementsByClassName('html-view')[0];
+  const commentArea = document.getElementById('comment-area');
+  const visualView = document.getElementById('visual-view');
+  const htmlView = document.getElementById('html-view');
 
   if(button.classList.contains('active')) {
-    visuellView.innerHTML = htmlView.value;
+    visualView.innerHTML = htmlView.value;
     htmlView.style.display = 'none';
-    visuellView.style.display = 'block';
-
+    visualView.style.display = 'block';
     button.classList.remove('active');     
   } else { 
-    htmlView.innerText = visuellView.innerHTML;
-    visuellView.style.display = 'none';
+    htmlView.innerText = visualView.innerHTML;
+    visualView.style.display = 'none';
     htmlView.style.display = 'block';
-
     button.classList.add('active'); 
   }
 }
