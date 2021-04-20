@@ -146,7 +146,6 @@
 							echo "</p>";
 							$list_info = array($doi, $year, $title, $abstract, $journal);
 							$dico_articles[$id] = $list_info;
-
 							$i++;
 						}
 						echo "</table> </p>";
@@ -182,10 +181,14 @@
 		</form>
 		<script>
 			  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-			  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+			  var popoverList = popoverTriggerList.map
+			  (function (popoverTriggerEl) 
+			  {
 				return new bootstrap.Popover(popoverTriggerEl)
-			  })
-			  function check(source) {
+			  }
+			  )
+			function check(source) 
+			{
 			  checkboxes = document.querySelectorAll("input[name^='check']");
 			  for(var i=0, n=checkboxes.length;i<n;i++) {
 				checkboxes[i].checked = source.checked;

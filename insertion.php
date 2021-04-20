@@ -25,7 +25,7 @@
 					</p>
 			</fieldset>
 			<p>
-				<input type="submit" value="Lancer la recherche" />
+				<input type="submit" value="Start search" />
 			</p>
 		</form>
 			

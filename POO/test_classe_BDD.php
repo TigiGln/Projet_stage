@@ -1,10 +1,11 @@
 <?php
+	include("start_session.php");
 	require "class_article.php";
 	require "class_manager.php";
-	include("../../../Projet_stage/connexion.php");
+	#include("../connexion.php");
 	$liste_objet = [];
 	// On admet que $db est un objet PDO.
-	$request = $bdd->query('SELECT pmid, doi, pmcid, title, years, abstract, authors, journal FROM Articles');
+	$request = $_SESSION["connexion"]->pdo->query('SELECT pmid, doi, pmcid, title, years, abstract, authors, journal FROM Articles');
 	
 	while ($donnees = $request->fetch(PDO::FETCH_ASSOC)) // Chaque entrée sera récupérée et placée dans un array.
 	{
@@ -28,7 +29,7 @@
 		];
 	
 
-	$requete = $bdd->query("SELECT pmid FROM Articles WHERE pmid = " . $liste_info["pmid"]);
+	$requete = $_SESSION["connexion"]->pdo->query("SELECT pmid FROM Articles WHERE pmid = " . $liste_info["pmid"]);
 	$pmid_exist = $requete->fetch();
 	if (empty($pmid_exist))
 	{
@@ -36,7 +37,7 @@
 		$liste_objet[] = $article3;
 		echo "<p>L'artcle avec le PMID N° " . $article3->pmid() . ' et le DOI N° ' . $article3->doi() . ' ainsi que le PCMID N° ' . $article3->pmcid() . ' a pour titre  ' . $article3->title() . ' publié en ' . $article3->years() . " dans " . $article3->journal() . ".";
     	echo " <br>Son résumé: " . $article3->abstract() . " et il est écrit par: " . $article3->authors()  . ". </p>";
-		$manager = new Manager($bdd);
+		$manager = new Manager($_SESSION["connexion"]->pdo);
 		$manager->add($article3);
 	}
 	$str = serialize($liste_objet);
