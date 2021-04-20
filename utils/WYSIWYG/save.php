@@ -1,10 +1,10 @@
 <?php
 	$xml = simplexml_load_file('./comments.xml');
-	$ID = "ID=".'"'.$_POST["PMCID"].'"';
+	$ID = "ID".$_POST["PMCID"];
 	$text = $_POST["text"];
 	$color = $_POST["color"];
 	$comment = $_POST["comment"];
-	$date = $_POST["date"];//(new DateTime())->format('Y-m-d-H-i-s');
+	$date = "DATE".$_POST["date"];//(new DateTime())->format('Y-m-d-H-i-s');
 	if(!isset($xml->$ID)) { $xml->addChild($ID, " "); }
 	$xml->$ID->addChild($date, "");
 	$xml->$ID->$date->addChild("text", $text);

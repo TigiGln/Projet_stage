@@ -114,10 +114,10 @@ function commentSend(pmcid) {
 function updateArticle(pmcid, date, color, text, comment) {
   //add highlight
   let article = document.getElementById("article").innerHTML;
-  let highlight = '<a class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
+  let highlight = '<a id=mark_"'+date+'" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
   '['+pmcid+':'+date+']"'+' data-bs-content="'+comment+'">'+'<mark style="background-color: '+color+';">'+text+'</mark>'+'</a>';
   document.getElementById("article").innerHTML = article.replace(/(<span id="temp">).*?(<\/span>)/s, highlight);
-  //Need to refresh popOvers
+  //Need to refresh popOvers since we added a new one.
   refreshPopovers();
 }
 
