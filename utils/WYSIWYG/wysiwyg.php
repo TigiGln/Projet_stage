@@ -1,5 +1,6 @@
 <link href="./utils/wysiwyg/wysiwyg.css" rel="stylesheet"/>
-<div id="content">
+<div id="subMenu">
+    <!-- Toast success -->
 	<div id="editor" class="editor d-flex flex-column sticky-top" style="height: 100vh;">
 	  <div class="toolbar">
 		<div class="selected overflow-auto">
@@ -32,10 +33,11 @@
 	        <span class="action" data-action="removeFormat" title="Remove format">
 	          <img src="https://image.flaticon.com/icons/svg/25/25454.svg">  
 	        </span>
-	        <span class="action" data-action="code" title="Show HTML-Code">
-	          <img src="https://image.flaticon.com/icons/svg/25/25185.svg">
+	        <span id="code" class="action" data-action="code" title="Show HTML-Code">
+	          <!--<img src="https://image.flaticon.com/icons/svg/25/25185.svg">-->
 	        </span>
-	        <button type="button" class="btn btn-success">S</button>
+	        <input id="colorPicker" type="color" class="align-middle" value="#ffff00">
+	        <button id="Save" type="button" onclick="commentSend(<?php echo $PMCID ?>)" class="btn btn-success">S</button>
 	        <button type="button" onclick="commentClose()" class="btn btn-danger">X</button>
 	    </div>
 	  	</div>

@@ -41,6 +41,16 @@
   border-left: 1px solid #e2e2e2;
 }
 
+
+#colorPicker {
+  border: none;
+  width: 1em;
+  height: 2.17em;
+  background-color: none;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
 .action {
   transition: 0.2s ease all;
 }
@@ -74,4 +84,12 @@
   resize: none;
   width: 100%;
   background-color: #f7f7f7;
+}
+
+/* Temp Tag border */
+#temp {
+  display: inline-block;
+  border-width: 2px;
+  border-style: double;
+  border-color: #56b9c7;
 }

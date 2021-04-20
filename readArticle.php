@@ -5,13 +5,13 @@ $menu = 'myTasks'; //To save where we are so the menu can add the active tag
 include('./views/menu.php');
 ?>
 <!-- show one article to test-->
-<div class="p-4 w-75">
+<div id="article" class="p-4 w-75 overflow-auto" style="height: 100vh;">
 <?php
 if(isset($_GET['PMCID'])) {
-	$PMCID = $_GET['PMCID'];//"7934857"; //"7531976"; "7934857"; 7857568
+	$PMCID = $_GET['PMCID'];
 	include('./utils/FromPMCID.php');
 	echo '</div>';
-	include('./utils/WYSIWYG/wysiwyg.html');
+	include('./utils/WYSIWYG/wysiwyg.php');
 } else {
 	echo '<div class="alert alert-danger" role="alert">
 			This page need an argument: ?PMCID=NUM

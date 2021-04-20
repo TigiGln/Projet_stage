@@ -18,8 +18,14 @@
 
     //Prepare Curl request
     //Later the ID will be called
-    $ID = "7934857"; //"7531976"; "7934857"; 7857568
-    $url = 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'.$ID.'/';
+    if(!isset($_GET['PMCID'])) {
+        echo '<div class="alert alert-danger" role="alert">
+            This page need an argument: ?PMCID=NUM
+        </div>';
+        exit(10);
+    }
+    $PMCID = $_GET['PMCID'];
+    $url = 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'.$PMCID.'/';
     //Get Curl data
     $req = curl_init($url);
     //Todo, get other setopt to allows faster results
@@ -48,6 +54,7 @@
     */
     //Abstract
     $res = str_replace('id="Abs', 'id="idm', $res);
+    $res = str_replace('id="abs', 'id="idm', $res);
     //Sections
     $res = str_replace('id="s', 'id="sec', $res);
     $res = str_replace('id="__sec', 'id="sec', $res);
