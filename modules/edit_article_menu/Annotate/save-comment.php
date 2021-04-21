@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$xml = simplexml_load_file('./comments.xml');
 	$ID = "ID".$_POST["PMCID"];
 	$text = $_POST["text"];
@@ -10,7 +11,7 @@
 	$xml->$ID->$date->addChild("author", $_SESSION['connexion']);
 	$xml->$ID->$date->addChild("text", $text);
 	$xml->$ID->$date->addChild("color", $color);
-	$xml->$ID->$text->addChild("comment", $comment);
+	$xml->$ID->$date->addChild("comment", $comment);
 	$xml->saveXML('./comments.xml'); 
 	//Return status code and datas
 	//header("date: ".$date);
