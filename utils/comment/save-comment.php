@@ -7,8 +7,8 @@
 	$date = "DATE".$_POST["date"];//(new DateTime())->format('Y-m-d-H-i-s');
 	if(!isset($xml->$ID)) { $xml->addChild($ID, " "); }
 	$xml->$ID->addChild($date, "");
-	$xml->$ID->$date->addChild("text", $text);
 	$xml->$ID->$date->addChild("author", $_SESSION['connexion']);
+	$xml->$ID->$date->addChild("text", $text);
 	$xml->$ID->$date->addChild("color", $color);
 	$xml->$ID->$text->addChild("comment", $comment);
 	$xml->saveXML('./comments.xml'); 

@@ -1,20 +1,10 @@
 /* Editors */
-#editor {
-  background-color: #f7f7f7;
-  border-top: 0.5em solid #56b9c7;
-  border-bottom: 0.5em solid #56b9c7;
-  height: 100vh;
-  height: -webkit-fill-available;
-  visibility: hidden;
-  max-width: 22em;
-}
-
 #content {
   background-color: #f7f7f7;
 }
 
 #selection {
-  max-width: 22em;
+  max-width: 20em;
 }
 .selected {
   height: 5em;
@@ -45,10 +35,14 @@
 #colorPicker {
   border: none;
   width: 1em;
-  height: 2.17em;
+  height: 2em;
   background-color: none;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
+}
+
+.comment-save, .comment-abort {
+  width: 1em;
 }
 
 .action {
@@ -59,8 +53,9 @@
   cursor: pointer;
 }
 .action img {
-  width: 2.17em;
-  padding: 0.5em;
+  width: 1.8em;
+  padding: 0.2em;
+  padding-top: 0.5em;
 }
 
 /* Content */

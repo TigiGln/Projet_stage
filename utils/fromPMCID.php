@@ -98,15 +98,15 @@
     preg_match('/(<div class="ref-list-sec).*?(<\/div><\/div>)/s', $res, $references, PREG_OFFSET_CAPTURE);
     $references = $references[0][0];
 
-    //Courtesy
-    preg_match('/(<div class="half_rhythm">Articles from <span).*(<\/div>)/', $res, $courtesy, PREG_OFFSET_CAPTURE);
-    $courtesy = $courtesy[0][0];
+    //Courtesy (some articles don't have it, we have the journal from pubmed)
+    //preg_match('/(<div class="half_rhythm">Articles from <span).*(<\/div>)/', $res, $courtesy, PREG_OFFSET_CAPTURE);
+    //$courtesy = $courtesy[0][0];
 
     //Step 4: remove all divs
     $title = str_replace('<div', '<span', $title); $title = str_replace('div>', 'span>', $title);
     $authors = str_replace('<div', '<span', $authors); $authors = str_replace('div>', 'span>', $authors);
     $content = str_replace('<div', '<span', $content); $content = str_replace('div>', 'span>', $content);
-    $courtesy = str_replace('<div', '<span', $courtesy); $courtesy = str_replace('div>', 'span>', $courtesy);
+    //$courtesy = str_replace('<div', '<span', $courtesy); $courtesy = str_replace('div>', 'span>', $courtesy);
     //Echos
     echo $title . '<br>';
     echo $authors . '<br>';
