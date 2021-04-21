@@ -141,10 +141,11 @@ function addTempTag() {
 }
 
 //Create an eventListener on mouseUp  button.
-document.addEventListener("mouseup", function() {
+
+document.getElementById("article").addEventListener("mouseup", function() {
   //console.log("sel: ");
   //if it' not already opened in a comment, and if we at least selected one character
-  if(document.getSelection() && !isOpen && document.getSelection().toString().length > 0) {
+  if(document.getSelection() && !isOpen && document.getSelection().toString().length > 0 && document.getSelection().toString().length < 300) {
     //Allows user interactions with the menu
     document.querySelector("#commentEditor").style.pointerEvents = "all";
     document.querySelector("#commentEditor").style.userSelect = "all";

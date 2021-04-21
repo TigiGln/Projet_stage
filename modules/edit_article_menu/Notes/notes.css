@@ -14,19 +14,13 @@
 }
 
 .line {
-  display: flex;
+  max-width: 20em;
   border-bottom: 1px solid #e2e2e2;
   border-top: 1px solid #e2e2e2;
 }
 
 /* Action Buttons */
 .notesBox {
-  display: flex;
-  border-left: 1px solid #e2e2e2;
-}
-
-.notesSave, .notesAbort {
-  width: 1em;
 }
 
 .notesAction {
@@ -37,9 +31,7 @@
   cursor: pointer;
 }
 .notesAction img {
-  width: 1.8em;
-  padding: 0.2em;
-  padding-top: 0.5em;
+  width: 0.8em;
 }
 
 /* Content */

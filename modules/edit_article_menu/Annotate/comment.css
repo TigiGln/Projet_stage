@@ -20,29 +20,21 @@
 }
 
 .line {
-  display: flex;
+  max-width: 20em;
   border-bottom: 1px solid #e2e2e2;
   border-top: 1px solid #e2e2e2;
 }
 
 /* Action Buttons */
 .commentBox {
-  display: flex;
-  border-left: 1px solid #e2e2e2;
 }
 
 
 #commentColorPicker {
   border: none;
-  width: 1em;
-  height: 2em;
+  width: 0.8em;
   background-color: none;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
-
-.commentSave, .commentAbort {
-  width: 1em;
+  padding: 0px;
 }
 
 .commentAction {
@@ -53,9 +45,7 @@
   cursor: pointer;
 }
 .commentAction img {
-  width: 1.8em;
-  padding: 0.2em;
-  padding-top: 0.5em;
+  width: 0.8em;
 }
 
 /* Content */
