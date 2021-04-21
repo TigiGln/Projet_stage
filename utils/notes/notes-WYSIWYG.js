@@ -1,5 +1,5 @@
 /***
- * JS for comment page
+ * JS for notes page
  * author: Eddy IKHLEF
 ***/
 
@@ -8,30 +8,30 @@
 /*******************************************************************************/
 
 //Store WYSIWYG elements
-const commentEditor = document.getElementsByClassName('commentEditor')[0];
-const commentToolbar = commentEditor.getElementsByClassName('commentToolbar')[0];
-const commentButtons = commentToolbar.querySelectorAll('.commentAction');
-const commentArea = document.getElementById('commentArea');
-const commentVisualView = document.getElementById('commentVisualView');
-const commentHtmlView = document.getElementById('commentHtmlView');
+const notesEditor = document.getElementsByClassName('notesEditor')[0];
+const notesToolbar = notesEditor.getElementsByClassName('notesToolbar')[0];
+const notesButtons = notesToolbar.querySelectorAll('.notesAction');
+const notesArea = document.getElementById('notesArea');
+const notesVisualView = document.getElementById('notesVisualView');
+const notesHtmlView = document.getElementById('notesHtmlView');
 //For each element in the action (button) line, add event listener onClick
-for(let i = 0; i < commentButtons.length; i++) {
-  let button = commentButtons[i];
+for(let i = 0; i < notesButtons.length; i++) {
+  let button = notesButtons[i];
   button.addEventListener('click', function(e) {
     //Store the action from its data-action
     let action = this.dataset.action;
     switch(action) {
       //replace stylized input zone with html input zone (and reverse)
       case 'code':
-        commentCodeAction(this, commentEditor);
+        notesCodeAction(this, notesEditor);
         break;
       //add a clickable link
       case 'createLink':
-        commentLinkAction();
+        notesLinkAction();
         break;
       //default actions (bold, italic, underline, unlink, redo, remove)
       default:
-        commentDefaultAction(action);
+        notesDefaultAction(action);
     } 
   });
 }
@@ -41,20 +41,20 @@ for(let i = 0; i < commentButtons.length; i++) {
  * if stylized input zone is drawn, hide it and draw the html input zone.
  * if html input zone is drawn, hide it and draw the stylized input zone.
  * @param {*} button 
- * @param {*} commentEditor
+ * @param {*} notesEditor
  */
-function commentCodeAction(button, commentEditor) {
+function notesCodeAction(button, notesEditor) {
   if(button.classList.contains('active')) {
     //Close Code
-    commentVisualView.innerHTML = commentHtmlView.value;
-    commentHtmlView.style.display = 'none';
-    commentVisualView.style.display = 'block';
+    notesVisualView.innerHTML = notesHtmlView.value;
+    notesHtmlView.style.display = 'none';
+    notesVisualView.style.display = 'block';
     button.classList.remove('active');   
   } else { 
     //Open Code
-    commentHtmlView.innerText = commentVisualView.innerHTML;
-    commentVisualView.style.display = 'none';
-    commentHtmlView.style.display = 'block';
+    notesHtmlView.innerText = notesVisualView.innerHTML;
+    notesVisualView.style.display = 'none';
+    notesHtmlView.style.display = 'block';
     button.classList.add('active'); 
   }
 }
@@ -63,7 +63,7 @@ function commentCodeAction(button, commentEditor) {
  * linkAction:
  * allows to write a clickable link.
  */
-function commentLinkAction() {
+function notesLinkAction() {
   let linkValue = prompt('Please insert a link');
   document.execCommand('createLink', false, linkValue);
 }
@@ -73,6 +73,6 @@ function commentLinkAction() {
  * apply the execCommand function.
  * @param {*} action 
  */
-function commentDefaultAction(action) {
+function notesDefaultAction(action) {
   document.execCommand(action, false);
 }

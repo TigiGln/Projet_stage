@@ -1,4 +1,4 @@
-<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 200px; height: 100vh;">
+<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 16em; height: 100vh;">
   <div class="col-md-auto">
     <img src="../pictures/logo_small-top.png" width="30">
     <span class="fs-5">Outil Biblio</span>

@@ -19,8 +19,8 @@ var commentID = -1;
 function commentClose() {
   if(isOpen) {
     //dissalow user interactions
-    document.querySelector("#editor").style.pointerEvents = "none";
-    document.querySelector("#editor").style.userSelect = "none";
+    document.querySelector("#commentEditor").style.pointerEvents = "none";
+    document.querySelector("#commentEditor").style.userSelect = "none";
     //Remove temp tag if we didn't saved the comment
     if(!!document.getElementById("temp")) {
       let article = document.getElementById("article").innerHTML;
@@ -44,13 +44,13 @@ function commentClose() {
 function commentSend(pmcid) {
   if(isOpen) {
     //Parse element to prepare the query
-    document.querySelector('#code').click();
+    document.querySelector('#commentCode').click();
     let url = "./utils/comment/save-comment.php";
-    let color = document.getElementById("colorPicker").value;
+    let color = document.getElementById("commentColorPicker").value;
     let text = document.getElementById("selection").innerHTML;
-    let comment = document.querySelector("#html-view").textContent;
+    let comment = document.querySelector("#commentHtmlView").textContent;
     let date = (new Date()).getTime(); //Until I find a way to get date from the php
-    document.querySelector('#code').click();
+    document.querySelector('#commentCode').click();
     let params = "PMCID="+encodeURIComponent(pmcid)+"&date="+encodeURIComponent(date)+"&color="+encodeURIComponent(color)+"&text="+encodeURIComponent(text)+"&comment="+encodeURIComponent(comment);
     console.log("comment send req: "+params);
     //Start request to store in the comment database by calling start.php script
@@ -142,15 +142,16 @@ function addTempTag() {
 
 //Create an eventListener on mouseUp  button.
 document.addEventListener("mouseup", function() {
+  //console.log("sel: ");
   //if it' not already opened in a comment, and if we at least selected one character
   if(document.getSelection() && !isOpen && document.getSelection().toString().length > 0) {
     //Allows user interactions with the menu
-    document.querySelector("#editor").style.pointerEvents = "all";
-    document.querySelector("#editor").style.userSelect = "all";
+    document.querySelector("#commentEditor").style.pointerEvents = "all";
+    document.querySelector("#commentEditor").style.userSelect = "all";
     //Initialize the text
     document.querySelector("#selection").textContent = document.getSelection();
-    document.querySelector("#visual-view").textContent = "Your Comment";
-    document.querySelector("#html-view").textContent = "Your Comment";
+    document.querySelector("#commentVisualView").textContent = "Your Comment";
+    document.querySelector("#commentHtmlView").textContent = "Your Comment";
     isOpen = true;
     //Add temp balise to know we change this one
     addTempTag();

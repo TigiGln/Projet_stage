@@ -3,19 +3,13 @@
   background-color: #f7f7f7;
 }
 
-#selection {
-  max-width: 20em;
-}
-.selected {
-  height: 5em;
-  max-height: 5em;
-}
-.thread {
+.notesThread {
   height: 20em;
   max-height: 20em;
   min-height: 20em;
 }
-.commentToolbar {
+
+.notesToolbar {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -26,40 +20,30 @@
 }
 
 /* Action Buttons */
-.commentBox {
+.notesBox {
   display: flex;
   border-left: 1px solid #e2e2e2;
 }
 
-
-#commentColorPicker {
-  border: none;
-  width: 1em;
-  height: 2em;
-  background-color: none;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
-
-.commentSave, .commentAbort {
+.notesSave, .notesAbort {
   width: 1em;
 }
 
-.commentAction {
+.notesAction {
   transition: 0.2s ease all;
 }
-.commentAction:hover {
+.notesAction:hover {
   background-color: #56b9c7;
   cursor: pointer;
 }
-.commentAction img {
+.notesAction img {
   width: 1.8em;
   padding: 0.2em;
   padding-top: 0.5em;
 }
 
 /* Content */
-#commentArea {
+#notesArea {
   padding: 15px 12px;
   line-height: 1.5;
   max-height: 10vh;
@@ -68,23 +52,15 @@
   overflow-y: auto;
 }
 
-#commentVisualView {
+#notesVisualView {
   outline: none;
 }
 
-#commentHtmlView {
+#notesHtmlView {
   outline: none;
   display: none;
   border: none;
   resize: none;
   width: 100%;
   background-color: #f7f7f7;
-}
-
-/* Temp Tag border */
-#temp {
-  display: inline-block;
-  border-width: 2px;
-  border-style: double;
-  border-color: #56b9c7;
 }
