@@ -22,7 +22,7 @@
 function notesSave(pmcid) {
   //Parse element to prepare the query
   document.querySelector('#notesCode').click();
-  let url = "./utils/notes/save-notes.php";
+  let url = "./modules/edit_article_menu/notes/save-notes.php";
   let notes = document.querySelector("#notesHtmlView").textContent;
   let date = (new Date()).getTime(); //Until I find a way to get date from the php
   document.querySelector('#notesCode').click();

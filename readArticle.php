@@ -1,8 +1,14 @@
 <?php
+//CLASS IMPORT
+include('./POO/main_menu.class');
+include('./POO/edit_article_menu.class');
+?>
+
+<?php
 include('./views/header.html');
-$menu = 'myTasks'; //To save where we are so the menu can add the active tag
+
 //Menu
-include('./views/menu.php');
+(new mainMenu('My_Tasks'))->write();
 ?>
 <!-- show one article to test-->
 <div id="article" class="p-4 w-100 overflow-auto" style="height: 100vh;">
@@ -11,8 +17,8 @@ if(isset($_GET['PMCID'])) {
 	$PMCID = $_GET['PMCID'];
 	include('./utils/FromPMCID.php');
 	echo '</div>';
-	//include('./utils/WYSIWYG/wysiwyg.php');
-	include('./views/sideMenu-Articles.php');
+	//Menu
+	(new editArticleMenu($PMCID))->write();
 } else {
 	echo '<div class="alert alert-danger" role="alert">
 			This page need an argument: ?PMCID=NUM

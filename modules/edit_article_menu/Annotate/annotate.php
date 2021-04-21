@@ -1,4 +1,4 @@
-<link href="./utils/comment/comment.css" rel="stylesheet"/>
+<link href="./modules/edit_article_menu/Annotate/comment.css" rel="stylesheet"/>
 <div id="subMenu">
 	<div id="commentEditor" class="commentEditor d-flex flex-column" style="pointer-events: none; user-select: none;">
 	  <div class="commentToolbar">
@@ -33,7 +33,7 @@
 	        </span>
 	        <span id="commentCode" class="commentAction" data-action="code" title="Show HTML-Code"></span>
 			<input id="commentColorPicker" type="color" class="align-middle" value="#ffff00">
-	        <button id="commentSave" type="button" onclick="commentSend(<?php echo $PMCID ?>)" class="btn btn-success">S</button>
+	        <button id="commentSave" type="button" onclick="commentSend([ID])" class="btn btn-success">S</button>
 	        <button id="commentAbort" type="button" onclick="commentClose()" class="btn btn-danger">X</button>
 	    </div>
 	  	</div>
@@ -46,7 +46,7 @@
 	<div id="comments" class="thread overflow-auto alert alert-light mt-0 mb-0">
 		<!---->
   	</div>
-	<script src="./utils/comment/comment-INTERACTIONS.js"></script>
-	<script src="./utils/comment/comment-WYSIWYG.js"></script>
+	<script src="./modules/edit_article_menu/Annotate/comment-INTERACTIONS.js"></script>
+	<script src="./modules/edit_article_menu/Annotate/comment-WYSIWYG.js"></script>
 </div>
 </div>

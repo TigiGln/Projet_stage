@@ -29,7 +29,7 @@ $_SESSION["connexion"] = $username; //Todo use item, but here its just for debug
 //To retrieve cookie data: $_COOKIE['username'];
 if(isset($_SESSION["connexion"])) {
 	//Will cause a redirection
-	header('Location: ./myTasks.php');
+	header('Location: ./MyTasks.php');
 } else {
 	$connectErr = "";
 	header('Location: ./signIn.php');

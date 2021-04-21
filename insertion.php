@@ -1,10 +1,13 @@
 <?php
+//CLASS IMPORT
+include('./POO/main_menu.class');
+?>
+
+<?php
 include('./views/header.html');
 
-//Security for now: if the cookie isn't set
-$menu = 'insert'; //To save where we are so the menu can add the active tag
 //Menu
-include('./views/menu.php');
+(new mainMenu('Insertion'))->write();
 ?>
 
 <div class="p-4 w-100">

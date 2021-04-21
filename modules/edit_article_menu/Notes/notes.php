@@ -1,4 +1,4 @@
-<link href="./utils/notes/notes.css" rel="stylesheet"/>
+<link href="./modules/edit_article_menu/notes/notes.css" rel="stylesheet"/>
 <div id="notes" class="notesEditor d-flex flex-column">
 
 <div id="notesEditor" class="notesEditor d-flex flex-column">
@@ -30,7 +30,7 @@
 		<span id="notesCode" class="notesAction" data-action="code" title="Show HTML-Code">
 			<img src="https://image.flaticon.com/icons/svg/25/25185.svg">
 		</span>
-		<button id="notesSave" type="button" onclick="notesSave(<?php echo $PMCID ?>)" class="btn btn-success">S</button>
+		<button id="notesSave" type="button" onclick="notesSave([ID])" class="btn btn-success">S</button>
 	</div>
 	</div>
 	<div id="notesArea">
@@ -43,6 +43,6 @@
 <div id="notesThread" class="notesThread overflow-auto alert alert-light mt-0 mb-0">
 	<!---->
 </div>
-<script src="./utils/notes/notes-INTERACTIONS.js"></script>
-<script src="./utils/notes/notes-WYSIWYG.js"></script>
+<script src="./modules/edit_article_menu/notes/notes-INTERACTIONS.js"></script>
+<script src="./modules/edit_article_menu/notes/notes-WYSIWYG.js"></script>
 </div>

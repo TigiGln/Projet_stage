@@ -1,10 +1,13 @@
 <?php
-include('./views/header.html');
+//CLASS IMPORT
+include('./POO/main_menu.class');
+?>
 
-//Security for now: if the cookie isn't set
-$menu = 'myTasks'; //To save where we are so the menu can add the active tag
+<?php
+include('./views/header.html');
 //Menu
-include('./views/menu.php');
+(new mainMenu('My_Tasks'))->write();
+
 ?>
 <!-- MyTask Tab -->
 <!-- popover example, juste pour que tu vois comment gerer, tu pourras enlever cette div après elle sers a rien -->

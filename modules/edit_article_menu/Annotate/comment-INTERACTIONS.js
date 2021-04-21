@@ -29,7 +29,7 @@ function commentClose() {
     }
     isOpen = false;
     //Close menu if open
-    if(document.querySelector('#article-comment').classList.contains("show")) { document.querySelector('#annotateBtn').click(); }
+    if(document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
     //Always refresh popOvers
     refreshPopovers();
   }
@@ -45,7 +45,7 @@ function commentSend(pmcid) {
   if(isOpen) {
     //Parse element to prepare the query
     document.querySelector('#commentCode').click();
-    let url = "./utils/comment/save-comment.php";
+    let url = "./modules/edit_article_menu/Annotate/save-comment.php";
     let color = document.getElementById("commentColorPicker").value;
     let text = document.getElementById("selection").innerHTML;
     let comment = document.querySelector("#commentHtmlView").textContent;
@@ -94,7 +94,7 @@ function updateArticle(pmcid, date, color, text, comment) {
   document.getElementById("article").innerHTML = article.replace(/(<span id="temp">).*?(<\/span>)/s, highlight);
   article = document.getElementById("article").innerHTML;
   //get the article html and sent it to database
-  let url = "./utils/comment/save-article.php";
+  let url = "./modules/edit_article_menu/Annotate/save-article.php";
   let params = "ARTICLE="+encodeURIComponent(article)+"&PMCID="+encodeURIComponent(pmcid);
   console.log("article send req: "+params);
   //Start request
@@ -156,6 +156,6 @@ document.addEventListener("mouseup", function() {
     //Add temp balise to know we change this one
     addTempTag();
     //open menu if close
-    if(!document.querySelector('#article-comment').classList.contains("show")) { document.querySelector('#annotateBtn').click(); }
+    if(!document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
   } 
 });
