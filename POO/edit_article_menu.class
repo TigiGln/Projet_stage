@@ -1,10 +1,11 @@
 <?php
 class editArticleMenu {
+    protected $ArtID;
     //boolean to activate some menu parts
     protected $Notes;
     protected $Annotate;
     protected $Cazy;
-    protected $ArtID;
+    protected $Conclude;
 
     //Constructor
     public function __construct($ArtID) {
@@ -12,6 +13,7 @@ class editArticleMenu {
         $this->setNotes(true);
         $this->setAnnotate(true);
         $this->setCazy(false);
+        $this->setConclude(true);
     }
 
     //Write function, to write the menu with what we activated or not.
@@ -28,6 +30,9 @@ class editArticleMenu {
         }
         if($this->Cazy) {
             //$html = $this->writeOne($html, 'Cazy');
+        }
+        if($this->Annotate) {
+            $html = $this->writeOne($html, 'Conclude');
         }
         //end
         $html = $html . '</div></div>';
@@ -59,6 +64,9 @@ class editArticleMenu {
     }
     public function setCazy($value) {
         if (is_bool($value)) { $this->Cazy = $value; }
+    }
+    public function setConclude($value) {
+        if (is_bool($value)) { $this->Conclude = $value; }
     }
 }
 ?>
