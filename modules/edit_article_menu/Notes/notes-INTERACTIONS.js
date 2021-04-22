@@ -84,9 +84,18 @@ function notesSave(pmcid) {
         //if success, call the update article function
         if (http.status === 200) {
           console.log('notes saved successfuly');
+          document.querySelector("#notesArea").style.backgroundColor = "white";
         } else {
            console.log('notes saved failed');
         }
     }
   }
 }
+
+//event listener, when we edit the note the background will be red.
+document.getElementById("notesVisualView").addEventListener("input", function() {
+  document.querySelector("#notesArea").style.backgroundColor = "salmon";
+});
+document.getElementById("notesHtmlView").addEventListener("input", function() {
+  document.querySelector("#notesArea").style.backgroundColor = "salmon";
+});
