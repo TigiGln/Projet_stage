@@ -11,14 +11,14 @@ class editArticleMenu {
         $this->ArtID = $ArtID;
         $this->setNotes(true);
         $this->setAnnotate(true);
-        $this->setCazy(true);
+        $this->setCazy(false);
     }
 
     //Write function, to write the menu with what we activated or not.
     public function write() {
         //beginning
         $html = '<div class="bg-light overflow-auto" style="width: 25em; height: 100vh;">
-                    <div class="accordion accordion-flush bg-light overflow-auto" id="menu-article">';
+                    <div class="accordion accordion-flush bg-light" id="menu-article">';
         //check every menu variables:
         if($this->Notes) {
             $html = $this->writeOne($html, 'Notes');

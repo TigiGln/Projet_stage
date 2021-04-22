@@ -2,15 +2,25 @@
 	session_start();
 	$xml = simplexml_load_file('./notes.xml');
 	$ID = "ID".$_POST["PMCID"];
-	$text = $_POST["notes"];
-	$date = "DATE".$_POST["date"];//(new DateTime())->format('Y-m-d-H-i-s');
-	$AUTHOR = $_SESSION['connexion'];
+	$content = $_POST["notes"];
+	$date = $_POST["date"];//(new DateTime())->format('Y-m-d-H-i-s');
+	$user = $_SESSION['connexion'];
+	$NOTES = "notes";
 	if(!isset($xml->$ID)) { $xml->addChild($ID, " "); }
-	$xml->$ID->addChild($AUTHOR, "");
-	$xml->$ID->$AUTHOR->addChild($date, "");
-	$xml->$ID->$AUTHOR->addChild("notes", $text);
+	//check if user do already had a note //TODO XML I HATE YOU
+	$xml->$ID->addChild($NOTES . " " .'note="'.$user.';'.$date.';'.rawurlencode($content).'"');
 	$xml->saveXML('./notes.xml'); 
-	//Return status code and datas
-	//header("date: ".$date);
 	http_response_code(200);
+
+	/*
+		//Check if user already have a note
+	foreach ($xml->$ID->{$NOTES} as $note) {
+		$xml->$ID->$NOTES->addChild("try",$AUTHOR);
+		if($note->{'author'} == $user) { 
+			$xml->$ID->$NOTES->addChild("exist",$AUTHOR);
+			break;
+		}
+	}
+	*/
 ?>
+
