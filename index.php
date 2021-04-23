@@ -11,7 +11,7 @@
 	If connected, show the "my tasks" view (myTasks)
 -->
 
-<!-- Cookie set example: 
+<!-- Cookie set example:
     setcookie('username', $username);
     $_COOKIE['username'] = $username;
 -->
@@ -34,5 +34,5 @@ if(isset($_SESSION["connexion"])) {
 	$connectErr = "";
 	header('Location: ./signIn.php');
 }
-
+session_destroy();
 ?>

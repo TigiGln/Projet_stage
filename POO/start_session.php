@@ -1,8 +1,7 @@
 <?php
 require "class_connexion.php";
-session_start();
 
-if (!isset($_SESSION["connexion"]))
+if (!isset($_SESSION["connexionbd"]))
 {
 	//Si la session n'existe pas mais un cookie existe avec les infos
 	//Si chaque personne a un ID unique -> Fonction de cryptage avec ID et ou mdp
@@ -17,18 +16,19 @@ if (!isset($_SESSION["connexion"]))
 	//Ou alors ajout d'un autre champ qui permet d'avoir 2 meme nom
 	//Mais pas 2 mail similaire
 	//-> Connection avec mail : mdp
-    $connexion = new Connexion("localhost", "stage", "thierry", "Th1erryG@llian0");
-    $_SESSION["connexion"] = $connexion;
+    $connexionbd = new ConnexionDB("localhost", "stage", "thierry", "Th1erryG@llian0");
+    $_SESSION["connexionbd"] = $connexionbd;
 
-    echo "Actualiser la page";
+    #echo "Actualiser la page";
 }
-else
+/*else
 {
     echo "<pre>";
     var_dump($_SESSION["connexion"]); // On affiche les infos concernant notre objet.
     echo "</pre>";
 }
 
-//Destroy le cookie et la session lors du disconnect.
-#session_destroy()
+//Destroy la session lors du disconnect.
+session_destroy()
+*/
 ?>

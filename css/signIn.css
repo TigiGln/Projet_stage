@@ -1,9 +1,10 @@
-html,
-body {
+html, body 
+{
   height: 100%;
 }
 
-body {
+body 
+{
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -18,17 +19,20 @@ body {
   background-color: #f5f5f5;
 }
 
-.form-signin {
+.form-signin 
+{
   width: 100%;
   max-width: 300px;
 }
 
 /* bootstrap */
-.btn-outline-primary {
+.btn-outline-primary 
+{
   border-color: #56b9c7 !important;
   color: #56b9c7 !important;
 }
-.btn-outline-primary:hover {
+.btn-outline-primary:hover 
+{
   transition: background-color 0.25s;
   background-color: #56b9c7 !important;
   color: white !important;

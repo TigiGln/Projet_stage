@@ -1,6 +1,10 @@
 <?php
-class Connexion
+/*
+Classes de connexion des utilisateurs 
+*/
+class ConnexionDB
 {
+    
     public $pdo;
     public $serveur;
     public $user;
@@ -20,7 +24,7 @@ class Connexion
 
     protected function connexionBDD()
     {
-        $this->pdo = new PDO("mysql:host=" . $this->serveur . ";dbname=" . $this->db, $this->user , $this->mdp);
+        $this->pdo = new PDO("mysql:host=" . $this->serveur . ";dbname=" . $this->db, $this->user , $this->mdp, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
     }
     public function __sleep()
     {

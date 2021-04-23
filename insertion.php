@@ -23,18 +23,22 @@ include('./views/header.html');
 						<option value="Title">Title</option>
 						<option value="Date-Publication">Year</option>
 					</select>
-					<small class="text-muted"><span>&#8593;</span> Click to change type</small>
-				</div>
-			  <textarea name="insert_text" id="insert" class="form-control m-1" rows="4"></textarea>
-			</div>
-			<div class="mb-3">
-				<label for="formFile" class="form-label"></label>
-				<input class="form-control" name="myfile" type="file" id="file" accept=".txt", ".doc", ".docx", ".odt">
-			</div>
-		</fieldset>
-		<input type="submit" value="Start seach" class="btn btn-outline-success" />
-	</form>
-</div>
+					</p>
+					<p>
+					<textarea name="insert_text" id="insert" cols="50" rows="4"></textarea>
+					</p>
+					<p>
+					<label for="file"></label><br>
+					<input type="file" name="myfile" id="file" accept=".txt", ".doc", ".docx", ".odt"/>
+					</p>
+			</fieldset>
+			<p>
+				<input type="submit" value="Start search" />
+			</p>
+		</form>
+			
+	</body>
+</html>
 
 <?php
 include('./views/footer.html');

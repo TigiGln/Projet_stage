@@ -11,7 +11,7 @@ class Article
     protected $authors; //1, 2, 3 (set); 1-N
     //Links to another sql table, save xref_id from authors
     //AUTHORS: ID:  - name etc
-    protected $journal //1-1;
+    protected $journal; //1-1;
     protected $statut;
 
     public function __construct($list_info)
