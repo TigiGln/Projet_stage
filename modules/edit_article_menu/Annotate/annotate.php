@@ -6,11 +6,11 @@
 		<div class="selected overflow-auto alert-light mt-0 mb-0">
 			<div id="selection"></div>
 	  	</div>
-	  	<div class="alert alert-secondary mt-0 mb-0 p-1">
-		<button id="commentSave" type="button" onclick="commentSend([ID])" class="btn btn-success">S</button>
-    	<button id="commentAbort" type="button" onclick="commentClose()" class="btn btn-danger">X</button>
-	  	Write a comment:
-	  </div>
+	  	<div id="commentInteraction" class="alert alert-secondary mt-0 mb-0 p-1">
+	  		<button id="commentSave" type="button" onclick="commentSend([ID])" class="btn btn-success">S</button>
+    		<button id="commentAbort" type="button" onclick="commentClose()" class="btn btn-danger">X</button>
+	  		Write a comment:
+	  	</div>
 	    <div class="line bg-light">
 	      <!-- Actions -->
 	    <div class="commentBox row text-center">

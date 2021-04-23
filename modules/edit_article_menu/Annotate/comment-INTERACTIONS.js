@@ -29,11 +29,20 @@ function commentClose() {
     }
     isOpen = false;
     document.querySelector("#commentArea").style.backgroundColor = "white";
-    //Close menu if open
+    //Uncomment next line to auto-hide annotation menu on close
     //if(document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
     //Always refresh popOvers
     refreshPopovers();
   }
+}
+
+function commentUndo(id) {
+  //remove mark and link if exist
+  if (!!document.getElementById("mark_"+id)) document.getElementById("mark_"+id).outerHTML = document.getElementById("link_"+id).innerHTML;
+  //remove undo button if exist
+  if(!!document.getElementById("commentUndo")) document.getElementById("commentUndo").outerHTML = "";
+  document.querySelector("#commentArea").style.backgroundColor = "salmon";
+  //todo remove from database too
 }
 
 /**
@@ -70,7 +79,12 @@ function commentSend(id) {
             console.log('comment sent successful');
             let res = this.response.toString().split(',');
             let result = updateArticle(id, res[0], res[1],  color, text, comment);
-            if (result) commentClose();
+            if (result) {
+              commentClose();
+              let commentID = "'"+res[0].toString()+"'";
+              document.getElementById("commentInteraction").innerHTML = '<button id="commentUndo" type="button" class="btn btn-warning" style="pointer-events: all; user-select: all;" onclick="commentUndo('+commentID+')" >R</button>'
+                                                          + document.getElementById("commentInteraction").innerHTML;
+            }
           } else {
              console.log('comment sent failed');
              commentClose();
@@ -92,9 +106,10 @@ function commentSend(id) {
 function updateArticle(id, date, author, color, text, comment) {
   //add highlight
   let article = document.getElementById("article").innerHTML;
-  let highlight = '<a id=mark_'+date+' class="note" data-artID='+id+' data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
-  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'">'+'<mark style="background-color: '+color+';">'+text+'</mark>'+'</a>';
-  document.getElementById("article").innerHTML = article.replace(/(<span id="temp">).*?(<\/span>)/s, highlight);
+  let highlight = '<mark id=mark_'+date+' style="background-color: '+color+';"><a id=link_'+date+' class="note" data-artID='+id+' data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
+  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'">'+text.toString()+'</a></mark>';
+  console.log("test: "+highlight);
+  document.getElementById("temp").outerHTML = highlight;
   article = document.getElementById("article").innerHTML;
   //get the article html and sent it to database
   let url = "./modules/edit_article_menu/Annotate/save-article.php";
@@ -155,7 +170,6 @@ function addTempTag() {
 }
 
 //Create an eventListener on mouseUp  button.
-
 document.getElementById("article").addEventListener("mouseup", function() {
   //console.log("sel: ");
   //if it' not already opened in a comment, and if we at least selected one character
@@ -170,6 +184,9 @@ document.getElementById("article").addEventListener("mouseup", function() {
     document.querySelector("#commentVisualView").textContent = "Your Comment";
     document.querySelector("#commentHtmlView").textContent = "Your Comment";
     document.querySelector("#commentArea").style.backgroundColor = "white";
+    if(!!document.getElementById("commentUndo")) {
+      document.getElementById("commentUndo").outerHTML = "";
+    }
     isOpen = true;
     //open menu if close
     if(!document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
