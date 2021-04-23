@@ -18,8 +18,14 @@
 
     //Prepare Curl request
     //Later the ID will be called
-    $ID = "7934857"; //"7531976"; "7934857"; 7857568
-    $url = 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'.$ID.'/';
+    if(!isset($_GET['PMCID'])) {
+        echo '<div class="alert alert-danger" role="alert">
+            This page need an argument: ?PMCID=NUM
+        </div>';
+        exit(10);
+    }
+    $PMCID = $_GET['PMCID'];
+    $url = 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'.$PMCID.'/';
     //Get Curl data
     $req = curl_init($url);
     //Todo, get other setopt to allows faster results
@@ -48,6 +54,7 @@
     */
     //Abstract
     $res = str_replace('id="Abs', 'id="idm', $res);
+    $res = str_replace('id="abs', 'id="idm', $res);
     //Sections
     $res = str_replace('id="s', 'id="sec', $res);
     $res = str_replace('id="__sec', 'id="sec', $res);
@@ -91,15 +98,15 @@
     preg_match('/(<div class="ref-list-sec).*?(<\/div><\/div>)/s', $res, $references, PREG_OFFSET_CAPTURE);
     $references = $references[0][0];
 
-    //Courtesy
-    preg_match('/(<div class="half_rhythm">Articles from <span).*(<\/div>)/', $res, $courtesy, PREG_OFFSET_CAPTURE);
-    $courtesy = $courtesy[0][0];
+    //Courtesy (some articles don't have it, we have the journal from pubmed)
+    //preg_match('/(<div class="half_rhythm">Articles from <span).*(<\/div>)/', $res, $courtesy, PREG_OFFSET_CAPTURE);
+    //$courtesy = $courtesy[0][0];
 
     //Step 4: remove all divs
     $title = str_replace('<div', '<span', $title); $title = str_replace('div>', 'span>', $title);
     $authors = str_replace('<div', '<span', $authors); $authors = str_replace('div>', 'span>', $authors);
     $content = str_replace('<div', '<span', $content); $content = str_replace('div>', 'span>', $content);
-    $courtesy = str_replace('<div', '<span', $courtesy); $courtesy = str_replace('div>', 'span>', $courtesy);
+    //$courtesy = str_replace('<div', '<span', $courtesy); $courtesy = str_replace('div>', 'span>', $courtesy);
     //Echos
     echo $title . '<br>';
     echo $authors . '<br>';

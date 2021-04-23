@@ -1,0 +1,59 @@
+/* Editors */
+#content {
+  background-color: #f7f7f7;
+}
+
+.notesThread {
+  height: 20em;
+  max-height: 20em;
+  min-height: 20em;
+}
+
+.notesToolbar {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
+}
+
+.line {
+  max-width: 20em;
+  border-bottom: 1px solid #e2e2e2;
+  border-top: 1px solid #e2e2e2;
+}
+
+/* Action Buttons */
+.notesBox {
+}
+
+.notesAction {
+  transition: 0.2s ease all;
+}
+.notesAction:hover {
+  background-color: #56b9c7;
+  cursor: pointer;
+}
+.notesAction img {
+  width: 0.8em;
+}
+
+/* Content */
+#notesArea {
+  padding: 15px 12px;
+  line-height: 1.5;
+  max-height: 10vh;
+  min-height: 10vh;
+  height: 10vh;
+  overflow-y: auto;
+}
+
+#notesVisualView {
+  outline: none;
+  background: transparent;
+}
+
+#notesHtmlView {
+  outline: none;
+  display: none;
+  border: none;
+  resize: none;
+  width: 100%;
+  background: transparent;
+}

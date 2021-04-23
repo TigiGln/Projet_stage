@@ -18,7 +18,9 @@ if(isset($_GET['PMCID'])) {
 	include('./utils/FromPMCID.php');
 	echo '</div>';
 	//Menu
-	(new editArticleMenu($PMCID))->write();
+	$submenu = (new editArticleMenu($PMCID));
+    $submenu->setAnnotate(false); $submenu->setConclude(false);
+	$submenu->write();
 } else {
 	echo '<div class="alert alert-danger" role="alert">
 			This page need an argument: ?PMCID=NUM

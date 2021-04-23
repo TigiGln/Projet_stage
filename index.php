@@ -11,7 +11,7 @@
 	If connected, show the "my tasks" view (myTasks)
 -->
 
-<!-- Cookie set example: 
+<!-- Cookie set example:
     setcookie('username', $username);
     $_COOKIE['username'] = $username;
 -->
@@ -29,7 +29,7 @@ $_SESSION["connexion"] = $username; //Todo use item, but here its just for debug
 //To retrieve cookie data: $_COOKIE['username'];
 if(isset($_SESSION["connexion"])) {
 	//Will cause a redirection
-	header('Location: ./test_insertion_simple/test_fenetre_indefini.php');
+	header('Location: ./MyTasks.php');
 } else {
 	$connectErr = "";
 	header('Location: ./signIn.php');
