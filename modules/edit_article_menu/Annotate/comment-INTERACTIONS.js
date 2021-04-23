@@ -28,8 +28,9 @@ function commentClose() {
       document.getElementById("article").innerHTML = article.replace(/(<span id="temp">).*?(<\/span>)/s, data);
     }
     isOpen = false;
+    document.querySelector("#commentArea").style.backgroundColor = "white";
     //Close menu if open
-    if(document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
+    //if(document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
     //Always refresh popOvers
     refreshPopovers();
   }
@@ -68,8 +69,8 @@ function commentSend(id) {
           if (http.status === 200) {
             console.log('comment sent successful');
             let res = this.response.toString().split(',');
-            updateArticle(id, res[0], res[1],  color, text, comment);
-            commentClose();
+            let result = updateArticle(id, res[0], res[1],  color, text, comment);
+            if (result) commentClose();
           } else {
              console.log('comment sent failed');
              commentClose();
@@ -112,11 +113,14 @@ function updateArticle(id, date, author, color, text, comment) {
         //if success, call the update article function
         if (http.status === 200) {
           console.log('article sent successful');
+          document.querySelector("#commentArea").style.backgroundColor = "palegreen";
         } else {
             console.log('article sent failed');
+            return false;
         }
     }
   }
+  return true;
 }
 
 /**
@@ -165,6 +169,7 @@ document.getElementById("article").addEventListener("mouseup", function() {
     document.querySelector("#selection").innerHTML = text;
     document.querySelector("#commentVisualView").textContent = "Your Comment";
     document.querySelector("#commentHtmlView").textContent = "Your Comment";
+    document.querySelector("#commentArea").style.backgroundColor = "white";
     isOpen = true;
     //open menu if close
     if(!document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
