@@ -1,15 +1,15 @@
 <?php
-    require "../POO/class_connexion.php";
-    session_start();
+//CLASS IMPORT
+require('../POO/class_main_menu.php');
+require('class_manager_simple.php');
+require('function.php');
+?>
+<?php
     include('header.html');
+    (new mainMenu('My_Tasks'))->write();
 ?>
 <?php
-    $menu = "test_fenetre_indefini";
-    include("menu.html");
-?>
-<?php
-    require "class_manager_simple.php";
-    require "function.php";
+
     #var_dump($_SESSION["connexionbd"]);
     #echo "<br><br>";
     #var_dump($_GET);

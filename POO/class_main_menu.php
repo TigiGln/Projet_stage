@@ -31,19 +31,23 @@ class mainMenu {
                         <ul class="nav nav-pills flex-column mb-auto">';
         //check every menu variables:
         if($this->My_Tasks) {
-            $html = $this->writeOne($html, 'My_Tasks');
+            if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
+            $html = $this->writeOne($html, 'My_Tasks', './test_fenetre_indefini.php', "?status=to_treat");
         }
         if($this->Open_Tasks) {
-            $html = $this->writeOne($html, 'Open_Tasks');
+            if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
+            $html = $this->writeOne($html, 'Open_Tasks', './test_fenetre_indefini.php', "?status=undefined");
         }
         if($this->Processed_Tasks) {
-            $html = $this->writeOne($html, 'Processed_Tasks');
+            if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
+            $html = $this->writeOne($html, 'Processed_Tasks', './test_fenetre_indefini.php', "?status=treat");
         }
         if($this->Rejected_Tasks) {
-            $html = $this->writeOne($html, 'Rejected_Tasks');
+            if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
+            $html = $this->writeOne($html, 'Rejected_Tasks', './test_fenetre_indefini.php', "?status=reject");
         }
         if($this->Insertion) {
-            $html = $this->writeOne($html, 'Insertion');
+            $html = $this->writeOne($html, 'Insertion', './form.php', "");
         }
         //end
         $html = $html . '</ul>
@@ -74,7 +78,7 @@ class mainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION["connexion"].'</strong>
+                                <strong>'.$_SESSION['connexion'].'</strong>
                               </div>
                             </div>
                           </div>
@@ -84,13 +88,12 @@ class mainMenu {
     }
 
     //Write a menu category
-    private function writeOne($html, $value) {
-        $name = str_replace('_', ' ', $value);
-        $file = str_replace('_', '', $value);
+    private function writeOne($html, $value, $file, $parameters) {
+        $valueSpace = str_replace('_', ' ', $value);
         $html = $html . '<li class="nav-item">
-                            <a href="'.$file.'.php" class="nav-link link-dark ';
+                            <a href="'.$file.$parameters.'" class="nav-link link-dark ';
         if($this->position == $value) { $html = $html . 'active text-dark'; }
-        $html = $html . '">'.$name.'</a></li>';
+        $html = $html . '">'.$valueSpace.'</a></li>';
         return $html;
     }
 

@@ -1,10 +1,10 @@
 <?php
-    session_start();
-    include('header.html');
+//CLASS IMPORT
+require('../POO/class_main_menu.php');
 ?>
 <?php
-    $menu = "test_fenetre_indefini";
-    include("menu.html");
+    include('header.html');
+    (new mainMenu('My_Tasks'))->write();
 ?>
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php

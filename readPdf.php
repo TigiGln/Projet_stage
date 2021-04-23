@@ -1,7 +1,7 @@
 <?php
 //CLASS IMPORT
-include('./POO/main_menu.class');
-include('./POO/edit_article_menu.class');
+include('./POO/class_main_menu.php');
+include('./POO/class_edit_article_menu.php');
 ?>
 
 <?php

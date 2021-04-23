@@ -1,9 +1,12 @@
 <?php
-    include('header.html');
+//CLASS IMPORT
+require('../POO/class_main_menu.php');
+require('class_manager_simple.php');
+require('function.php');
 ?>
 <?php
-    $menu = "test_fenetre_indefini";
-    include("menu.html");
+    include('header.html');
+    (new mainMenu('Insertion'))->write();
 ?>
 <?php
     require "class_manager_simple.php";

@@ -1,9 +1,12 @@
 <?php
-    session_start();
-    include('header.html');
+//CLASS IMPORT
+require('../POO/class_main_menu.php');
+require('class_manager_simple.php');
+require('function.php');
 ?>
 <?php
-    include("menu.html");
+    include('header.html');
+    (new mainMenu('Insertion'))->write();
 ?>
         <form method="get" action="result.php" enctype="multipart/form-data">
             <select name="list_query" id="list_query">

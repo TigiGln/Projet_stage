@@ -16,10 +16,9 @@
     $_COOKIE['username'] = $username;
 -->
 <?php
-echo file_get_contents('./views/header.html');
+include('./views/header.html');
 
 //DEBUG: SET COOKIE
-session_start();
 $username = 'John Doe';
 //setcookie('connexion', $username);
 //$_COOKIE['connexion'] = $username;
@@ -29,10 +28,9 @@ $_SESSION["connexion"] = $username; //Todo use item, but here its just for debug
 //To retrieve cookie data: $_COOKIE['username'];
 if(isset($_SESSION["connexion"])) {
 	//Will cause a redirection
-	header('Location: ./MyTasks.php');
+	header('Location: ./test_insertion_simple/test_fenetre_indefini.php?status=to_treat');
 } else {
 	$connectErr = "";
 	header('Location: ./signIn.php');
 }
-session_destroy();
 ?>

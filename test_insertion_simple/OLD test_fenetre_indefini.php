@@ -1,10 +1,10 @@
 <?php
-//CLASS IMPORT
-require('../POO/class_main_menu.php');
+    session_start();
+    include('header.html');
 ?>
 <?php
-    include('header.html');
-    (new mainMenu($_GET["status"]))->write();
+    
+    include("menu.html");
 ?>
 <form method="get" action="update.php" enctype="multipart/form-data">
     <div class='p-4 w-100'>
