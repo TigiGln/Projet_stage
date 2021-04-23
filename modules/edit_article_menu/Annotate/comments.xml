@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<articles></articles>
+<articles><ID6439307> <d2021-04-23_08-53-02><author>John Doe</author><text>Microarray data of Menadione-treated HepG2 cells was downloaded from NCBI</text><color>#ff5900</color><comment>we can see what I wrote here.</comment></d2021-04-23_08-53-02><d2021-04-23_08-55-22><author>John Doe</author><text>corresponding control at each time</text><color>#7d63fd</color><comment>Lots of comments!</comment></d2021-04-23_08-55-22><d2021-04-23_08-55-40><author>John Doe</author><text>Average RNA expression values from 0.5, 1, 2, 4, 8</text><color>#d91c7a</color><comment>Your Comment</comment></d2021-04-23_08-55-40></ID6439307></articles>

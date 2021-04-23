@@ -39,9 +39,9 @@ function commentClose() {
  * commentSend:
  * Will send the comment part to the database, edit the current articl html and
  * will update the html of the article in the database.
- * @param {*} pmcid 
+ * @param {*} id 
  */
-function commentSend(pmcid) {
+function commentSend(id) {
   if(isOpen) {
     //Parse element to prepare the query
     document.querySelector('#commentCode').click();
@@ -49,9 +49,10 @@ function commentSend(pmcid) {
     let color = document.getElementById("commentColorPicker").value;
     let text = document.getElementById("temp").innerHTML;
     let comment = document.querySelector("#commentHtmlView").textContent;
-    let date = (new Date()).getTime(); //Until I find a way to get date from the php
+    //let date = (new Date()).toLocaleDateString();
     document.querySelector('#commentCode').click();
-    let params = "PMCID="+encodeURIComponent(pmcid)+"&date="+encodeURIComponent(date)+"&color="+encodeURIComponent(color)+"&text="+encodeURIComponent(text)+"&comment="+encodeURIComponent(comment);
+    //let params = "PMCID="+encodeURIComponent(pmcid)+"&date="+encodeURIComponent(date)+"&color="+encodeURIComponent(color)+"&text="+encodeURIComponent(text)+"&comment="+encodeURIComponent(comment);
+    let params = "ID="+encodeURIComponent(id)+"&color="+encodeURIComponent(color)+"&text="+encodeURIComponent(text)+"&comment="+encodeURIComponent(comment);
     console.log("comment send req: "+params);
     //Start request to store in the comment database by calling start.php script
     var http = new XMLHttpRequest();
@@ -66,7 +67,8 @@ function commentSend(pmcid) {
           //if success, call the update article function
           if (http.status === 200) {
             console.log('comment sent successful');
-            updateArticle(pmcid, date, color, text, comment);
+            let res = this.response.toString().split(',');
+            updateArticle(id, res[0], res[1],  color, text, comment);
             commentClose();
           } else {
              console.log('comment sent failed');
@@ -80,22 +82,22 @@ function commentSend(pmcid) {
 /**
  * updateArticle:
  * update the html article by adding the comment highlight block on the selected text.
- * @param {*} pmcid 
+ * @param {*} id 
  * @param {*} date 
  * @param {*} color 
  * @param {*} text 
  * @param {*} comment 
  */
-function updateArticle(pmcid, date, color, text, comment) {
+function updateArticle(id, date, author, color, text, comment) {
   //add highlight
   let article = document.getElementById("article").innerHTML;
-  let highlight = '<a id=mark_"'+date+'" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
-  '['+pmcid+':'+date+']"'+' data-bs-content="'+comment+'">'+'<mark style="background-color: '+color+';">'+text+'</mark>'+'</a>';
+  let highlight = '<a id=mark_'+date+' class="note" data-artID='+id+' data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
+  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'">'+'<mark style="background-color: '+color+';">'+text+'</mark>'+'</a>';
   document.getElementById("article").innerHTML = article.replace(/(<span id="temp">).*?(<\/span>)/s, highlight);
   article = document.getElementById("article").innerHTML;
   //get the article html and sent it to database
   let url = "./modules/edit_article_menu/Annotate/save-article.php";
-  let params = "ARTICLE="+encodeURIComponent(article)+"&PMCID="+encodeURIComponent(pmcid);
+  let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id);
   console.log("article send req: "+params);
   //Start request
   var http = new XMLHttpRequest();
@@ -134,7 +136,8 @@ function addTempTag() {
             container.appendChild(sel.getRangeAt(i).cloneContents());
           }
           //remove potential mark inside
-          let text = container.innerHTML.replace(/(<a id="mark_).*?(<mark).*?(>)/, '').replaceAll('</mark></a>', '');
+          /* Known Issues: OuterHTML isn't used, hence if a link may cause issues*/
+          let text = container.innerHTML.replace(/(<a id="mark_).*?(<mark).*?(>)/, '').replace('(</mark></a>)', '');
           var html = '<span id="temp">' + text + '</span>';
           range.deleteContents();
           var el = document.createElement("div");

@@ -3,13 +3,13 @@
 	$xml = simplexml_load_file('./notes.xml');
 	$ID = "ID".$_POST["PMCID"];
 	$content = $_POST["notes"];
-	$date = $_POST["date"];//(new DateTime())->format('Y-m-d-H-i-s');
+	$date = "d".(new DateTime())->format('Y-m-d');
 	$user = $_SESSION['connexion'];
 	$NOTES = "notes";
 	if(!isset($xml->$ID)) { $xml->addChild($ID, " "); }
 	//check if user do already had a note //TODO XML I HATE YOU
 	$xml->$ID->addChild($NOTES . " " .'note="'.$user.';'.$date.';'.rawurlencode($content).'"');
-	$xml->saveXML('./notes.xml'); 
+	$xml->saveXML('./notes.xml');
 	http_response_code(200);
 
 	/*

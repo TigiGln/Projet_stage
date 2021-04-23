@@ -1,5 +1,5 @@
 <?php
-	$ID = $_POST["PMCID"];
+	$ID = $_POST["ID"];
 	$filename = './article-'.$ID;
 	$data = implode("", $_POST);
 	//Remove everything before article=
