@@ -6,7 +6,7 @@
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
     <li class="nav-item">
-      <a href="http://localhost/Projet_stage/test_insertion_simple/test_fenetre_indefini.php?statut=appropriate" class="nav-link link-dark <?php if($menu == 'myTasks') echo 'active text-dark'; ?>">
+      <a href="http://localhost/Projet_stage/test_insertion_simple/test_fenetre_indefini.php?statut=to_treat" class="nav-link link-dark <?php if($menu == 'myTasks') echo 'active text-dark'; ?>">
         My Tasks
       </a>
     </li>
@@ -17,12 +17,12 @@
     </li>
     <hr>
     <li>
-      <a href="http://localhost/Projet_stage/test_insertion_simple/test_fenetre_indefini.php?statut=treated" class="nav-link link-dark <?php if($menu == 'processedTasks') echo 'active text-dark'; ?>">
+      <a href="http://localhost/Projet_stage/test_insertion_simple/test_fenetre_indefini.php?statut=treat" class="nav-link link-dark <?php if($menu == 'processedTasks') echo 'active text-dark'; ?>">
          Processed Tasks
       </a>
     </li>
     <li>
-      <a href="http://localhost/Projet_stage/test_insertion_simple/test_fenetre_indefini.php?statut=rejeted" class="nav-link link-dark <?php if($menu == 'rejectedtasks') echo 'active text-dark'; ?>">
+      <a href="http://localhost/Projet_stage/test_insertion_simple/test_fenetre_indefini.php?statut=reject" class="nav-link link-dark <?php if($menu == 'rejectedtasks') echo 'active text-dark'; ?>">
         Rejected Tasks
       </a>
     </li>

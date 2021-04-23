@@ -1,10 +1,10 @@
 <?php
     session_start();
-    include('header.html');
+    include('../views/header.html');
 ?>
 <?php
     
-    include("menu.html");
+    include("../views/menu.php");
 ?>
 <form method="get" action="update.php" enctype="multipart/form-data">
     <div class='p-4 w-100'>
@@ -26,5 +26,5 @@
     </div>
 </form>
 <?php      
-    include('footer.html');
+    include('../views/footer.html');
 ?>

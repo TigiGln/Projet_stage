@@ -1,15 +1,16 @@
 <?php
+    session_start();
     include('header.html');
 ?>
 <?php
-    $menu = "test_fenetre_indefini";
+    
     include("menu.html");
 ?>
 <?php
     require "class_manager_simple.php";
     require "class_article_simple.php";
     require "../POO/class_connexion.php";
-    session_start();
+    
     
     if ($_SESSION != [])
     {

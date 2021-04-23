@@ -76,9 +76,9 @@
             return $donnees;
 
         }
-        public function get_statut($value)//Récupération des lignes filtré par la valeur du statut
+        public function get_fields($fields ,$value)//Récupération des lignes filtré par la valeur du champs
         {
-            $requete = $this->db->prepare("SELECT * FROM document WHERE statut = :valeur");
+            $requete = $this->db->prepare("SELECT * FROM document WHERE $fields = :valeur");
             $requete->bindValue(':valeur', $value);
             $requete->execute();
             $article_list = $requete->fetchAll(PDO::FETCH_ASSOC);
@@ -99,29 +99,15 @@
         }
         public function search_enum_fields($table, $fields)
         {
-            #$requete_enum = $this->db->query("SHOW COLUMNS FROM $table LIKE '$fields'");
-            $requete_enum = $this->db->prepare("SELECT DISTINCT $fields fROM $table");
-            $requete_enum->execute();
-            $requete_enum = $requete_enum->fetchAll(PDO::FETCH_ASSOC);
-            $list_statut_présent = [];
-            foreach($requete_enum as $key => $value)
+            $requete = $this->db->prepare("SELECT DISTINCT $fields FROM $table");
+            $requete->execute();
+            $list_statut_present = [];
+            while($requete_enum = $requete->fetch(PDO::FETCH_ASSOC))
             {
-                foreach($value as $k => $v)
-                {
-                    $list_statut_présent[] = $v;
-                }
+                $list_statut_present[] = $requete_enum['statut'];
             }
-            #$requete_enum = array_values($requete_enum);
-            #echo "<pre>";
-            #var_dump($requete_enum); 
-            #echo "</pre>";
-            #$requete_enum = $requete_enum[1];
-            #$requete_enum = substr($requete_enum, 5, -1);
-            #$requete_enum = explode(",", $requete_enum);
-            #$requete_enum = str_replace("'", "", $requete_enum);
-
-            return $list_statut_présent;
-
+            
+            return $list_statut_present;
         }
 
         public function setDb(PDO $db)
