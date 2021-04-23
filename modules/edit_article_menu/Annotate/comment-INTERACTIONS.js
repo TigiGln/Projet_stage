@@ -47,7 +47,7 @@ function commentSend(pmcid) {
     document.querySelector('#commentCode').click();
     let url = "./modules/edit_article_menu/Annotate/save-comment.php";
     let color = document.getElementById("commentColorPicker").value;
-    let text = document.getElementById("selection").innerHTML;
+    let text = document.getElementById("temp").innerHTML;
     let comment = document.querySelector("#commentHtmlView").textContent;
     let date = (new Date()).getTime(); //Until I find a way to get date from the php
     document.querySelector('#commentCode').click();
@@ -128,14 +128,21 @@ function addTempTag() {
         sel = window.getSelection();
         //Get selection element, add temp span before and after.
         if (sel.getRangeAt && sel.rangeCount) {
-            range = window.getSelection().getRangeAt(0);
-            var html = '<span id="temp">' + range + '</span>'
-            range.deleteContents();
-            var el = document.createElement("div");
-            el.innerHTML = html;
-            var frag = document.createDocumentFragment(), node, lastNode;
-            while ( (node = el.firstChild) ) { lastNode = frag.appendChild(node); }
-            range.insertNode(frag);
+          range = sel.getRangeAt(0);
+          var container = document.createElement("div");
+          for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+            container.appendChild(sel.getRangeAt(i).cloneContents());
+          }
+          //remove potential mark inside
+          let text = container.innerHTML.replace(/(<a id="mark_).*?(<mark).*?(>)/, '').replaceAll('</mark></a>', '');
+          var html = '<span id="temp">' + text + '</span>';
+          range.deleteContents();
+          var el = document.createElement("div");
+          el.innerHTML = html;
+          var frag = document.createDocumentFragment(), node, lastNode;
+          while ( (node = el.firstChild) ) { lastNode = frag.appendChild(node); }
+          range.insertNode(frag);
+          return container.innerHTML;
         }
     }
 }
@@ -149,13 +156,13 @@ document.getElementById("article").addEventListener("mouseup", function() {
     //Allows user interactions with the menu
     document.querySelector("#commentEditor").style.pointerEvents = "all";
     document.querySelector("#commentEditor").style.userSelect = "all";
+    //Add temp balise to know we change this one
+    let text = addTempTag();
     //Initialize the text
-    document.querySelector("#selection").textContent = document.getSelection();
+    document.querySelector("#selection").innerHTML = text;
     document.querySelector("#commentVisualView").textContent = "Your Comment";
     document.querySelector("#commentHtmlView").textContent = "Your Comment";
     isOpen = true;
-    //Add temp balise to know we change this one
-    addTempTag();
     //open menu if close
     if(!document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
   } 
