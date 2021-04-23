@@ -5,6 +5,7 @@ class editArticleMenu {
     protected $Notes;
     protected $Annotate;
     protected $Cazy;
+    protected $Send;
     protected $Conclude;
 
     //Constructor
@@ -12,7 +13,8 @@ class editArticleMenu {
         $this->ArtID = $ArtID;
         $this->setNotes(true);
         $this->setAnnotate(true);
-        $this->setCazy(false);
+        $this->setCazy(true);
+        $this->setSend(true);
         $this->setConclude(true);
     }
 
@@ -29,9 +31,12 @@ class editArticleMenu {
             $html = $this->writeOne($html, 'Annotate');
         }
         if($this->Cazy) {
-            //$html = $this->writeOne($html, 'Cazy');
+            $html = $this->writeOne($html, 'Cazy');
         }
-        if($this->Annotate) {
+        if($this->Send) {
+            $html = $this->writeOne($html, 'Send');
+        }
+        if($this->Conclude) {
             $html = $this->writeOne($html, 'Conclude');
         }
         //end
@@ -64,6 +69,9 @@ class editArticleMenu {
     }
     public function setCazy($value) {
         if (is_bool($value)) { $this->Cazy = $value; }
+    }
+    public function setSend($value) {
+        if (is_bool($value)) { $this->Send = $value; }
     }
     public function setConclude($value) {
         if (is_bool($value)) { $this->Conclude = $value; }
