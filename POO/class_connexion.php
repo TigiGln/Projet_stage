@@ -1,6 +1,10 @@
 <?php
-class Connexion
+/*
+Classes de connexion des utilisateurs 
+*/
+class ConnexionDB
 {
+    
     public $pdo;
     public $serveur;
     public $user;

@@ -12,6 +12,10 @@
 		
 		#<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content=""></a>
 		
+		$liste = ["bonjour", "id", "email", "password"];
+		$string = ":" . implode(", :", $liste);
+		echo $string;
+
 		?>
 	</body>
 </html>

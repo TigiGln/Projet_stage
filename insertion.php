@@ -1,14 +1,19 @@
-<!DOCTYPE html >
-<html lang="en">
-	<head>
-        	<meta charset="utf-8" />
-        	<title>Page de recherche d'article</title>
-    	</head>
-    	<body>
-		<form method="post" action="insertion2.php" enctype="multipart/form-data">
-			<fieldset><legend>Your search for insertion</legend> <!-- Titre du fieldset -->
-					<p>
-					<select name="list_query" id="list_query">
+<?php
+include('./views/header.html');
+
+//Security for now: if the cookie isn't set
+$menu = 'insert'; //To save where we are so the menu can add the active tag
+//Menu
+include('./views/menu.php');
+?>
+
+<div class="p-4 w-100">
+	<form id="insertForm" method="post" action="insertion-results.php" enctype="multipart/form-data">
+		<fieldset><legend><h2>Search for Insertion</h2></legend> <!-- fieldset title -->
+			<div class="input-group">
+				<div class="col-sm-1 m-1"> 
+					<span></span>
+					<select name="list_query" id="list_query" class="form-control input-sm">
 						<option value="PMID">PMID</option>
 						<option value="ELocationID">DOI</option>
 						<option value="Author">Author</option>
@@ -32,3 +37,6 @@
 	</body>
 </html>
 
+<?php
+include('./views/footer.html');
+?>

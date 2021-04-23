@@ -1,0 +1,99 @@
+body
+{
+	margin:0;
+	padding:0;
+}
+header
+{
+	display: flex;
+	justify-content: space-between;
+	background-image:linear-gradient(to bottom, #217b83 0%, #56b9c7 100%);
+	margin: 0px 2px 50px 2px;
+	border-bottom: 3px black groove;
+	border-radius: 0px 0px 10px 10px;
+	box-shadow: 6px 6px 10px black;
+	height: 50px;
+}
+img
+{
+	margin-top: 5px;
+	margin-left: 20px;
+}
+h1, #connex
+{
+	color: #FFF;
+	margin: 0;
+}
+
+#connex
+{
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+	margin-right: 20px
+}
+#inscription:hover, #connexion:hover
+{
+	text-decoration: underline;
+}
+#tableau_articles
+{
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	list-style:none;
+}
+#tableau_articles li
+{
+	margin: 0px 10px;
+	position: relative;
+	
+} 
+#tableau_articles a
+{
+	text-decoration: none;
+	color: black;
+}
+#non_traiter, #indefinis, #traiter, #rejeter
+{
+	/*background-image: url("pictures/image_menu.png");*/
+	padding: 0px 10px 0px 25px;
+	color: black;
+}
+#menu_a_traiter
+{
+	display: none;
+	position: absolute;
+	padding: 0px;
+	margin: 0px;
+	left: 150px;
+	list-style: none;
+}
+#non_traiter:hover > #menu_a_traiter
+{
+	display: inline-block;
+	position: absolute;
+	margin-top: 19px;
+}
+#menu_a_traiter a
+{
+	text-decoration: none;
+	color: black;
+}
+#menu_a_traiter li
+{
+	margin: 0px;
+	background-color: #217b83;
+	width: 100px;
+	text-align: left;
+}
+#menu_a_traiter li:first-child
+{
+	
+}
+#menu_a_traiter li:hover
+{
+	background-color: #0099CC;
+}
+
+

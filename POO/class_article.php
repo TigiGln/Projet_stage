@@ -1,14 +1,17 @@
 <?php
 class Article 
 {
+    protected $Xref_id; //keep primary key
     protected $pmid;
     protected $doi;
     protected $pmcid;
     protected $title;
     protected $years;
     protected $abstract;
-    protected $authors;
-    protected $journal;
+    protected $authors; //1, 2, 3 (set); 1-N
+    //Links to another sql table, save xref_id from authors
+    //AUTHORS: ID:  - name etc
+    protected $journal; //1-1;
     protected $statut;
 
     public function __construct($list_info)

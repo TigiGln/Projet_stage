@@ -1,4 +1,11 @@
 <?php
+    include('header.html');
+?>
+<?php
+    $menu = "test_fenetre_indefini";
+    include("menu.html");
+?>
+<?php
     require "class_manager_simple.php";
     require "class_article_simple.php";
     require "../POO/class_connexion.php";
@@ -13,13 +20,13 @@
             #var_dump($_GET["check"]);
             #echo "<p></p>";
             
-            $manager = new Manager($_SESSION["connexion"]->pdo);
+            $manager = new Manager($_SESSION["connexionbd"]->pdo);
             foreach ($_GET["check"] as $value)
             {
                 
                 if (array_key_exists($value, $liste))
                 {
-                    if ($manager->get_exist("pub_db_acc" , $liste[$value]->pmid()))
+                    if ($manager->get_exist("pub_db_acc" , $liste[$value]->pmid(), "document"))
                     {
 		                echo "L'article N°" . $value . " est déjà dans la base";
                     }
@@ -38,4 +45,7 @@
     }
     echo "<p><a href='form.php'>Back to insert page</a></p>";
     session_destroy();
+?>
+<?php      
+    include('footer.html');
 ?>

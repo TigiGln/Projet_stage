@@ -8,7 +8,7 @@ if (isset($_POST["insert_text"]) OR isset($_POST["list_query"]))
 }
 else
 {
-    echo 
+ 
 }
 
 

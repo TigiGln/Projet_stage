@@ -16,25 +16,44 @@ function search($listpmid, $i)
 function recovery($output)
 {
     $output1 = new SimpleXMLElement($output);
-    $pmid1 = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[0]);
-    $doi = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[1]);
-    $pmcid = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[3]);
-    $title = strval($output1->PubmedArticle->MedlineCitation->Article->ArticleTitle);
-    $year = strval($output1->PubmedArticle->MedlineCitation->Article->Journal->JournalIssue->PubDate->Year);
-    $abstract = "";
-    foreach ($output1->PubmedArticle->MedlineCitation->Article->{'Abstract'}->AbstractText as $charac)
+    if (!empty($output1->PubmedArticle->MedlineCitation->Article->{'Abstract'}->AbstractText) AND !empty($output1->PubmedArticle->MedlineCitation->Article->AuthorList->Author))
+    {
+        $pmid1 = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[0]);
+        $doi = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[1]);
+        $pmcid = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[3]);
+        $title = strval($output1->PubmedArticle->MedlineCitation->Article->ArticleTitle);
+        $year = strval($output1->PubmedArticle->MedlineCitation->Article->Journal->JournalIssue->PubDate->Year);
+        $abstract = "";
+        $abstract_no_empty= $output1->PubmedArticle->MedlineCitation->Article->{'Abstract'}->AbstractText;
+        if (!empty($abstract_no_empty))
         {
-            $abstract .= strval($charac);
+            foreach ($abstract_no_empty as $charac)
+                {
+                    $abstract .= strval($charac);
+                }
         }
-    $authors = "";
-    foreach ($output1->PubmedArticle->MedlineCitation->Article->AuthorList->Author as $name)
+        else
         {
-            $authors .= "'" . strval($name->LastName) . " " . strval($name->ForeName) . "',";
+            $abstract = "No abstract available";
         }
-    $journal = strval($output1->PubmedArticle->MedlineCitation->Article->Journal->Title);
-    $liste_info = [$pmid1, $doi, $pmcid, $title, $year, $abstract, $authors, $journal];
-
-    return $liste_info;
+        $authors = "";
+        $authors_no_empty = $output1->PubmedArticle->MedlineCitation->Article->AuthorList->Author;
+        if (!empty($authors_no_empty))
+        {
+            foreach ($authors_no_empty as $name)
+                {
+                    $authors .= "'" . strval($name->LastName) . " " . strval($name->ForeName) . "',";
+                }
+        }
+        else
+        {
+            $authors = "No authors available";
+        }
+        $journal = strval($output1->PubmedArticle->MedlineCitation->Article->Journal->Title);
+        $liste_info = [$pmid1, $doi, $pmcid, $title, $year, $abstract, $authors, $journal];
+        return $liste_info;
+    }
+    
 }
-   
+ 
 ?>
