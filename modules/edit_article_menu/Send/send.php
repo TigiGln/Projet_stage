@@ -13,6 +13,6 @@
 		    <option value="Pierre">
 		</datalist>
 	</div>
-	<button type="button" class="btn btn-success" onclick="validate([ID])">Send</button>
+	<button type="button" class="btn btn-success" onclick="validateSendInteraction([ID])">Send</button>
 <script src="./modules/edit_article_menu/send/send-INTERACTIONS.js"></script>
 </div>

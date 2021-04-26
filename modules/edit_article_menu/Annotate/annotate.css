@@ -15,7 +15,7 @@
   max-height: 20em;
   min-height: 20em;
 }
-.commentToolbar {
+.annotateToolbar {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 
@@ -26,30 +26,27 @@
 }
 
 /* Action Buttons */
-.commentBox {
-}
 
-
-#commentColorPicker {
+#annotateColorPicker {
   border: none;
   width: 0.8em;
   background-color: none;
   padding: 0px;
 }
 
-.commentAction {
+.annotateAction {
   transition: 0.2s ease all;
 }
-.commentAction:hover {
+.annotateAction:hover {
   background-color: #56b9c7;
   cursor: pointer;
 }
-.commentAction img {
+.annotateAction img {
   width: 0.8em;
 }
 
 /* Content */
-#commentArea {
+#annotateArea {
   padding: 15px 12px;
   line-height: 1.5;
   max-height: 10vh;
@@ -58,11 +55,11 @@
   overflow-y: auto;
 }
 
-#commentVisualView {
+#annotateVisualView {
   outline: none;
 }
 
-#commentHtmlView {
+#annotateHtmlView {
   outline: none;
   display: none;
   border: none;
