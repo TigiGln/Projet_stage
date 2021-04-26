@@ -25,18 +25,28 @@
  			$web_env = $search->WebEnv;
  			#echo $web_env . "\n";
  			
- 			
  			$base1 = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?rettype=abstract&retmode=xml&db=Pubmed&query_key=1&WebEnv=" . $web_env;
  			$url = $base1 . "&usehistory=y&term=" . $pmid;
  			$output = file_get_contents($url);
- 			$output1 = new SimpleXMLElement($output);
- 			#var_dump($output1);
- 			$pmid1 = $output1->PubmedArticle->MedlineCitation->PMID;
- 			echo $pmid1 . "\n";
-			$journal = $output1->PubmedArticle->MedlineCitation->Article->Journal->Title;
-			echo $journal;
-			#$doi = $output1->PubmedArticle->MedlineCitation->
- 			
+ 			$output = new SimpleXMLElement($output);
+ 			#var_dump($output);
+ 			//Recuperation structurer des elements de l'article:
+ 			$pmid = $output->PubmedArticle->MedlineCitation->PMID;
+ 			$date = $output->PubmedArticle->MedlineCitation->DateRevised->Year . "/" . $output->PubmedArticle->MedlineCitation->DateRevised->Month . "/" . $output->PubmedArticle->MedlineCitation->DateRevised->Day;
+			$title = $output->PubmedArticle->MedlineCitation->Article->Journal->Title;
+			//Boucle for sur les abstractText
+			$abstract = "";
+			foreach ($output->PubmedArticle->MedlineCitation->Article->Abstract->AbstractText as $abstractText) {
+				$abstract = $abstract . "<br><b>" . $abstractText["Label"] . ":</b> " . $abstractText;
+			}
+			//Boucle for sur les author
+			$authors = "";
+			foreach ($output->PubmedArticle->MedlineCitation->Article->AuthorList->Author as $author) {
+				$authors = $authors . $author->LastName . " " . $author->ForeName . ", ";
+			}
+			//Affichage des données sale
+			echo $pmid . "<br>" . $date . "<br>" . $title . "<br><br>" . 
+				$abstract . "<br><br>" . $authors;
 		?>
 	</body>
 </html>

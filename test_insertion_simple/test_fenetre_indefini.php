@@ -1,11 +1,12 @@
 <?php
     session_start();
+    require "../POO/main_menu.php";
     include('../views/header.html');
+    $_SESSION['connexion'] = 'John Doe';
+    $menu = new mainMenu('My Tasks');
+    $menu->write();
 ?>
-<?php
-    
-    include("../views/menu.php");
-?>
+
 <form method="get" action="update.php" enctype="multipart/form-data">
     <div class='p-4 w-100'>
         <?php
