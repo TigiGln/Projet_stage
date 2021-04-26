@@ -1,4 +1,11 @@
 <?php
+/*
+ * Created on Fri Apr 23 2021
+ * Latest update on Mon Apr 26 2021
+ * Info - readArticle is the common page to use article editing tools that features only a pdf.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ */
+
 //CLASS IMPORT
 include('./POO/class_main_menu.php');
 include('./POO/class_edit_article_menu.php');

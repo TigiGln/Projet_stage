@@ -1,5 +1,5 @@
 /*
- * Created on Fri Apr 23 2020
+ * Created on Fri Apr 23 2021
  * Latest update on Mon Apr 26 2021
  * Info - JS for conclude module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -13,6 +13,7 @@ const logHeaderConcludeInteractions = "[edit article menu : conclude module]";
 
 /**
  * validateConcludeInteraction function that will give the new status of the article to conclude or proccessed.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  * @param {*} id 
  *            The ID of the article in the database.
  * @fires XMLHttpRequest

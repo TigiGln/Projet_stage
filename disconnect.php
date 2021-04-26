@@ -1,9 +1,15 @@
 <?php
-//Destroy cookie and session when user disconnect.
+/*
+ * Created on Fri Apr 16 2021
+ * Latest update on Mon Apr 26 2021
+ * Info - disconect script that kill the cookie and the session when disconnecting and redirect to index
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ */
+
 session_start() ;
+
 session_destroy();
-//We destroy the cookie by seeting an expiracy date that is already in the past
 setcookie('connexion', "", time()-3600);
-//Redirect to index
+
 header('Location: ./index.php');
 ?>
