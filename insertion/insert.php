@@ -1,16 +1,19 @@
 <?php
-    session_start();
-    include('header.html');
-?>
-<?php
     
-    include("menu.html");
-?>
-<?php
-    require "class_manager_simple.php";
-    require "class_article_simple.php";
+    require "../POO/main_menu.php";
     require "../POO/class_connexion.php";
-    
+    require "../POO/class_manager_bd.php";
+    require "../POO/class_article.php";
+    require "requete.php";
+    session_start();
+?>
+<?php
+    include('../views/header.html');
+    #$_SESSION['connexion'] = 'John Doe';
+    $menu = new mainMenu('My Tasks');
+    $menu->write();
+?>
+<?php
     
     if ($_SESSION != [])
     {
@@ -44,9 +47,8 @@
         
         
     }
-    echo "<p><a href='form.php'>Back to insert page</a></p>";
     session_destroy();
 ?>
 <?php      
-    include('footer.html');
+    include('../views/footer.html');
 ?>

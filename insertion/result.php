@@ -1,16 +1,24 @@
 <?php
+    
+    require "../POO/main_menu.php";
+    require "../POO/class_connexion.php";
+    require "../POO/class_manager_bd.php";
+    require "../POO/class_article.php";
+    require "requete.php";
     session_start();
-    include('header.html');
 ?>
 <?php
-    $menu = "test_fenetre_indefini";
-    include("menu.html");
+    include('../views/header.html');
+    #$_SESSION['connexion'] = 'John Doe';
+    $menu = new mainMenu('My Tasks');
+    $menu->write();
 ?>
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
-            require "class_article_simple.php";
-            require "requete.php";
-            include("../POO/start_session.php");
+            
+            $connexionbd = new ConnexionDB("localhost", "stage", "thierry", "Th1erryG@llian0");
+            $_SESSION["connexionbd"] = $connexionbd;
+            #include("../POO/start_session.php");
             $pmid = "";
             $listpmid = [];
             $list_objects = [];
@@ -101,5 +109,5 @@
             #var_dump($_SESSION["liste"]);
         ?>
 <?php      
-    include('footer.html');
+    include('../views/footer.html');
 ?>

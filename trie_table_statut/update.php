@@ -1,18 +1,20 @@
 <?php
+    require "../POO/main_menu.php";
     require "../POO/class_connexion.php";
-    session_start();
-    include('header.html');
-?>
-<?php
-    $menu = "test_fenetre_indefini";
-    include("menu.html");
-?>
-<?php
-    require "class_manager_simple.php";
+    require "../POO/class_manager_bd.php";
     require "function.php";
+    session_start();
+?>
+<?php
+    include('../views/header.html');
+    $menu = new mainMenu('My Tasks');
+    $menu->write();
+?>
+<?php
+    
     #var_dump($_SESSION["connexionbd"]);
     #echo "<br><br>";
-    #var_dump($_GET);
+    #var_dump($_SESSION);
     #echo "<br><br>";
     $liste_argument_statut_url= array_intersect_key($_GET, $_SESSION['list_statut_initial']);
     #var_dump($_SESSION['list_statut_initial']);
@@ -33,6 +35,6 @@
     
 ?>
 <?php      
-    include('footer.html');
+    include('../views/footer.html');
     session_destroy();
 ?>

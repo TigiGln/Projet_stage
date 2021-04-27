@@ -1,9 +1,16 @@
 <?php
+    
+    require "../POO/main_menu.php";
+    require "../POO/class_connexion.php";
+    require "../POO/class_manager_bd.php";
+    require "requete.php";
     session_start();
-    include('header.html');
 ?>
 <?php
-    include("menu.html");
+    include('../views/header.html');
+    $_SESSION['connexion'] = 'John Doe';
+    $menu = new mainMenu('My Tasks');
+    $menu->write();
 ?>
         <form method="get" action="result.php" enctype="multipart/form-data">
             <select name="list_query" id="list_query">
@@ -25,5 +32,5 @@
             </p>
         </form>
 <?php      
-    include('footer.html');
+    include('../views/footer.html');
 ?>

@@ -1,6 +1,12 @@
 <?php
-    session_start();
+    
     require "../POO/main_menu.php";
+    require "../POO/class_connexion.php";
+    require "../POO/class_manager_bd.php";
+    require "function.php";
+    session_start();
+?>
+<?php
     include('../views/header.html');
     $_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu('My Tasks');
@@ -10,10 +16,6 @@
 <form method="get" action="update.php" enctype="multipart/form-data">
     <div class='p-4 w-100'>
         <?php
-            
-            require "class_manager_simple.php";
-            require "function.php";
-            require "../POO/class_connexion.php";
             #connexion à la base de données
             $connexionbd = new ConnexionDB("localhost", "stage", "thierry", "Th1erryG@llian0");
             $_SESSION["connexionbd"] = $connexionbd;
