@@ -98,8 +98,6 @@
             
             $requete->bindValue(":status", $status);
             $requete->execute();
-            
-            return empty($res->fetch(PDO::FETCH_ASSOC));
 
         }
         public function search_enum_fields($table, $fields)
@@ -127,17 +125,7 @@
         {
             $this->setDb($db);
         }
-        
-        /**
-         * getUsersList
-	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-         * @return void
-         */
-        public function getUsers() {
-            $req = $this->db->prepare("SELECT id_user, username, email FROM user");
-            $req->execute();
-            return $req->fetchAll(PDO::FETCH_ASSOC);
-        }
+       
     }
 
 ?>

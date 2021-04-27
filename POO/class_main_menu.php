@@ -2,7 +2,7 @@
 
 /**
  * MainMenu
- * 
+ *
  * Created on Tue Apr 22 2021
  * Latest update on Mon Apr 26 2021
  * Info - PHP Class for the main menu
@@ -12,14 +12,14 @@
 class MainMenu {
 
     protected $title;
-    protected $position; 
+    protected $position;
     //boolean to activate some menu parts
     protected $My_Tasks;
     protected $Open_Tasks;
     protected $Processed_Tasks;
     protected $Rejected_Tasks;
     protected $Insertion;
-  
+
     /**
      * __construct
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -37,7 +37,7 @@ class MainMenu {
         $this->setInsertion(true);
     }
 
-    
+
     /**
      * write function will echo the menu's html for each active sections
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -107,7 +107,7 @@ class MainMenu {
         echo $html;
     }
 
-        
+
     /**
      * writeOne function will write in the given $html string a menu section.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -130,7 +130,7 @@ class MainMenu {
         return $html;
     }
 
-        
+
     /**
      * setMyTasks is the setter to activate or not the section of the same name.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>

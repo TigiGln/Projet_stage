@@ -1,5 +1,5 @@
 <?php
-    
+
     require $_SERVER["DOCUMENT_ROOT"]."/POO/class_main_menu.php";
     require $_SERVER["DOCUMENT_ROOT"]."/POO/class_connexion.php";
     require $_SERVER["DOCUMENT_ROOT"]."/POO/class_manager_bd.php";
@@ -14,7 +14,7 @@
 ?>
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
-            
+
             $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
             $_SESSION["connexionbd"] = $connexionbd;
             #include("../POO/start_session.php");
@@ -27,11 +27,11 @@
                 {
                     $pmid = strip_tags($_GET["textarea"]);
                     $listpmid = explode("\n", $pmid);
-                    #var_dump($listpmid);          
+                    #var_dump($listpmid);
                 }
                 elseif ($_GET["list_query"] == "Author" OR $_GET["list_query"] == "Title")#condition selon le choix de la liste déroulante
                 {
-                    $nb = strval(10); 
+                    $nb = strval(10);
                     $base = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&retmax=' . $nb .'&usehistory=y&term=';
                     $text = urlencode(rtrim(strip_tags($_GET["textarea"])));
                     $search_pmid = file_get_contents($base . $text . "[" . $_GET['list_query'] . "]");
@@ -43,7 +43,7 @@
                 }
                 else
                 {
-                    $nb = strval(10); 
+                    $nb = strval(10);
                     $base = 'https://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&retmax=' . $nb .'&usehistory=y&term=';
                     $text = strval(rtrim(strip_tags($_GET["textarea"])));
                     #echo $text;
@@ -102,11 +102,11 @@
             {
                 include("./form.php");
                 echo "<p>Merci de remplir un champ demandés </p>";
-                
+
             }
             $_SESSION["list_articles"] = $list_objects;
             #var_dump($_SESSION["liste"]);
         ?>
-<?php      
+<?php
     include($_SERVER["DOCUMENT_ROOT"].'/views/footer.html');
 ?>

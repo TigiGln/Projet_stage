@@ -1,5 +1,5 @@
 <?php
-    
+
     require $_SERVER["DOCUMENT_ROOT"]."/POO/class_main_menu.php";
     require $_SERVER["DOCUMENT_ROOT"]."/POO/class_connexion.php";
     require $_SERVER["DOCUMENT_ROOT"]."/POO/class_manager_bd.php";
@@ -30,6 +30,6 @@
                 <input type="submit" value="Start search">
             </p>
         </form>
-<?php      
+<?php
     include($_SERVER["DOCUMENT_ROOT"].'/views/footer.html');
 ?>

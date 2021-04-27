@@ -1,15 +1,16 @@
 <?php
     
-    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_main_menu.php";
-    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_connexion.php";
-    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_manager_bd.php";
-    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_article.php";
+    require "../POO/class_main_menu.php";
+    require "../POO/class_connexion.php";
+    require "../POO/class_manager_bd.php";
+    require "../POO/class_article.php";
     require "requete.php";
+    session_start();
 ?>
 <?php
-    include($_SERVER["DOCUMENT_ROOT"].'/views/header.html');
+    include('../views/header.html');
     #$_SESSION['connexion'] = 'John Doe';
-    $menu = new mainMenu('Insertion');
+    $menu = new mainMenu('My Tasks');
     $menu->write();
 ?>
 <?php
@@ -49,5 +50,5 @@
     session_destroy();
 ?>
 <?php      
-    include($_SERVER["DOCUMENT_ROOT"].'/views/footer.html');
+    include('../views/footer.html');
 ?>
