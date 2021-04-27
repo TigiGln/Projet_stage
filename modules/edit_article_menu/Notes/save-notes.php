@@ -26,7 +26,6 @@
 			$atr = $note->attributes();
 			if($atr == $user) {
 				$didExist = true;
-				//[not working?] if(strlen(preg_replace('/(&lt;).*?(&gt;)/s', "", $note->content).str_replace("<br>", "")) == 0) { unset($note[0][0]); }
 				$note->date = $date;
 				$note->content = $content;
 			}

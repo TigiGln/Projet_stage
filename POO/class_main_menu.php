@@ -1,7 +1,7 @@
 <?php
 
 /**
- * mainMenu
+ * MainMenu
  * 
  * Created on Tue Apr 22 2021
  * Latest update on Mon Apr 26 2021
@@ -9,7 +9,7 @@
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
 
-class mainMenu {
+class MainMenu {
 
     protected $title;
     protected $position; 

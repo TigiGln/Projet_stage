@@ -7,8 +7,8 @@
  */
 
 //CLASS IMPORT
-include($_SERVER["DOCUMENT_ROOT"].'/POO/class_main_menu.php');
-include($_SERVER["DOCUMENT_ROOT"].'/POO/class_edit_article_menu.php');
+require($_SERVER["DOCUMENT_ROOT"].'/POO/class_main_menu.php');
+require($_SERVER["DOCUMENT_ROOT"].'/POO/class_edit_article_menu.php');
 ?>
 
 <?php

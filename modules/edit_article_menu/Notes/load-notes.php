@@ -73,6 +73,7 @@
 		foreach ($articleNode->{$tag} as $note) {
 			$atr = $note->attributes();
 			if($atr != $user) {
+				//TODO get why regex '/(&lt;).*?(&gt;)/s' always fail here
 				$res = $res.$subSep.$atr.$sep.$note->date.$sep.$note->content;
 			}
 		} 

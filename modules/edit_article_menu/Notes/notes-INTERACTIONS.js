@@ -10,12 +10,13 @@
 /*******************************************************************************/
 
 const logHeaderNotesInteractions = "[edit article menu : notes module]";
+notesInteractionsLoadNotes();
 
 /**
- * Onload method calling a function to get the article's ID.
+ * notesInteractionsLoadNotes is a method calling a function to get the article's ID.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
-window.onload = function() {
+function notesInteractionsLoadNotes() {
   let header = document.getElementById('notes');
   let id = header.dataset.article;
   notesLoad(id, 0);

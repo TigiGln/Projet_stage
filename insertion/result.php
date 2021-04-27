@@ -1,22 +1,21 @@
 <?php
     
-    require "../POO/class_main_menu.php";
-    require "../POO/class_connexion.php";
-    require "../POO/class_manager_bd.php";
-    require "../POO/class_article.php";
+    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_main_menu.php";
+    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_connexion.php";
+    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_manager_bd.php";
+    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_article.php";
     require "requete.php";
-    session_start();
 ?>
 <?php
-    include('../views/header.html');
+    include($_SERVER["DOCUMENT_ROOT"].'/views/header.html');
     #$_SESSION['connexion'] = 'John Doe';
-    $menu = new mainMenu('My Tasks');
+    $menu = new mainMenu('Insertion');
     $menu->write();
 ?>
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
             
-            $connexionbd = new ConnexionDB("localhost", "stage", "thierry", "Th1erryG@llian0");
+            $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
             $_SESSION["connexionbd"] = $connexionbd;
             #include("../POO/start_session.php");
             $pmid = "";
@@ -79,7 +78,7 @@
                     $list_info = recovery($output);
                     if (!empty($list_info))
                     {
-                        $pmid1 = $list_info[0];
+                        $num_access = $list_info[0];
                         $doi = $list_info[1];
                         $pmcid = $list_info[2];
                         $title = $list_info[3];
@@ -87,11 +86,11 @@
                         $abstract = $list_info[5];
                         $authors = $list_info[6];
                         $journal = $list_info[7];
-                        $object_article = new ArticleSimple($pmid1, $doi, $pmcid, $title, $year, $abstract, $authors, $journal);
-                        $list_objects[$pmid1] = $object_article;
+                        $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid);
+                        $list_objects[$num_access] = $object_article;
                         $check = "<input type='checkbox' name='check[]' value= '" . $object_article . "'>\n";
                         $survol = '<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . "\">\n";
-                        echo "<tr><td>" .  $object_article->pmid() . "</td>\n<td>" . $survol . trim($object_article->title()) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
+                        echo "<tr><td>" .  $object_article->num_access() . "</td>\n<td>" . $survol . trim($object_article->title()) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
                     }
                     $i++;
                 }
@@ -105,9 +104,9 @@
                 echo "<p>Merci de remplir un champ demandés </p>";
                 
             }
-            $_SESSION["liste"] = $list_objects;
+            $_SESSION["list_articles"] = $list_objects;
             #var_dump($_SESSION["liste"]);
         ?>
 <?php      
-    include('../views/footer.html');
+    include($_SERVER["DOCUMENT_ROOT"].'/views/footer.html');
 ?>

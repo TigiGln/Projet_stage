@@ -1,6 +1,6 @@
 <?php
 	/*
-	* Created on Fri Apr 23 2021
+	* Created on Tue Apr 27 2021
 	* Latest update on Tue Apr 27 2021
 	* Info - PHP for send module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -10,14 +10,11 @@
 	require ($_SERVER["DOCUMENT_ROOT"]."/POO/class_connexion.php");
     require ($_SERVER["DOCUMENT_ROOT"]."/POO/class_manager_bd.php");
 
-	$userID = $_SESSION['connexion']; //use ids
-	$newUserID = $_POST["newUser"]; //use ids
-	$ID = "ID".$_POST["ID"];
-
+    $connexionbd = new ConnexionDB("localhost", "stage", "root", "");
+    $_SESSION["connexionbd"] = $connexionbd;
 	$manager = new Manager($_SESSION["connexionbd"]->pdo);
-	if(!$manager->get_exist("article" , "id_article", $ID)) { http_response_code(404); }
-	$res = $manager->updateArticleUser($ID, $userID, $newUserID);
+	$res = $manager->getUsersList();
+	echo json_encode($res); 
 
-	($res) ? http_response_code(200) : http_response_code(520);
+	http_response_code(200);	
 ?>
-
