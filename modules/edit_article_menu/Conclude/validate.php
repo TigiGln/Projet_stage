@@ -7,8 +7,8 @@
 	*/
 	session_start();
 	//CLASS IMPORT
-	require ($_SERVER["DOCUMENT_ROOT"]."/Projet_stage/POO/class_connexion.php");
-    require ($_SERVER["DOCUMENT_ROOT"]."/Projet_stage/POO/class_manager_bd.php");
+	require ("../../../POO/class_connexion.php");
+    require ("../../../POO/class_manager_bd.php");
 
 	$user = $_SESSION['connexion'];
 	$ID = $_POST["ID"];
