@@ -1,12 +1,3 @@
-<?php
-  //Security, check if the session is set
-  session_start();
-  if(basename($_SERVER['PHP_SELF']) != "signIn.php" && !isset($_SESSION['connexion'])) {
-    $connectErr = "";
-    header('Location: ../signIn.php');
-  }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
