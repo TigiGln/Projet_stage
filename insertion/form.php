@@ -1,12 +1,12 @@
 <?php
-
-    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_main_menu.php";
-    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_connexion.php";
-    require $_SERVER["DOCUMENT_ROOT"]."/POO/class_manager_bd.php";
+    
+    require "../POO/class_main_menu.php";
+    require "../POO/class_connexion.php";
+    require "../POO/class_manager_bd.php";
     require "requete.php";
 ?>
 <?php
-    include($_SERVER["DOCUMENT_ROOT"].'/views/header.html');
+    include('../views/header.html');
     $_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu('Insertion');
     $menu->write();
@@ -30,6 +30,6 @@
                 <input type="submit" value="Start search">
             </p>
         </form>
-<?php
-    include($_SERVER["DOCUMENT_ROOT"].'/views/footer.html');
+<?php      
+    include('../views/footer.html');
 ?>

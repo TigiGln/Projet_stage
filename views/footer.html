@@ -6,10 +6,9 @@
     				return new bootstrap.Popover(popoverTriggerEl)
   				});
 			}
-			function check(source)
-            {
+			function check(source) {
                 checkboxes = document.querySelectorAll("input[name^='check']");
-                for(var i=0, n=checkboxes.length;i<n;i++)
+                for(var i=0, n=checkboxes.length;i<n;i++) 
                 {
                     checkboxes[i].checked = source.checked;
                 }

@@ -20,8 +20,8 @@ sendInteractionsLoadUsersList();
 function sendInteractionsLoadUsersList() {
   let usersList = document.getElementById('usersList');
   /* Prepare request */
-  let url = "/modules/edit_article_menu/Send/getUsersList.php";
-  console.log(logHeaderSendInteractions+" Request users List: ");
+  let url = "./modules/edit_article_menu/Send/getUsersList.php";
+  console.log(logHeaderSendInteractions+" Request users List");
   /* Fires request */
   var http = new XMLHttpRequest();
   http.open("GET", url, true);
@@ -31,6 +31,7 @@ function sendInteractionsLoadUsersList() {
   http.onreadystatechange = function() {
     if (http.readyState === 4) {
         if (http.status === 200) {
+          console.log(this.response);
           sendInteractionsFillUsersList(JSON.parse(this.response), usersList);
           console.log(logHeaderSendInteractions+' Request users List successfully with status code: '+this.status);
         } else {

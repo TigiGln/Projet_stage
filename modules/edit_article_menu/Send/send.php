@@ -1,4 +1,4 @@
-<link href="/modules/edit_article_menu/send/send.css" rel="stylesheet"/>
+<link href="./modules/edit_article_menu/send/send.css" rel="stylesheet"/>
 <div id="send" class="d-flex flex-column" data-article="[ID]">
 	<div class="alert alert-secondary mt-0 mb-0 p-1">
 		Once you send the article to someone else, unless the person sent it back to you, you will not be able to note, nor annotate it.
@@ -11,5 +11,5 @@
 		</datalist>
 	</div>
 	<button type="button" class="btn btn-success" onclick="validateSendInteraction([ID])">Send</button>
-<script src="/modules/edit_article_menu/send/send-INTERACTIONS.js"></script>
+<script src="./modules/edit_article_menu/send/send-INTERACTIONS.js"></script>
 </div>

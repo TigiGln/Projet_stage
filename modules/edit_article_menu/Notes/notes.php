@@ -1,4 +1,4 @@
-<link href="/modules/edit_article_menu/notes/notes.css" rel="stylesheet"/>
+<link href="./modules/edit_article_menu/notes/notes.css" rel="stylesheet"/>
 <div id="notes" class="notesEditor d-flex flex-column" data-article="[ID]">
 
 <div id="notesEditor" class="notesEditor d-flex flex-column" onload="notesLoad([ID])">
@@ -45,6 +45,6 @@
 <div id="notesThread" class="notesThread overflow-auto alert alert-light mt-0 mb-0">
 	<!---->
 </div>
-<script src="/modules/edit_article_menu/notes/notes-INTERACTIONS.js"></script>
-<script src="/modules/edit_article_menu/notes/notes-WYSIWYG.js"></script>
+<script src="./modules/edit_article_menu/notes/notes-INTERACTIONS.js"></script>
+<script src="./modules/edit_article_menu/notes/notes-WYSIWYG.js"></script>
 </div>

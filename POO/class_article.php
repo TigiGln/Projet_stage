@@ -10,8 +10,8 @@
         protected $pmcid;
         protected $status;
         #protected $authors;
-
-
+        
+        
 
         public function __construct($num_access, $title, $abstract, $year, $journal, $pmcid, $origin = "pubmed", $status = '1')
         {
@@ -42,12 +42,12 @@
         public function abstract()
         {
             return $this->abstract;
-        }
+        }        
         public function year()
         {
             return $this->year;
         }
-
+        
         public function journal()
         {
             return $this->journal;
@@ -133,7 +133,7 @@
         {
             return $this->num_access;
         }
-
+  
 }
 
 

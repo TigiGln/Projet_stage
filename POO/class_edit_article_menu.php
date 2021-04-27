@@ -84,7 +84,7 @@ class EditArticleMenu {
     private function writeOne($html, $value) {
         $name = str_replace('_', ' ', $value);
         $file = str_replace('_', '', $value);
-        $data = file_get_contents($_SERVER["DOCUMENT_ROOT"].'/modules/'.$this->Folder.'/'.$file.'/'.$file.'.php');
+        $data = file_get_contents('./modules/'.$this->Folder.'/'.$file.'/'.$file.'.php');
         $data = str_replace('[ID]', $this->ArtID, $data);
         $html = $html . '<div class="accordion-item">
                             <h2 class="accordion-header">

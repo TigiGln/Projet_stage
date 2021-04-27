@@ -2,7 +2,7 @@
 
 /**
  * MainMenu
- *
+ * 
  * Created on Tue Apr 22 2021
  * Latest update on Mon Apr 26 2021
  * Info - PHP Class for the main menu
@@ -12,14 +12,14 @@
 class MainMenu {
 
     protected $title;
-    protected $position;
+    protected $position; 
     //boolean to activate some menu parts
     protected $My_Tasks;
     protected $Open_Tasks;
     protected $Processed_Tasks;
     protected $Rejected_Tasks;
     protected $Insertion;
-
+  
     /**
      * __construct
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -37,7 +37,7 @@ class MainMenu {
         $this->setInsertion(true);
     }
 
-
+    
     /**
      * write function will echo the menu's html for each active sections
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -52,22 +52,22 @@ class MainMenu {
 
         if($this->My_Tasks) {
             if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', '/trie_table_statut/page_table.php', "?status=to_treat");
+            $html = $this->writeOne($html, 'My_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=to_treat");
         }
         if($this->Open_Tasks) {
             if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', '/trie_table_statut/page_table.php', "?status=undefined");
+            $html = $this->writeOne($html, 'Open_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=undefined");
         }
         if($this->Processed_Tasks) {
             if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', '/trie_table_statut/page_table.php', "?status=treat");
+            $html = $this->writeOne($html, 'Processed_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=treat");
         }
         if($this->Rejected_Tasks) {
             if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', '/trie_table_statut/page_table.php', "?status=reject");
+            $html = $this->writeOne($html, 'Rejected_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=reject");
         }
         if($this->Insertion) {
-            $html = $this->writeOne($html, 'Insertion', '/insertion/form.php', "");
+            $html = $this->writeOne($html, 'Insertion', '/Projet_stage/insertion/form.php', "");
         }
 
         $html = $html . '</ul>
@@ -107,7 +107,7 @@ class MainMenu {
         echo $html;
     }
 
-
+        
     /**
      * writeOne function will write in the given $html string a menu section.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -130,7 +130,7 @@ class MainMenu {
         return $html;
     }
 
-
+        
     /**
      * setMyTasks is the setter to activate or not the section of the same name.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
