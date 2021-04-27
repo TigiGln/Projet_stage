@@ -15,9 +15,9 @@ $username = 'John Doe';
 $_SESSION["connexion"] = $username; //Todo use item, but here its just for debug issues
 
 if(isset($_SESSION["connexion"])) {
-	header('Location: ./test_insertion_simple/test_fenetre_indefini.php?status=to_treat');
+	header('Location: /trie_table_statut/page_table.php?status=to_treat');
 } else {
 	$connectErr = "";
-	header('Location: ./signIn.php');
+	header('Location: /signIn.php');
 }
 ?>

@@ -46,40 +46,40 @@ class mainMenu {
     public function write() {
         $html = '<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 16em; height: 100vh;">
                     <div class="col-md-auto">
-                        <img src="../pictures/logo_small-top.png" width="30">
+                        <img src="/pictures/logo_small-top.png" width="30">
                         <span class="fs-5">'.$this->title.'</span></div><hr>
                         <ul class="nav nav-pills flex-column mb-auto">';
 
         if($this->My_Tasks) {
             if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', './test_fenetre_indefini.php', "?status=to_treat");
+            $html = $this->writeOne($html, 'My_Tasks', '/trie_table_statut/page_table.php', "?status=to_treat");
         }
         if($this->Open_Tasks) {
             if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', './test_fenetre_indefini.php', "?status=undefined");
+            $html = $this->writeOne($html, 'Open_Tasks', '/trie_table_statut/page_table.php', "?status=undefined");
         }
         if($this->Processed_Tasks) {
             if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', './test_fenetre_indefini.php', "?status=treat");
+            $html = $this->writeOne($html, 'Processed_Tasks', '/trie_table_statut/page_table.php', "?status=treat");
         }
         if($this->Rejected_Tasks) {
             if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', './test_fenetre_indefini.php', "?status=reject");
+            $html = $this->writeOne($html, 'Rejected_Tasks', '/trie_table_statut/page_table.php', "?status=reject");
         }
         if($this->Insertion) {
-            $html = $this->writeOne($html, 'Insertion', './form.php', "");
+            $html = $this->writeOne($html, 'Insertion', '/insertion/form.php', "");
         }
 
         $html = $html . '</ul>
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
                               <a href="http://www.afmb.univ-mrs.fr" target="_blank">
-                                <img src="../pictures/logo_afmb.png" width="50" height="50">
+                                <img src="/pictures/logo_afmb.png" width="50" height="50">
                               </a>
                             </div>
                             <div class="col col-md-auto">
                               <a href="https://www.cea.fr/Pages/le-cea/les-centres-cea/cadarache.aspx" target="_blank">
-                                <img src="../pictures/logo_cea.png" width="50" height="50">
+                                <img src="/pictures/logo_cea.png" width="50" height="50">
                               </a>
                             </div>
                           </div>

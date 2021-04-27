@@ -7,12 +7,12 @@
  */
 
 //CLASS IMPORT
-include('./POO/class_main_menu.php');
-include('./POO/class_edit_article_menu.php');
+include($_SERVER["DOCUMENT_ROOT"].'/POO/class_main_menu.php');
+include($_SERVER["DOCUMENT_ROOT"].'/POO/class_edit_article_menu.php');
 ?>
 
 <?php
-include('./views/header.html');
+include($_SERVER["DOCUMENT_ROOT"].'/views/header.html');
 //Menu
 (new mainMenu('My_Tasks'))->write();
 ?>
@@ -31,5 +31,5 @@ if(isset($_GET['PMCID'])) {
 			This page need an argument: ?PMCID=NUM
 		</div>';
 }
-include('./views/footer.html');
+include($_SERVER["DOCUMENT_ROOT"].'/views/footer.html');
 ?>

@@ -1,4 +1,4 @@
-<link href="./modules/edit_article_menu/Annotate/annotate.css" rel="stylesheet"/>
+<link href="/modules/edit_article_menu/Annotate/annotate.css" rel="stylesheet"/>
 <div id="subMenu">
 	<div id="annotateEditor" class="annotateEditor d-flex flex-column" style="pointer-events: none; user-select: none;">
 	  <div class="annotateToolbar">
@@ -48,7 +48,7 @@
 	<div id="annotates" class="thread overflow-auto alert alert-light mt-0 mb-0">
 		<!---->
   	</div>
-	<script src="./modules/edit_article_menu/Annotate/annotate-INTERACTIONS.js"></script>
-	<script src="./modules/edit_article_menu/Annotate/annotate-WYSIWYG.js"></script>
+	<script src="/modules/edit_article_menu/Annotate/annotate-INTERACTIONS.js"></script>
+	<script src="/modules/edit_article_menu/Annotate/annotate-WYSIWYG.js"></script>
 </div>
 </div>

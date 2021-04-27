@@ -1,140 +1,139 @@
 <?php
-class Article 
-{
-    protected $Xref_id; //keep primary key
-    protected $pmid;
-    protected $doi;
-    protected $pmcid;
-    protected $title;
-    protected $years;
-    protected $abstract;
-    protected $authors; //1, 2, 3 (set); 1-N
-    //Links to another sql table, save xref_id from authors
-    //AUTHORS: ID:  - name etc
-    protected $journal; //1-1;
-    protected $statut;
+    class ArticleSimple
+    {
+        protected $pmid;
+        protected $doi;
+        protected $pmcid;
+        protected $title;
+        protected $year;
+        protected $abstract;
+        protected $authors;
+        protected $journal;
+        protected $statut;
 
-    public function __construct($list_info)
-    {
-        echo "<p>Création d'un objet Article</p>";
-        $this->setPmid($list_info["pmid"]);
-        $this->setDoi($list_info["doi"]);
-        $this->setPmcid($list_info["pmcid"]);
-        $this->setTitle($list_info["title"]);
-        $this->setYears($list_info["years"]);
-        $this->setAbstract($list_info["abstract"]);
-        $this->setAuthors($list_info["authors"]);
-        $this->setJournal($list_info["journal"]);
-        #$this->setStatut($list_info["statut"]);
-    }
+        public function __construct($pmid, $doi, $pmcid, $title, $year, $abstract, $authors, $journal, $statut = "undefined")
+        {
+            #echo "<p>Création d'un objet Article</p>";
+            $this->setPmid($pmid);
+            $this->setDoi($doi);
+            $this->setPmcid($pmcid);
+            $this->setTitle($title);
+            $this->setYear($year);
+            $this->setAbstract($abstract);
+            $this->setAuthors($authors);
+            $this->setJournal($journal);
+            $this->setStatut($statut);
+        }
+        //Les fonctions getters
+        public function pmid()
+        {
+            return $this->pmid;
+        }
+        public function doi()
+        {
+            return $this->doi;
+        }
+        public function pmcid()
+        {
+            return $this->pmcid;
+        }
+        public function title()
+        {
+            return $this->title;
+        }
+        public function year()
+        {
+            return $this->year;
+        }
+        public function abstract()
+        {
+            return $this->abstract;
+        }
+        public function authors()
+        {
+            return $this->authors;
+        }
+        public function journal()
+        {
+            return $this->journal;
+        }
+        public function statut()
+        {
+            return $this->statut;
+        }
 
-    public function pmid()
-    {
-        return $this->pmid;
-    }
-    public function doi()
-    {
-        return $this->doi;
-    }
-    public function pmcid()
-    {
-        return $this->pmcid;
-    }
-    public function title()
-    {
-        return $this->title;
-    }
-    public function years()
-    {
-        return $this->years;
-    }
-    public function abstract()
-    {
-        return $this->abstract;
-    }
-    public function authors()
-    {
-        return $this->authors;
-    }
-    public function journal()
-    {
-        return $this->journal;
-    }
-    public function statut()
-    {
-        return $this->statut;
-    }
-    public function setPmid($pmid)
-    {
-        if (is_string($pmid))
+        //Les fonctions setters
+        public function setPmid($pmid)
         {
-            $this->pmid = $pmid;
+            if (is_string($pmid))
+            {
+                $this->pmid = $pmid;
+            }
         }
-    }
-    public function setDoi($doi)
-    {
-        if (is_string($doi))
+        public function setDoi($doi)
         {
-            $this->doi = $doi;
+            if (is_string($doi))
+            {
+                $this->doi = $doi;
+            }
         }
-    }
-    public function setPmcid($pmcid)
-    {
-        if (is_string($pmcid))
+        public function setPmcid($pmcid)
         {
-            $this->pmcid = $pmcid;
+            if (is_string($pmcid))
+            {
+                $this->pmcid = $pmcid;
+            }
         }
-    }
-    public function setTitle($title)
-    {
-        if (is_string($title))
+        public function setTitle($title)
         {
-            $this->title = $title;
+            if (is_string($title))
+            {
+                $this->title = $title;
+            }
         }
-    }
-    public function setYears($years)
-    {
-        if (is_string($years))
+        public function setYear($year)
         {
-            $this->years = $years;
+            if (is_string($year))
+            {
+                $this->year = $year;
+            }
         }
-    }
-    public function setAbstract($abstract)
-    {
-        if (is_string($abstract))
+        public function setAbstract($abstract)
         {
-            $this->abstract = $abstract;
+            if (is_string($abstract))
+            {
+                $this->abstract = $abstract;
+            }
         }
-    }
-    public function setAuthors($authors)
-    {
-        if (is_string($authors))
+        public function setAuthors($authors)
         {
-            $this->authors = $authors;
+            if (is_string($authors))
+            {
+                $this->authors = $authors;
+            }
         }
-    }
-    public function setJournal($journal)
-    {
-        if (is_string($journal))
+        public function setJournal($journal)
         {
-            $this->journal = $journal;
+            if (is_string($journal))
+            {
+                $this->journal = $journal;
+            }
         }
-    }
-    public function setStatut($statut)
-    {
-        if (is_string($statut))
+        public function setStatut($statut)
         {
-            $this->statut = $statut;
+            if (is_string($statut))
+            {
+                $this->statut = $statut;
+            }
         }
-    }
-
-    public function __destruct()
-    {
-        echo "<p>Destruction de votre objet " . $this->pmid . "</p>";
-    }
-
-
+        public function __toString()
+        {
+            return $this->pmid;
+        }
+  
 }
+
+
 
 
 
