@@ -1,6 +1,6 @@
 /*
  * Created on Tue Apr 21 2021
- * Latest update on Mon Apr 26 2021
+	* Latest update on Tue Apr 27 2021
  * Info - JS for notes module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
