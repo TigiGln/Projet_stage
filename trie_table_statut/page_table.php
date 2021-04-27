@@ -17,11 +17,11 @@
     <div class='p-4 w-100'>
         <?php
             #connexion à la base de données
-            $connexionbd = new ConnexionDB("localhost", "stage", "thierry", "Th1erryG@llian0");
+            $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
             $_SESSION["connexionbd"] = $connexionbd;
-            $_SESSION['statut_page'] = $_GET["statut"];#Enregistrement du staut de la page dans une variable de session
-            $liste_statut_initial = search_table_statut($_GET["statut"]);#affichage de notre tableau en fonction du statut
-            $_SESSION['list_statut_initial'] = $liste_statut_initial;#on insère notre liste de staut initial dans une variable d'environnement qui suit tous le long de la session.
+            $_SESSION['status_page'] = $_GET["status"];#Enregistrement du staut de la page dans une variable de session
+            $list_status_initial = search_table_status($_GET["status"]);#affichage de notre tableau en fonction du statut
+            $_SESSION['list_status_initial'] = $list_status_initial;#on insère notre liste de statut initial dans une variable d'environnement qui suit tous le long de la session.
         ?>
         <p>
             <input type="submit" value="Enregistrer">

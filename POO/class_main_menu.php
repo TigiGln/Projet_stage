@@ -32,19 +32,19 @@ class mainMenu {
         //check every menu variables:
         if($this->My_Tasks) {
             if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', '../trie_table_statut/page_table.php', "?status=to_treat");
+            $html = $this->writeOne($html, 'My_Tasks', '../trie_table_statut/page_table.php', "?status=2");
         }
         if($this->Open_Tasks) {
             if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', '../trie_table_statut/page_table.php', "?status=undefined");
+            $html = $this->writeOne($html, 'Open_Tasks', '../trie_table_statut/page_table.php', "?status=1");
         }
         if($this->Processed_Tasks) {
             if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', '../trie_table_statut/page_table.php', "?status=treat");
+            $html = $this->writeOne($html, 'Processed_Tasks', '../trie_table_statut/page_table.php', "?status=3");
         }
         if($this->Rejected_Tasks) {
             if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', '../trie_table_statut/page_table.php', "?status=reject");
+            $html = $this->writeOne($html, 'Rejected_Tasks', '../trie_table_statut/page_table.php', "?status=4");
         }
         if($this->Insertion) {
             $html = $this->writeOne($html, 'Insertion', '../insertion/form.php', "");

@@ -17,7 +17,7 @@
     
     if ($_SESSION != [])
     {
-        $liste = $_SESSION["liste"];
+        $list_articles = $_SESSION["list_articles"];
         #var_dump($liste);
         if (isset($_GET["check"]) AND $_GET["check"] != [])
         {
@@ -28,18 +28,18 @@
             foreach ($_GET["check"] as $value)
             {
                 
-                if (array_key_exists($value, $liste))
+                if (array_key_exists($value, $list_articles))
                 {
-                    if ($manager->get_exist("pub_db_acc" , $liste[$value]->pmid(), "document"))
+                    if ($manager->get_exist("num_access" , $list_articles[$value]->num_access(), "article"))
                     {
 		                echo "L'article N°" . $value . " est déjà dans la base";
                     }
                     else
                     {
-                        #var_dump($liste[$value]);
-                        $manager->add($liste[$value]);
+                        #var_dump($list_articles[$value]);
+                        $manager->add($list_articles[$value]);
                         echo "<p>Article N°" . $value . " a bien été ajouté dans la base de données</p>";
-                        #echo $liste[$value];
+                        #echo $list_articles[$value];
                     }
                 }
             }

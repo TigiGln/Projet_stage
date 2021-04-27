@@ -1,87 +1,83 @@
 <?php
-    class ArticleSimple
+    class Article
     {
-        protected $pmid;
-        protected $doi;
-        protected $pmcid;
+        protected $origin;
+        protected $num_access;
         protected $title;
-        protected $year;
         protected $abstract;
-        protected $authors;
+        protected $year;
         protected $journal;
-        protected $statut;
+        protected $pmcid;
+        protected $status;
+        #protected $authors;
+        
+        
 
-        public function __construct($pmid, $doi, $pmcid, $title, $year, $abstract, $authors, $journal, $statut = "undefined")
+        public function __construct($num_access, $title, $abstract, $year, $journal, $pmcid, $origin = "pubmed", $status = '1')
         {
             #echo "<p>Création d'un objet Article</p>";
-            $this->setPmid($pmid);
-            $this->setDoi($doi);
-            $this->setPmcid($pmcid);
+            $this->setOrigin($origin);
+            $this->setNum_access($num_access);
             $this->setTitle($title);
-            $this->setYear($year);
             $this->setAbstract($abstract);
-            $this->setAuthors($authors);
+            $this->setYear($year);
             $this->setJournal($journal);
-            $this->setStatut($statut);
+            $this->setPmcid($pmcid);
+            $this->setStatus($status);
+            #$this->setAuthors($authors);
         }
         //Les fonctions getters
-        public function pmid()
+        public function origin()
         {
-            return $this->pmid;
+            return $this->origin;
         }
-        public function doi()
+        public function num_access()
         {
-            return $this->doi;
-        }
-        public function pmcid()
-        {
-            return $this->pmcid;
+            return $this->num_access;
         }
         public function title()
         {
             return $this->title;
         }
+        public function abstract()
+        {
+            return $this->abstract;
+        }        
         public function year()
         {
             return $this->year;
         }
-        public function abstract()
-        {
-            return $this->abstract;
-        }
-        public function authors()
-        {
-            return $this->authors;
-        }
+        
         public function journal()
         {
             return $this->journal;
         }
-        public function statut()
+        public function pmcid()
         {
-            return $this->statut;
+            return $this->pmcid;
         }
+        public function status()
+        {
+            return $this->status;
+        }
+        /*public function authors()
+        {
+            return $this->authors;
+        }*/
 
         //Les fonctions setters
-        public function setPmid($pmid)
+        public function setOrigin($origin)
         {
-            if (is_string($pmid))
+            if (is_string($origin))
             {
-                $this->pmid = $pmid;
+                $this->origin = $origin;
             }
         }
-        public function setDoi($doi)
+        public function setNum_access($num_access)
         {
-            if (is_string($doi))
+            if (is_string($num_access))
             {
-                $this->doi = $doi;
-            }
-        }
-        public function setPmcid($pmcid)
-        {
-            if (is_string($pmcid))
-            {
-                $this->pmcid = $pmcid;
+                $this->num_access = $num_access;
             }
         }
         public function setTitle($title)
@@ -91,13 +87,6 @@
                 $this->title = $title;
             }
         }
-        public function setYear($year)
-        {
-            if (is_string($year))
-            {
-                $this->year = $year;
-            }
-        }
         public function setAbstract($abstract)
         {
             if (is_string($abstract))
@@ -105,11 +94,11 @@
                 $this->abstract = $abstract;
             }
         }
-        public function setAuthors($authors)
+        public function setYear($year)
         {
-            if (is_string($authors))
+            if (is_string($year))
             {
-                $this->authors = $authors;
+                $this->year = $year;
             }
         }
         public function setJournal($journal)
@@ -119,16 +108,30 @@
                 $this->journal = $journal;
             }
         }
-        public function setStatut($statut)
+        public function setPmcid($pmcid)
         {
-            if (is_string($statut))
+            if (is_string($pmcid))
             {
-                $this->statut = $statut;
+                $this->pmcid = $pmcid;
             }
         }
+        public function setStatus($status)
+        {
+            if (is_string($status))
+            {
+                $this->status = $status;
+            }
+        }
+        /*public function setAuthors($authors)
+        {
+            if (is_string($authors))
+            {
+                $this->authors = $authors;
+            }
+        }*/
         public function __toString()
         {
-            return $this->pmid;
+            return $this->num_access;
         }
   
 }
