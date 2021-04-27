@@ -98,6 +98,8 @@
             
             $requete->bindValue(":status", $status);
             $requete->execute();
+            
+            return empty($res->fetch(PDO::FETCH_ASSOC));
 
         }
         public function search_enum_fields($table, $fields)
@@ -125,46 +127,13 @@
         {
             $this->setDb($db);
         }
-
-        /**
-         * updateArticleStatus
-	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-         * @param  mixed $id
-         *            the id of the article in the database.
-         * @param  mixed $status
-         *            the status value to give to the article.
-         * @return void
-         */
-        public function updateArticleStatus($id, $status) {
-            $req = $this->db->prepare("UPDATE article SET status = ? WHERE id_article = ?");
-            $res  = $req->execute(array(htmlspecialchars($status, $id)));
-            return empty($res->fetch(PDO::FETCH_ASSOC));
-        }
-        
-        /**
-         * updateArticleUser
-         * From the idea that we save userID and newUserID somewhere and that we can get them.
-	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-         * @param  mixed $id
-         *            the id of the article in the database.
-         * @param  mixed $userID
-         *            the id of the user (not used, may be deleted).
-         * @param  mixed $newUserID
-         *            the id of the new user.
-         * @return void
-         */
-        public function updateArticleUser($id, $userID, $newUserID) {
-            $req = $this->db->prepare("UPDATE article SET id_user = ? WHERE id_article = ? AND id_user = ?");
-            $res  = $req->execute(array(htmlspecialchars($newUserID, $id, $userID)));
-            return empty($res->fetch(PDO::FETCH_ASSOC));
-        }
         
         /**
          * getUsersList
 	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
          * @return void
          */
-        public function getUsersList() {
+        public function getUsers() {
             $req = $this->db->prepare("SELECT id_user, username, email FROM user");
             $req->execute();
             return $req->fetchAll(PDO::FETCH_ASSOC);

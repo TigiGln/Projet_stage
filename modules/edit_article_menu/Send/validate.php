@@ -15,9 +15,8 @@
 	$ID = "ID".$_POST["ID"];
 
 	$manager = new Manager($_SESSION["connexionbd"]->pdo);
-	if(!$manager->get_exist("article" , "id_article", $ID)) { http_response_code(404); }
-	$res = $manager->updateArticleUser($ID, $userID, $newUserID);
+	if(!$manager->get_exist("id_article", $ID "model_article")) { http_response_code(404); }
+	$res = $manager->$res = $manager->update($ID, 'id_user', $newUserID, 'model_article');
 
 	($res) ? http_response_code(200) : http_response_code(520);
 ?>
-

@@ -13,7 +13,7 @@
     $connexionbd = new ConnexionDB("localhost", "stage", "root", "");
     $_SESSION["connexionbd"] = $connexionbd;
 	$manager = new Manager($_SESSION["connexionbd"]->pdo);
-	$res = $manager->getUsersList();
+	$res = $manager->getUsers();
 	echo json_encode($res); 
 
 	http_response_code(200);	
