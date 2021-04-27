@@ -88,7 +88,7 @@ class mainMenu {
                             <div class="row justify-content-start">
                               <div class="col-md-auto">
                                 <!-- Disconenct Button -->
-                                <form action="disconnect.php" method="post">
+                                <form action="/disconnect.php" method="post">
                                   <button class="btn btn-outline-danger" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                                       <path d="M7.5 1v7h1V1h-1z"></path>
