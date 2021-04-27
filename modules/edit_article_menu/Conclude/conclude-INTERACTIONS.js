@@ -35,7 +35,7 @@ function validateConcludeInteraction(id) {
         if (http.status === 200) {
           console.log(logHeaderConcludeInteractions+' Validate successfully with status code: '+this.status);
           alert("The article was successfully proccessed. Return to your tasks ");
-          document.location.href="./";
+          document.location.href="/";
         } else {
           console.log(logHeaderConcludeInteractions+' Validate failed with status code: ');
           alert("An error occured. Please retry. "+this.response);
