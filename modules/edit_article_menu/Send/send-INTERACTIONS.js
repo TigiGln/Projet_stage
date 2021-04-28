@@ -1,6 +1,6 @@
 /*
  * Created on Fri Apr 23 2021
-	* Latest update on Tue Apr 27 2021
+	* Latest update on Wed Apr 28 2021
  * Info - JS for conclude module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -31,7 +31,6 @@ function sendInteractionsLoadUsersList() {
   http.onreadystatechange = function() {
     if (http.readyState === 4) {
         if (http.status === 200) {
-          console.log("debug: "+this.response);
           sendInteractionsFillUsersList(JSON.parse(this.response), usersList);
           console.log(logHeaderSendInteractions+' Request users List successfully with status code: '+this.status);
         } else {

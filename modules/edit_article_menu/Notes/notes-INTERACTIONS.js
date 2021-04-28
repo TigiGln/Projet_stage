@@ -1,6 +1,6 @@
 /*
  * Created on Tue Apr 21 2021
-	* Latest update on Tue Apr 27 2021
+	* Latest update on Wed Apr 28 2021
  * Info - JS for notes module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -84,7 +84,10 @@ function notesLoad(id, all) {
       let res = this.response.toString().split(',');
       if(res[0] == 'USER') { notesLoadUser(res[1]); }
       if(res[0] == 'OTHERS') { notesLoadOthers(res); }
-      } else { console.log(logHeaderNotesInteractions+' Notes received failed with status code: '+this.status); }
+      } else { 
+        document.querySelector("#notes").innerHTML = '<div class="alert alert-danger" role="alert">An error occured. Please reload to use this module</div>';
+        console.log(logHeaderNotesInteractions+' Notes received failed with status code: '+this.status); 
+      }
     } 
   }
 }

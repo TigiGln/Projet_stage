@@ -99,7 +99,7 @@
             $requete->bindValue(":status", $status);
             $requete->execute();
             
-            return empty($res->fetch(PDO::FETCH_ASSOC));
+            return empty($requete->fetch(PDO::FETCH_ASSOC));
 
         }
         public function search_enum_fields($table, $fields)
@@ -128,15 +128,110 @@
             $this->setDb($db);
         }
         
+        
         /**
-         * getUsersList
+         * getSpecific is a method to request more specifics data where we select the columns, the conditions and the table.
+         * return the array of fetched elements.
 	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+         * @param  mixed $cols
+         *            Array with columns name to get.
+         * @param  mixed $conditions
+         *            Array of arrays to get the conditions WHERE. in each subArrays position 0 is the left member, position 1 is the right member.
+         * @param  mixed $table
+         *            Table where we perform the request.
          * @return void
          */
-        public function getUsers() {
-            $req = $this->db->prepare("SELECT id_user, username, email FROM user");
-            $req->execute();
-            return $req->fetchAll(PDO::FETCH_ASSOC);
+        public function getSpecific($cols, $conditions, $table) {
+            $values = array();
+            $prepReq = "SELECT";
+            foreach ($cols as $col) { $prepReq = $prepReq." ".$col.","; }
+            $prepReq = substr_replace($prepReq ,"",-1) . " FROM ".$table; //remove last coma and add contents
+
+            if(sizeof($conditions) != 0) {
+                $prepReq = $prepReq . " WHERE";
+                foreach ($conditions as $condition) { 
+                    $prepReq = $prepReq." ".$condition[0]." = ? and"; 
+                    array_push($values, $condition[1]);
+                }
+                $prepReq = substr_replace($prepReq ,"",-4); //remove last " AND"
+            } 
+
+            $req = $this->db->prepare($prepReq);
+            $req->execute($values);
+            $res = $req->fetchAll(PDO::FETCH_ASSOC);
+            return $res;
+
+        }
+
+        /**
+         * updateSpecific is a method to update more specifics data where we select the columns, the conditions and the table.
+         * return true if insertion was a success, false if not.
+	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+         * @param  mixed $cols
+         *            Array of arrays to get the conditions SET. in each subArrays position 0 is the left member, position 1 is the right member.
+         * @param  mixed $conditions
+         *            Array of arrays to get the conditions WHERE. in each subArrays position 0 is the left member, position 1 is the right member.
+         * @param  mixed $table
+         *            Table where we perform the request.
+         * @return void
+         */
+        public function updateSpecific($cols, $conditions, $table) {
+            $values = array();
+            $prepReq = "UPDATE ".$table." SET";
+            foreach ($cols as $col) { 
+                $prepReq = $prepReq." ".$col[0]." = ?,"; 
+                array_push($values, $col[1]);
+            }
+            $prepReq = substr_replace($prepReq ,"",-1); //remove last coma
+
+            if(sizeof($conditions) != 0) {
+                $prepReq = $prepReq . " WHERE";
+                foreach ($conditions as $condition) { 
+                    $prepReq = $prepReq." ".$condition[0]." = ? and"; 
+                    array_push($values, $condition[1]);
+                }
+                $prepReq = substr_replace($prepReq ,"",-4); //remove last " AND"
+            } else {  $prepReq = $prepReq . " WHERE 1"; }
+
+            $req = $this->db->prepare($prepReq);
+            $res = $req->execute($values);
+            return $res;
+
+        }
+
+        /**
+         * insertSpecific is a method to update more specifics data where we select the columns, the conditions and the table.
+         * return true if insertion was a success, false if not.
+	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+         * @param  mixed $cols
+         *            Array with columns name to set.
+         * @param  mixed $conditions
+         *            Array with values of the columns.
+         * @param  mixed $table
+         *            Table where we perform the request.
+         * @return void
+         */
+        public function insertSpecific($cols, $datas, $table) {
+            $values = array();
+            $prepReq = "INSERT INTO ".$table."(";
+            foreach ($cols as $col) { 
+                $prepReq = $prepReq." ".$col.","; 
+            }
+            $prepReq = substr_replace($prepReq ,"",-1) . ")"; //remove last coma and add contents
+
+            if(sizeof($datas) != 0) {
+                $prepReq = $prepReq . " VALUES(";
+                foreach ($datas as $data) { 
+                    $prepReq = $prepReq." ?,"; 
+                    array_push($values, $data);
+                }
+                $prepReq = substr_replace($prepReq ,"",-1) . ")"; //remove last coma and add contents
+            } else {  $prepReq = $prepReq . " VALUES 1"; }
+
+            $req = $this->db->prepare($prepReq);
+            $res = $req->execute($values);
+            return $res;
+
         }
     }
 
