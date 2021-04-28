@@ -1,20 +1,12 @@
 var submit = document.getElementById("submit");
-
 let textarea = document.getElementById("textarea");
 let select = document.getElementById("list_query");
 
-let changeSelect;
-
+var changeSelect;
 if (textarea.value == "")
 {
     submit.setAttribute('disabled', true);
 }
-
-select.addEventListener('input', function(e)
-{
-    changeSelect = e.target.value;
-
-});
 
 function disabledSubmit(booleen)
 {
@@ -28,9 +20,12 @@ function disabledSubmit(booleen)
     }
 };
 
+select.addEventListener('input', function(e)
+{
+    changeSelect = e.target.value;
+});
 textarea.addEventListener('input', function(e)
 {
-    
     if (changeSelect == 'PMID')
     {
         if(/^[0-9]+$/.test(e.target.value))

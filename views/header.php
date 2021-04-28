@@ -15,6 +15,7 @@ session_start()
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/redefinebootstrap.css" rel="stylesheet">
     <link href="../css/result.css" rel="stylesheet">
+    <script src="../trie_table_statut/sort_status.js"></script>
   </head>
   <body>
 

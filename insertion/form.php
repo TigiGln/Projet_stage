@@ -31,6 +31,8 @@
                 <input type="submit" value="Start search" id="submit">
             </p>
         </form>
-<?php      
+        <script src="../insertion/gestion_form.js"></script>
+<?php
+          
     include('../views/footer.html');
 ?>

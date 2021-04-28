@@ -22,9 +22,6 @@
             $list_status_initial = search_table_status($_GET["status"]);#affichage de notre tableau en fonction du statut
             $_SESSION['list_status_initial'] = $list_status_initial;#on insère notre liste de statut initial dans une variable d'environnement qui suit tous le long de la session.
         ?>
-        <p>
-            <input type="submit" value="Enregistrer">
-        </p>
     </div>
 </form>
 <?php      
