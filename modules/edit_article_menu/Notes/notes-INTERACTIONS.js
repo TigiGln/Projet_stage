@@ -1,51 +1,113 @@
-/***
- * JS for notes page
- * author: Eddy IKHLEF
-***/
+/*
+ * Created on Tue Apr 21 2021
+	* Latest update on Tue Apr 27 2021
+ * Info - JS for notes module in edit article menu
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ */
 
 /*******************************************************************************/
 /* interactions function */
 /*******************************************************************************/
-window.onload = function() {
+
+const logHeaderNotesInteractions = "[edit article menu : notes module]";
+notesInteractionsLoadNotes();
+
+/**
+ * notesInteractionsLoadNotes is a method calling a function to get the article's ID.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ */
+function notesInteractionsLoadNotes() {
   let header = document.getElementById('notes');
   let id = header.dataset.article;
   notesLoad(id, 0);
   notesLoad(id, 1);
 }
+
 /**
- * notesLoad:
- * Allows to load the user previous
- * @param {*} pmcid 
+ * notesSave is the specific function to save user's notes.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ * @param {*} id 
+ *            The article ID in the database.
+ * @fires XMLHttpRequest
+ */
+ function notesSave(id) {
+  /* Prepare request */
+  document.querySelector('#notesCode').click();
+  let url = "./modules/edit_article_menu/notes/save-notes.php";
+  let notes = document.querySelector("#notesHtmlView").textContent;
+  let date = (new Date()).getTime(); //Until I find a way to get date from the php
+  document.querySelector('#notesCode').click();
+  let params = "ID="+encodeURIComponent(id)+"&date="+encodeURIComponent(date)+"&notes="+encodeURIComponent(notes);
+  console.log(logHeaderNotesInteractions+" Notes save send request with parameters: "+params);
+  /* Fires request */
+  var http = new XMLHttpRequest();
+  http.open("POST", url, true);
+  http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  http.send(params);
+  /* Handle request results */
+  http.onreadystatechange = function() {
+    if (http.readyState === 4) {
+        //if success, call the update article function
+        if (http.status === 200) {
+          console.log(logHeaderNotesInteractions+' Notes saved successfuly with status code: '+this.status);
+          document.querySelector("#notesArea").style.backgroundColor = "white";
+        } else {
+           console.log(logHeaderNotesInteractions+' Notes save failed with status code: '+this.status);
+           document.querySelector("#notesArea").style.backgroundColor = "salmon";
+        }
+    }
+  }
+}
+
+/**
+ * notesLoad allows to load the user's saved notes, as well as others' notes.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ * @param {*} id 
+ * @param {*} all 
+ *            If all value is 0, the server will request the user's notes. If 1, the server will request others' notes.
+ * @fires XMLHttpRequest
  */
 function notesLoad(id, all) {
-  //todo: query to load-notes to get the data then write it
+  /* Prepare request */
   let url = "./modules/edit_article_menu/notes/load-notes.php";
   let params = "ALL="+all+"&ID="+encodeURIComponent(id);
-  console.log("load notes with query: "+params);
+  console.log(logHeaderNotesInteractions+" Notes Load with parameters: "+params);
+  /* Fires request */
   var http = new XMLHttpRequest();
   http.open("GET",url+"?"+params,true);
   http.send(null);
-  http.onreadystatechange=function() {
-    if (this.readyState==4) {
-      if (this.status==200) {
-      console.log('notes received successfuly ');
+  /* Handle request results */
+  http.onreadystatechange = function() {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+      console.log(logHeaderNotesInteractions+' Notes received successfuly with status code: '+this.status);
       let res = this.response.toString().split(',');
       if(res[0] == 'USER') { notesLoadUser(res[1]); }
       if(res[0] == 'OTHERS') { notesLoadOthers(res); }
-      } else { console.log('notes received failed'); }
+      } else { console.log(logHeaderNotesInteractions+' Notes received failed with status code: '+this.status); }
     } 
   }
 }
 
+/**
+ * notesLoadUser is the specific function to load the user's saved notes.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ * @param {*} content 
+ *            The text that will be inside the user's notes part.
+ */
 function notesLoadUser(content) {
-  content = content.split(';')[2];
   document.querySelector("#notesCode").click();
   document.querySelector("#notesHtmlView").textContent = decodeURIComponent(content);
   document.querySelector("#notesCode").click();
 }
 
+/**
+ * notesLoadOthers is the specific function to load the others' saved notes.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ * @param {*} content 
+ *            A to-be-parsed string separated with coma and semicolon.
+ */
 function notesLoadOthers(content) {
-  console.log(content);
   content.shift();
   for (let note of content) {
     let data = note.split(";");
@@ -55,47 +117,18 @@ function notesLoadOthers(content) {
   }
 }
 
-
 /**
- * notesSave:
- * Will save the user notes in the database
- * @param {*} pmcid 
+ * Listener on visual view area that will change the background color of the notes area to salmon on input event.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
-function notesSave(pmcid) {
-  //Parse element to prepare the query
-  document.querySelector('#notesCode').click();
-  let url = "./modules/edit_article_menu/notes/save-notes.php";
-  //need to change space with %20 cause php chaneg then with +
-  let notes = document.querySelector("#notesHtmlView").textContent;
-  let date = (new Date()).getTime(); //Until I find a way to get date from the php
-  document.querySelector('#notesCode').click();
-  let params = "PMCID="+encodeURIComponent(pmcid)+"&date="+encodeURIComponent(date)+"&notes="+encodeURIComponent(notes);
-  console.log("notes send req: "+params);
-  //Start request to store in the note database by calling start.php script
-  var http = new XMLHttpRequest();
-  http.open("POST", url, true);
-  //header init
-  http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  //Send the datas
-  http.send(params);
-  //message received to notify the success or a failure (CALLBACK)
-  http.onreadystatechange = function() {
-    if (http.readyState === 4) {
-        //if success, call the update article function
-        if (http.status === 200) {
-          console.log('notes saved successfuly');
-          document.querySelector("#notesArea").style.backgroundColor = "white";
-        } else {
-           console.log('notes saved failed');
-        }
-    }
-  }
-}
-
-//event listener, when we edit the note the background will be red.
 document.getElementById("notesVisualView").addEventListener("input", function() {
   document.querySelector("#notesArea").style.backgroundColor = "salmon";
 });
+
+/**
+ * Listener on visual html area that will change the background color of the notes area to salmon on input event.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ */
 document.getElementById("notesHtmlView").addEventListener("input", function() {
   document.querySelector("#notesArea").style.backgroundColor = "salmon";
 });

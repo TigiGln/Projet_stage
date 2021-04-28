@@ -6,13 +6,10 @@
   	<!-- send data using js function to augment it and catch servers failure-->
 	<div class="form-group">
 		<label for="sendTo">Send To:</label>
-		<input type="text" list="users" id="sendTo" name="sendTo" class="form-control" />
-		<datalist id="users">
-			<!--TODO: get users from database and print options -->
-		    <option value="John">
-		    <option value="Pierre">
+		<input type="text" list="usersList" id="sendTo" name="sendTo" class="form-control" />
+		<datalist id="usersList">
 		</datalist>
 	</div>
-	<button type="button" class="btn btn-success" onclick="validate([ID])">Send</button>
+	<button type="button" class="btn btn-success" onclick="validateSendInteraction([ID])">Send</button>
 <script src="./modules/edit_article_menu/send/send-INTERACTIONS.js"></script>
 </div>

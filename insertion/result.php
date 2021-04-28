@@ -5,12 +5,11 @@
     require "../POO/class_manager_bd.php";
     require "../POO/class_article.php";
     require "requete.php";
-    
 ?>
 <?php
     include('../views/header.php');
     #$_SESSION['connexion'] = 'John Doe';
-    $menu = new mainMenu('My Tasks');
+    $menu = new mainMenu('Insertion');
     $menu->write();
 ?>
     <form method="get" action="insert.php" enctype="multipart/form-data">

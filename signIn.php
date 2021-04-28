@@ -1,11 +1,11 @@
 <?php
-include('./views/header.html');
+include($_SERVER["DOCUMENT_ROOT"].'/views/header.html');
 ?>
-<link href="./css/signIn.css" rel="stylesheet">
+<link href="/css/signIn.css" rel="stylesheet">
 <main class="form-signin">
   <form action="connexion.php" method="post">
     <div class="text-center">
-      <img src="./pictures/logo_big.png" width="150">
+      <img src="/pictures/logo_big.png" width="150">
       <h1>Outil Bibilio</h1>
     </div>
     <br>
@@ -32,5 +32,5 @@ include('./views/header.html');
   </form>
 </main>
 <?php
-include('./views/footer.html');
+include($_SERVER["DOCUMENT_ROOT"].'/views/footer.html');
 ?>

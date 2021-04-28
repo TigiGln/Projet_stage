@@ -8,7 +8,7 @@
 <?php
     include('../views/header.php');
     $_SESSION['connexion'] = 'John Doe';
-    $menu = new mainMenu('My Tasks');
+    $menu = new mainMenu($_GET['status']);
     $menu->write();
 ?>
 

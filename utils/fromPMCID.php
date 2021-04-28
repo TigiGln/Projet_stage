@@ -1,20 +1,26 @@
 <?php
     /**
-    * RAW HTML GETTER + Clean up datas
-    * author: Eddy IKHLEF
-    * CLASSES AND IDS OF PMID ARTICLES
-    * ---------------------------------
-    * Depending of versions (dates) of the article, often the name changed, as for classes or ids of articles.
-    * Hence article section can be named sX, secX or even __secX. Same goes for other parts as following:
-    * (The list may change and upgrade, please keep it up to date with latest version, as well as editing the corresponding lines). X is a number.
-    * Article Title: content-title
-    * List of authors: contrib-group (contrib-group fm-author)
-    * Associated data: ass-data
-    * Abstract: absX, (first) idmXXXXXX [We will use idm]
-    * Artile sections: sX, secX, __secX, [We will use secX]
-    * Supplementary materials: sd
-    * References: (ref-list-sec sec, id: reference-list) [no need to change, since it is common everywhere]
-    */
+     * 
+     * fromPMCID 
+     * 
+     * Created on Fri Apr 16 2021
+     * Latest update on Mon Apr 26 2021
+     * Info - PHP script to retrieve and echo using articles from PMCID using CURL
+     * ---------------------------------
+     * CLASSES AND IDS OF PMID ARTICLES
+     * Depending of versions (dates) of the article, often the name changed, as for classes or ids of articles.
+     * Hence article section can be named sX, secX or even __secX. Same goes for other parts as following:
+     * (The list may change and upgrade, please keep it up to date with latest version, as well as editing the corresponding lines). X is a number.
+     * Article Title: content-title
+     * List of authors: contrib-group (contrib-group fm-author)
+     * Associated data: ass-data
+     * Abstract: absX, (first) idmXXXXXX [We will use idm]
+     * Artile sections: sX, secX, __secX, [We will use secX]
+     * Supplementary materials: sd
+     * References: (ref-list-sec sec, id: reference-list) [no need to change, since it is common everywhere]
+     * ---------------------------------
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     */
 
     //Prepare Curl request
     //Later the ID will be called

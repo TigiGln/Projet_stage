@@ -9,7 +9,7 @@
 <?php
     include('../views/header.php');
     #$_SESSION['connexion'] = 'John Doe';
-    $menu = new mainMenu('My Tasks');
+    $menu = new mainMenu('Insertion');
     $menu->write();
 ?>
 <?php
