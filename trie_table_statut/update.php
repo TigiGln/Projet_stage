@@ -3,10 +3,9 @@
     require "../POO/class_connexion.php";
     require "../POO/class_manager_bd.php";
     require "function.php";
-    session_start();
 ?>
 <?php
-    include('../views/header.html');
+    include('../views/header.php');
     $menu = new mainMenu('My Tasks');
     $menu->write();
 ?>

@@ -5,10 +5,10 @@
     require "../POO/class_manager_bd.php";
     require "../POO/class_article.php";
     require "requete.php";
-    session_start();
+    
 ?>
 <?php
-    include('../views/header.html');
+    include('../views/header.php');
     #$_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu('My Tasks');
     $menu->write();
