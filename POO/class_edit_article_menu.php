@@ -4,7 +4,7 @@
  * EditArticleMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Mon Apr 26 2021
+ * Latest update on Wed Apr 28 2021
  * Info - PHP Class for the article editing tools' menu
  * The functionning differ from mainMenu, here we include php but never do a href link. 
  * If you require a module in this section asking for parameters, use super variables to store and throw.
@@ -21,6 +21,7 @@ class EditArticleMenu {
     protected $Annotate;
     protected $Cazy;
     protected $Send;
+    protected $Grade;
     protected $Conclude;
 
     
@@ -38,6 +39,7 @@ class EditArticleMenu {
         $this->setAnnotate(true);
         $this->setCazy(true);
         $this->setSend(true);
+        $this->setGrade(true);
         $this->setConclude(true);
     }
 
@@ -61,6 +63,9 @@ class EditArticleMenu {
         }
         if($this->Send) {
             $html = $this->writeOne($html, 'Send');
+        }
+        if($this->Grade) {
+            $html = $this->writeOne($html, 'Grade');
         }
         if($this->Conclude) {
             $html = $this->writeOne($html, 'Conclude');
@@ -137,6 +142,17 @@ class EditArticleMenu {
      */
     public function setSend($value) {
         if (is_bool($value)) { $this->Send = $value; }
+    }
+
+    /**
+     * setGrade is the setter to activate or not the section of the same name.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $value
+     *            boolean value.
+     * @return void
+     */
+    public function setGrade($value) {
+        if (is_bool($value)) { $this->Grade = $value; }
     }
 
     /**

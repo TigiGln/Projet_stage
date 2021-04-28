@@ -4,7 +4,7 @@
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Mon Apr 26 2021
+ * Latest update on Wed Apr 28 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -13,6 +13,7 @@ class MainMenu {
 
     protected $title;
     protected $position; 
+    protected $path;
     //boolean to activate some menu parts
     protected $My_Tasks;
     protected $Open_Tasks;
@@ -29,6 +30,7 @@ class MainMenu {
      */
     public function __construct($position) {
         $this->title = "Outil Biblio";
+        $this->path = "/Projet_stage";
         $this->position = $position;
         $this->setMyTasks(true);
         $this->setOpenTasks(true);
@@ -52,22 +54,22 @@ class MainMenu {
 
         if($this->My_Tasks) {
             if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=to_treat");
+            $html = $this->writeOne($html, 'My_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=to_treat");
         }
         if($this->Open_Tasks) {
             if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=undefined");
+            $html = $this->writeOne($html, 'Open_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=undefined");
         }
         if($this->Processed_Tasks) {
             if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=treat");
+            $html = $this->writeOne($html, 'Processed_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=treat");
         }
         if($this->Rejected_Tasks) {
             if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=reject");
+            $html = $this->writeOne($html, 'Rejected_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=reject");
         }
         if($this->Insertion) {
-            $html = $this->writeOne($html, 'Insertion', '/Projet_stage/insertion/form.php', "");
+            $html = $this->writeOne($html, 'Insertion', $this->path.'/insertion/form.php', "");
         }
 
         $html = $html . '</ul>
