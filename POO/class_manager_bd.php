@@ -89,7 +89,8 @@
 
             return $article_list;
         }
-        public function update($num_access, $fields, $status, $table)//permet de mettre à jour certaine colonnes de la table
+        //fonction de mise à jour des données par le num_access
+        public function update($num_access, $fields, $status, $table)
         {
             // Prépare une requête de type UPDATE.
             // Assignation des valeurs à la requête.
@@ -99,11 +100,18 @@
             $requete->bindValue(":status", $status);
             $requete->execute();
             
-            return empty($res->fetch(PDO::FETCH_ASSOC));
 
         }
+        //fonction pour récupérer les différents statuts
         public function search_enum_fields($table, $fields)
         {
+            /*$requete1 = $this->db->prepare("SHOW COLUMNS FROM article LIKE 'status'");
+            $requete1->execute();
+            $donnees = $requete1->fetchAll();
+            $type = substr($donnees[0]['Type'], 6, -2);
+            $liste_type = explode( "','", $type );
+            $list_statut_present = array_values($liste_type);*/
+
             $requete = $this->db->prepare("SELECT DISTINCT $fields FROM $table");
             $requete->execute();
             $list_statut_present = [];
@@ -114,7 +122,7 @@
             
             return $list_statut_present;
         }
-
+        //permet de récupérer la connexion à la base de données
         public function setDb(PDO $db)
         {
             $this->db = $db;
