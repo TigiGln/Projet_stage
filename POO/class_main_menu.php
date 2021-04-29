@@ -4,7 +4,7 @@
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Wed Apr 28 2021
+ * Latest update on Tue Apr 29 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -39,19 +39,12 @@ class MainMenu {
         $this->setInsertion(true);
     }
 
-    
     /**
-     * write function will echo the menu's html for each active sections
+     * writeSubMenus function will add the menu's subMenus that are activated in the given variable and return it.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-     * @return void
+     * @return $html
      */
-    public function write() {
-        $html = '<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 16em; height: 100vh;">
-                    <div class="col-md-auto">
-                        <img src="/pictures/logo_small-top.png" width="30">
-                        <span class="fs-5">'.$this->title.'</span></div><hr>
-                        <ul class="nav nav-pills flex-column mb-auto">';
-
+    public function writeSubMenus($html) {
         if($this->My_Tasks) {
             if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
             $html = $this->writeOne($html, 'My_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=to_treat");
@@ -71,8 +64,84 @@ class MainMenu {
         if($this->Insertion) {
             $html = $this->writeOne($html, 'Insertion', $this->path.'/insertion/form.php', "");
         }
+        return $html;
+    }
 
-        $html = $html . '</ul>
+    
+    /**
+     * write function will echo the menu's html for each active sections
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return void
+     */
+    public function write() {
+        $html = '
+                <button type="button" class="sticky-top btn btn-info align-middle text-white" data-bs-toggle="offcanvas" data-bs-target="#mainMenu" role="button">
+                    <p data-bs-toggle="offcanvas" data-bs-target="#mainMenu" style="height: 95vh; display: table-cell; vertical-align: middle;">&#9776;</p>
+                </button>
+                <div class="menu offcanvas offcanvas-start" tabindex="-1" id="mainMenu" data-bs-keyboard="false" data-bs-backdrop="false" width: 15em;>
+                    <div class="offcanvas-header">
+                        <div class="offcanvas-title col-md-auto">
+                            <img src="/pictures/logo_small-top.png" width="30">
+                            <span class="fs-5">'.$this->title.'</span>
+                        </div>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#mainMenu"></button>
+                    </div>
+                    <hr>
+                    <div class="offcanvas-body">
+                        <ul class="nav nav-pills flex-column mb-auto">';
+        $html = $this->writeSubMenus($html) . '</ul></div>
+                          <div class="row justify-content-center">
+                            <div class="col col-md-auto">
+                              <a href="http://www.afmb.univ-mrs.fr" target="_blank">
+                                <img src="/pictures/logo_afmb.png" width="50" height="50">
+                              </a>
+                            </div>
+                            <div class="col col-md-auto">
+                              <a href="https://www.cea.fr/Pages/le-cea/les-centres-cea/cadarache.aspx" target="_blank">
+                                <img src="/pictures/logo_cea.png" width="50" height="50">
+                              </a>
+                            </div>
+                          </div>
+                          <hr>
+                          <div>
+                            <div class="row justify-content-start m-1 p-1">
+                              <div class="col-md-auto">
+                                <!-- Disconenct Button -->
+                                <form action="/disconnect.php" method="post">
+                                  <button class="btn btn-outline-danger" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
+                                      <path d="M7.5 1v7h1V1h-1z"></path>
+                                      <path d="M3 8.812a4.999 4.999 0 0 1 2.578-4.375l-.485-.874A6 6 0 1 0 11 3.616l-.501.865A5 5 0 1 1 3 8.812z"></path>
+                                    </svg>
+                                  </button>
+                                </form>
+                              </div>
+                              <div class="col-md-auto mt-1">
+                                <strong>'.$_SESSION['connexion'].'</strong>
+                              </div>
+                            </div>
+                            <br>
+                          </div>
+                        </div>
+                    </div>';
+
+        //echo final html string
+        echo $html;
+    }
+
+    /**
+     * writeLegacy function will echo the menu's html for each active sections
+     * This is an older menu, that is always showed.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return void
+     */
+    public function writeLegacy() {
+        $html = '<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 16em; height: 100vh;">
+                    <div class="col-md-auto">
+                        <img src="/pictures/logo_small-top.png" width="30">
+                        <span class="fs-5">'.$this->title.'</span></div><hr>
+                        <ul class="nav nav-pills flex-column mb-auto">';
+        $html = $this->writeSubMenus($html) . '</ul>
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
                               <a href="http://www.afmb.univ-mrs.fr" target="_blank">
@@ -108,7 +177,6 @@ class MainMenu {
         //echo final html string
         echo $html;
     }
-
         
     /**
      * writeOne function will write in the given $html string a menu section.
