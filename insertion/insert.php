@@ -24,6 +24,7 @@
             #echo "<p></p>";
             
             $manager = new Manager($_SESSION["connexionbd"]->pdo);
+            echo '<div class="p-4 w-100 overflow-auto" style="height: 100vh;">';
             foreach ($_GET["check"] as $value)
             {
                 
@@ -42,6 +43,7 @@
                     }
                 }
             }
+            echo '</div>';
         }
         
         
