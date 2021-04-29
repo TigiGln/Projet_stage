@@ -97,7 +97,6 @@ function gradeUpdateDB(grade) {
   http.onreadystatechange = function() {
     if (http.readyState === 4) {
         if (http.status === 200) {
-          console.log(this.response);
           console.log(logHeaderGradeInteractions+' Validate successfully with status code: '+this.status);
         } else {
           console.log(logHeaderGradeInteractionss+' Validate failed with status code: ');

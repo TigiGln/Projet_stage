@@ -42,7 +42,5 @@
 		$res = $manager->updateSpecific($cols, $conditions, "notes");
 	}
 
-	echo json_encode($res); 
-	
 	http_response_code(200);	
 ?>

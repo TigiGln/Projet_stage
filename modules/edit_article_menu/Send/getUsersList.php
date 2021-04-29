@@ -20,7 +20,9 @@
 	$conditions = array();
 
 	$res = $manager->getSpecific($cols, $conditions, "user");
+	if(empty($res)) { http_response_code(404); }
+	else {
 	echo json_encode($res); 
-	
-	http_response_code(200);	
+	http_response_code(200);
+	}
 ?>

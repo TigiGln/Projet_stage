@@ -1,6 +1,6 @@
 /*
  * Created on Fri Apr 23 2021
-	* Latest update on Wed Apr 28 2021
+	* Latest update on Thu Apr 29 2021
  * Info - JS for conclude module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -58,12 +58,13 @@ function sendInteractionsFillUsersList(usersJSON, usersListDOM) {
  * validateSendInteraction function that will tell the server the new user to which gives the article.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  * @param {*} id 
- *            The ID of the article in the database.
+ *            The num_access of the article in the database.
  * @fires XMLHttpRequest
  */
 function validateSendInteraction(id) {
   /* Prepare request */
   let newUser = document.getElementById("sendTo").value;
+  newUser = document.querySelector('option[value="' + newUser + '"]').dataset.id;
   let url = "./modules/edit_article_menu/Send/validate.php";
   let params = "ID="+encodeURIComponent(id)+"&newUser="+encodeURIComponent(newUser);
   console.log(logHeaderSendInteractions+" Send send with parameters: "+params);
