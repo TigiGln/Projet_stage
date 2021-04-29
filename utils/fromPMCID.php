@@ -4,8 +4,10 @@
      * fromPMCID 
      * 
      * Created on Fri Apr 16 2021
-     * Latest update on Mon Apr 26 2021
+     * Latest update on Tue Apr 29 2021
      * Info - PHP script to retrieve and echo using articles from PMCID using CURL
+     * Usage example: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307&title&authors&content&references
+     * Usage example: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307
      * ---------------------------------
      * CLASSES AND IDS OF PMID ARTICLES
      * Depending of versions (dates) of the article, often the name changed, as for classes or ids of articles.
@@ -30,7 +32,21 @@
         </div>';
         exit(10);
     }
+    //Parsing
     $PMCID = $_GET['PMCID'];
+    $isTitle = false;
+    $isAuthors = false;
+    $isContent = false;
+    $isReferences = false;
+    if(!isset($_GET['title']) && !isset($_GET['authors']) && !isset($_GET['content']) && !isset($_GET['references'])) {
+        $isTitle = true; $isAuthors = true; $isContent = true; $isReferences = true;
+    } else {
+        if(isset($_GET['title'])) { $isTitle = true;}
+        if(isset($_GET['authors'])) { $isAuthors = true;}
+        if(isset($_GET['content'])) { $isContent = true;}
+        if(isset($_GET['references'])) { $isReferences = true;}
+    }
+
     $url = 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'.$PMCID.'/';
     //Get Curl data
     $req = curl_init($url);
@@ -114,10 +130,8 @@
     $content = str_replace('<div', '<span', $content); $content = str_replace('div>', 'span>', $content);
     //$courtesy = str_replace('<div', '<span', $courtesy); $courtesy = str_replace('div>', 'span>', $courtesy);
     //Echos
-    echo $title . '<br>';
-    echo $authors . '<br>';
-    //echo $keywords . '<br>'
-    echo $content . '<br>';
-    echo $references . '<br>';
-    //echo $courtesy . '<br>';
+    if($isTitle) { echo $title . '<br>'; }
+    if($isAuthors) { echo $authors . '<br>'; }
+    if($isContent) { echo $content . '<br>'; }
+    if($isReferences) { echo $references . '<br>'; }
 ?>
