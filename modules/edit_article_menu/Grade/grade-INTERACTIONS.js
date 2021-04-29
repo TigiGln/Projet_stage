@@ -1,6 +1,6 @@
 /*
  * Created on Web Apr 28 2021
- * Latest update on Web Apr 28 2021
+ * Latest update on Tue Apr 29 2021
  * Info - JS for grade module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -44,24 +44,25 @@ function initGradeInteractions() {
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  * @fires XMLHttpRequest
  */
-function getUsergrade() {
+ function getUsergrade() {
   let stars = document.querySelectorAll(".rat-star");
   /* Prepare request */
   let header = document.getElementById('notes');
   let id = header.dataset.article;
   let url = "./modules/edit_article_menu/Grade/getUserGrade.php";
-  let params = "?ID="+encodeURIComponent(id);
+  let params = "ID="+encodeURIComponent(id);
   console.log(logHeaderGradeInteractions+" Request user grade for article: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();
-  http.open("GET", url, true);
+  http.open("GET", url+"?"+params, true);
   http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  http.send(params);
+  http.send(null);
   /* Handle request results */
   http.onreadystatechange = function() {
     if (http.readyState === 4) {
         if (http.status === 200) {
-          let value = JSON.parse(this.response)['notes'];
+          console.log(this.response);
+          let value = JSON.parse(this.response)[0]['notes'] - 1;
           gradeResetShapes(stars);
           gradeUpdateShapes(stars, value);
           console.log(logHeaderSendInteractions+' Request users List successfully with status code: '+this.status);
