@@ -6,8 +6,9 @@
      * Created on Fri Apr 16 2021
      * Latest update on Tue Apr 29 2021
      * Info - PHP script to retrieve and echo using articles from PMCID using CURL
-     * Usage example: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307&title&authors&content&references
-     * Usage example: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307
+     * Usage example specific: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307&title&authors&content&references
+     * Usage example return whole content: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307
+     * Usage example echo whole content: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307?print
      * ---------------------------------
      * CLASSES AND IDS OF PMID ARTICLES
      * Depending of versions (dates) of the article, often the name changed, as for classes or ids of articles.
@@ -38,6 +39,7 @@
     $isAuthors = false;
     $isContent = false;
     $isReferences = false;
+    $isEcho = false;
     if(!isset($_GET['title']) && !isset($_GET['authors']) && !isset($_GET['content']) && !isset($_GET['references'])) {
         $isTitle = true; $isAuthors = true; $isContent = true; $isReferences = true;
     } else {
@@ -46,6 +48,7 @@
         if(isset($_GET['content'])) { $isContent = true;}
         if(isset($_GET['references'])) { $isReferences = true;}
     }
+    if(isset($_GET['print'])) { $isEcho = true;}
 
     $url = 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'.$PMCID.'/';
     //Get Curl data
@@ -130,8 +133,11 @@
     $content = str_replace('<div', '<span', $content); $content = str_replace('div>', 'span>', $content);
     //$courtesy = str_replace('<div', '<span', $courtesy); $courtesy = str_replace('div>', 'span>', $courtesy);
     //Echos
-    if($isTitle) { echo $title . '<br>'; }
-    if($isAuthors) { echo $authors . '<br>'; }
-    if($isContent) { echo $content . '<br>'; }
-    if($isReferences) { echo $references . '<br>'; }
+    $echo = "";
+    if($isTitle) { $echo = $echo . $title . '<br>'; }
+    if($isAuthors) { $echo = $echo . $authors . '<br>'; }
+    if($isContent) { $echo = $echo . $content . '<br>'; }
+    if($isReferences) { $echo = $echo . $references . '<br>'; }
+    if($isEcho) { echo $echo; }
+    else { return $echo; }
 ?>
