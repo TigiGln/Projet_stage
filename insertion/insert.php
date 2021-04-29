@@ -7,7 +7,7 @@
     require "requete.php";
 ?>
 <?php
-    include('../views/header.html');
+    include('../views/header.php');
     #$_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu('Insertion');
     $menu->write();
@@ -46,7 +46,6 @@
         
         
     }
-    session_destroy();
 ?>
 <?php      
     include('../views/footer.html');

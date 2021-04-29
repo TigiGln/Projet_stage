@@ -5,8 +5,8 @@
     require "function.php";
 ?>
 <?php
-    include('../views/header.html');
-    $menu = new mainMenu($_GET['status']);
+    include('../views/header.php');
+    $menu = new mainMenu('My_Tasks');
     $menu->write();
 ?>
 <?php
@@ -40,5 +40,4 @@
 ?>
 <?php      
     include('../views/footer.html');
-    session_destroy();
 ?>

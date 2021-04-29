@@ -7,7 +7,7 @@
     require "requete.php";
 ?>
 <?php
-    include('../views/header.html');
+    include('../views/header.php');
     #$_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu('Insertion');
     $menu->write();
@@ -15,7 +15,7 @@
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
             
-            $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
+            $connexionbd = new ConnexionDB("localhost", "stage", "root", "");
             $_SESSION["connexionbd"] = $connexionbd;
             #include("../POO/start_session.php");
             $pmid = "";
@@ -68,7 +68,8 @@
             }*/
             if (!empty($listpmid))
             {
-                echo "<h1>Table of our research</h1>";
+                echo '<div class="p-4 w-100 overflow-auto" style="height: 100vh;">';
+                echo "<h1>Insertion Request Results: </h1><br>";
                 $global_check = "<input type='checkbox' name = 'global_check' onclick = 'check(this)'>";
                 echo "<table>\n<tr><th>PMID</th><th>Title</th><th>" . $global_check . "</th></tr>\n";
                 $i = 0;
@@ -89,13 +90,13 @@
                         $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid);
                         $list_objects[$num_access] = $object_article;
                         $check = "<input type='checkbox' name='check[]' value= '" . $object_article . "'>\n";
-                        $survol = '<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . "\">\n";
+                        $survol = '<a class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . "\">\n";
                         echo "<tr><td>" .  $object_article->num_access() . "</td>\n<td>" . $survol . trim($object_article->title()) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
                     }
                     $i++;
                 }
                 echo "</table>";
-                echo "<p><input type='submit' value='Insert'></p>";
+                echo "<p><input type='submit' value='Insert'></p></div>";
 
             }
             else
@@ -107,6 +108,7 @@
             $_SESSION["list_articles"] = $list_objects;
             #var_dump($_SESSION["liste"]);
         ?>
+    </form>
 <?php      
     include('../views/footer.html');
 ?>
