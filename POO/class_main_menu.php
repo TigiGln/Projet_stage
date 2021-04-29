@@ -46,20 +46,20 @@ class MainMenu {
      */
     public function writeSubMenus($html) {
         if($this->My_Tasks) {
-            if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=to_treat");
+            if ($this->position == "2") { $this->position = "My_Tasks"; }
+            $html = $this->writeOne($html, 'My_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=2");
         }
         if($this->Open_Tasks) {
-            if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=undefined");
+            if ($this->position == "1") { $this->position = "Open_Tasks"; }
+            $html = $this->writeOne($html, 'Open_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=1");
         }
         if($this->Processed_Tasks) {
-            if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=treat");
+            if ($this->position == "3") { $this->position = "Processed_Tasks"; }
+            $html = $this->writeOne($html, 'Processed_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=3");
         }
         if($this->Rejected_Tasks) {
-            if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=reject");
+            if ($this->position == "4") { $this->position = "Rejected_Tasks"; }
+            $html = $this->writeOne($html, 'Rejected_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=4");
         }
         if($this->Insertion) {
             $html = $this->writeOne($html, 'Insertion', $this->path.'/insertion/form.php', "");
@@ -88,7 +88,7 @@ class MainMenu {
                     </div>
                     <hr>
                     <div class="offcanvas-body">
-                        <ul class="nav nav-pills flex-column mb-auto">';
+                        <ul id="subMenu" class="nav nav-pills flex-column mb-auto">';
         $html = $this->writeSubMenus($html) . '</ul></div>
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
@@ -140,7 +140,7 @@ class MainMenu {
                     <div class="col-md-auto">
                         <img src="/pictures/logo_small-top.png" width="30">
                         <span class="fs-5">'.$this->title.'</span></div><hr>
-                        <ul class="nav nav-pills flex-column mb-auto">';
+                        <ul id="subMenu" class="nav nav-pills flex-column mb-auto">';
         $html = $this->writeSubMenus($html) . '</ul>
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
