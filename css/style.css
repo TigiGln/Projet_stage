@@ -12,7 +12,7 @@ body {
   height: -webkit-fill-available;
 }
 
-.menu .active {
+.menu .active{
     background-color: #56b9c7 !important;
 }
 
