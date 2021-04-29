@@ -12,7 +12,7 @@ require('./POO/class_edit_article_menu.php');
 ?>
 
 <?php
-include('./views/header.html');
+include('./views/header.php');
 //Menu
 (new mainMenu('My_Tasks'))->write();
 ?>
