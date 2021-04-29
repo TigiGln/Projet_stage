@@ -97,13 +97,17 @@
             $requete = $this->db->prepare("UPDATE $table SET $fields = :status WHERE num_access = $num_access");
             
             $requete->bindValue(":status", $status);
-            $requete->execute();
+            $res = $requete->execute();
             
-            return empty($requete->fetch(PDO::FETCH_ASSOC));
-
+            return $res;
         }
         public function search_enum_fields($table, $fields)
         {
+            /*$requete1 = $this->db->prepare("SHOW COLUMNS FROM article LIKE 'status'");
+            $requete1->execute();
+            $type = substr($donnees[0]['Type'], 6, -2);
+            $liste_type = explode( "','", $type);
+            $list_statut_present = array_values($liste_type);*/
             $requete = $this->db->prepare("SELECT DISTINCT $fields FROM $table");
             $requete->execute();
             $list_statut_present = [];
