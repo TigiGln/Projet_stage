@@ -6,6 +6,7 @@ var changeSelect;
 if (textarea.value == "")
 {
     submit.setAttribute('disabled', true);
+    textarea.setAttribute('disabled', true);
 }
 
 function disabledSubmit(booleen)
@@ -23,12 +24,14 @@ function disabledSubmit(booleen)
 select.addEventListener('input', function(e)
 {
     changeSelect = e.target.value;
+    textarea.removeAttribute('disabled');
+    
 });
 textarea.addEventListener('input', function(e)
 {
     if (changeSelect == 'PMID')
     {
-        if(/^[0-9]+$/.test(e.target.value))
+        if(/^[0-9\n\r]+$/.test(e.target.value))
         {
             disabledSubmit(false);
         }

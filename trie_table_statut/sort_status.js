@@ -9,16 +9,16 @@ function changeStatus(numSelect)
         if (line.id == lineTable.id)//si correspond à la ligne dont le statut est modifié alors
         {
             //
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
+            xhttp = new XMLHttpRequest(); //création de l'objet de requête pour accéder aux script php
+            xhttp.onreadystatechange = function() //action HTML pour le changement d'état
+            {
                 if (this.readyState == 4 && this.status == 200) 
                 {
                     document.getElementsByTagName('table')[0].deleteRow(line.rowIndex)//tu supprime la ligne selon son index
                 }
             };
-            console.log("update2.php?status=" + numSelect.value + "id=" + numSelect.id)
-            xhttp.open("GET", "update2.php?status=" + numSelect.value + "&id=" + numSelect.id, true);
-            xhttp.send(); 
+            xhttp.open("GET", "update2.php?status=" + numSelect.value + "&id=" + numSelect.id, true);//ouverture de la requête du script php
+            xhttp.send(); //lancement de la requête
         }
     }
 }

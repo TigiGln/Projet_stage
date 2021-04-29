@@ -5,9 +5,9 @@
     require "function.php";
 ?>
 <?php
-    include('../views/header.php');
-    $menu = new mainMenu('My Tasks');
-    $menu->write();
+    include('../views/header.php');//j'inclus le header
+    $menu = new mainMenu('My Tasks');//création du de l'objet menu
+    $menu->write();//écriture des différents éléments du menu
 ?>
 <?php
     $manager = new Manager($_SESSION["connexionbd"]->pdo);#création de l'objet permettant d'agir sur la base de données
@@ -18,11 +18,11 @@
 
 
     echo "<div class='p-4 w-100'>";
-    search_table_status($_SESSION['status_page']);
+    search_table_status($_SESSION['status_page']); // rechargement de la table
     #header('Location:page_table.php?status=' . $_SESSION['status_page']);
     echo "</div>";
 ?>
 <?php      
-    include('../views/footer.html');
+    include('../views/footer.html');//j'inclus le footer
     session_destroy();
 ?>
