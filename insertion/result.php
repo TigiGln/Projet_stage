@@ -17,6 +17,9 @@
             //connexion base de donnée
             $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
             $_SESSION["connexionbd"] = $connexionbd;
+            
+            $manager = new Manager($_SESSION["connexionbd"]->pdo);//création de l'objet de requete
+            $list_num_access_bd = $manager->get_test('num_access', 'article');//requete sur la base pour récupérer pour récupérer les num_access présent
             #include("../POO/start_session.php");
             $pmid = "";
             $listpmid = [];
@@ -25,9 +28,14 @@
             {
                 if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "DOI")#condition selon le choix de la liste déroulante
                 {
-                    $pmid = strip_tags($_GET["textarea"]);
-                    $listpmid = explode("\n", $pmid);//création de la liste de PMID ou DOI pour la requête
-                    #var_dump($listpmid);          
+                    $pmid = $_GET["textarea"];
+                    $listpmid1 = explode("\n", str_replace("\r\n", "\n", $pmid));//création de la liste de PMID ou DOI pour la requête
+                    $listpmid1 = array_unique($listpmid1);
+                    foreach($listpmid1 as $item)
+                    {
+                        $listpmid[] = $item;
+                    }
+                       
                 }
                 elseif ($_GET["list_query"] == "Author" OR $_GET["list_query"] == "Title")#condition selon le choix de la liste déroulante
                 {
@@ -74,8 +82,8 @@
                 $i = 0;
                 while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
                 {
-                    $id = $listpmid[$i];
-                    $output = search($id);
+                    //$id = $listpmid[$i];
+                    $output = search($listpmid, $i);
                     $list_info = recovery($output);
                     if (!empty($list_info))
                     {
@@ -107,7 +115,11 @@
             }
             $_SESSION["list_articles"] = $list_objects;
             #var_dump($_SESSION["liste"]);
+
         ?>
+        <script>
+            var listNumAccessDb = <?php echo json_encode($list_num_access_bd); ?>;
+        </script>
     <script src="./modif_table_requete.js"></script> 
 <?php
          

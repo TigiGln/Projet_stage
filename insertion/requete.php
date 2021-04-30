@@ -1,7 +1,8 @@
 <?php
 //fonction pour récupérer le fichier xml de l'article
-function search($id)
+function search($listpmid, $i)
 {
+    $id = trim($listpmid[$i]);
     $base = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&usehistory=y&term=';
     $search = file_get_contents($base.$id);
     $search = new SimpleXMLElement($search);

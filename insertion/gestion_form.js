@@ -38,7 +38,7 @@
     {
         if (changeSelect == 'PMID')
         {
-            if(/^[0-9\n]+$/.test(e.target.value))
+            if(/^[0-9\n\r]+$/.test(e.target.value))
             {
                 disabledSubmit(false);
             }

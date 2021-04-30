@@ -71,7 +71,18 @@
             }
             
         }
-        public function get($fields, $value, $table)//Récupérer les éléments correspondant à la requête
+        public function get_test($columns, $table)
+        {
+            $list_elements = [];
+            $requete = $this->db->prepare("SELECT $columns FROM $table");
+            $requete->execute();
+            while($data = $requete->fetch(PDO::FETCH_ASSOC))
+            {
+                $list_elements[] = $data ["num_access"];
+            }
+            return $list_elements;
+        }
+        public function get($fields, $value, $table)//Récupérer l'élément correspondant à la requête
         {
             $requete = $this->db->prepare("SELECT * FROM $table WHERE " . $fields . " = ?");
             $requete->execute(array(htmlspecialchars($value)));
