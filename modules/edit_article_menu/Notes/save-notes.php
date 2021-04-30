@@ -8,6 +8,7 @@
 	*/
 
 	session_start();
+	require("../../../POO/class_saveload_strategies.php");
 	/* Parse Request Parameters */
 	$file = "./notes.xml";
 	$ID = "ID".$_POST["ID"];
@@ -17,29 +18,8 @@
 	$tag = "author";
 	
 	/* Handle Notes Saving */
-	if(file_exists($file)) {
-		$xml = simplexml_load_file($file);
-		if(!isset($xml->$ID)) { $xml->addChild($ID, " "); }
-		//Check if node exist, if yes update the node
-		$didExist = false;
-		foreach ($xml->$ID->{$tag} as $note) {
-			$atr = $note->attributes();
-			if($atr == $user) {
-				$didExist = true;
-				$note->date = $date;
-				$note->content = $content;
-			}
-		}
-		//If no, create a node
-		if(!$didExist) {
-			$userNode = $xml->$ID->addChild($tag,'');
-			$userNode->addAttribute("name", $user);
-			$userNode->addChild("date", $date);
-			$userNode->addChild("content", rawurlencode($content));
-		} 
-		
-		$save = $xml->saveXML($file);
-		($save != false) ? http_response_code(200) : http_response_code(424);
-	} else { http_response_code(404); }
+	$datas = array($ID, array(array("author", "name", $user), array(array("date", $date), array("content", rawurlencode($content)))));
+	$save = new SaveLoadStrategies("../../../POO/");
+	http_response_code($save->saveAsXML("./notes.xml", $datas, true));
 ?>
 
