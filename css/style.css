@@ -41,7 +41,7 @@ fieldset {
 }
 */
 
-/* insertion reuslt temp */
+/* insertion result temp */
     #insertion
     {
       margin-right: 50px;
@@ -66,6 +66,7 @@ fieldset {
       border: 1px black solid;
       padding:0px 50px;
       text-align: center;
+      
     }
     table
     {
@@ -78,10 +79,11 @@ fieldset {
 .article-notes {
   height: 100vh;
   height: -webkit-fill-available;
+  
 }
 
 .article-notes-title {
-  color: #56b9c7 !important;
+  color: #2714d4 !important;
 }
 
 /* insertion */

@@ -29,12 +29,9 @@
                 if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "DOI")#condition selon le choix de la liste déroulante
                 {
                     $pmid = $_GET["textarea"];
-                    $listpmid1 = explode("\n", str_replace("\r\n", "\n", $pmid));//création de la liste de PMID ou DOI pour la requête
-                    $listpmid1 = array_unique($listpmid1);
-                    foreach($listpmid1 as $item)
-                    {
-                        $listpmid[] = $item;
-                    }
+                    $listpmid = explode("\n", str_replace("\r\n", "\n", $pmid));//création de la liste de PMID ou DOI pour la requête
+                    $listpmid = array_values(array_unique($listpmid));
+                    //var_dump($listpmid);
                        
                 }
                 elseif ($_GET["list_query"] == "Author" OR $_GET["list_query"] == "Title")#condition selon le choix de la liste déroulante

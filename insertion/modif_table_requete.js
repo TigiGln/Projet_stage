@@ -7,10 +7,13 @@ function changeColorLigne()
     var tableRowLength = tableRow.length;
     var checks = document.getElementsByClassName('check');
     var listNumAccess = [];
+    var title = document.getElementsByClassName('note');
     for(var i=1; i<tableRowLength; i++)
     {
-        tableCells1 = tableRow[i].cells;
-        listNumAccess.push(tableCells1[0].innerHTML)
+        tableCells = tableRow[i].cells;
+        listNumAccess.push(tableCells[0].innerHTML);
+        console.log(i);
+        title[i-1].style.color = 'black';
 
     }
     listAccessDb = Object.values(listNumAccessDb);
@@ -19,7 +22,7 @@ function changeColorLigne()
         var indexNumAccess = listNumAccess.indexOf(numAccess) ;
         if (indexNumAccess !== -1)
         {
-            tableRow[indexNumAccess + 1].style.background = "yellow";
+            tableRow[indexNumAccess + 1].style.background = "#A9A9A9";
             checks[indexNumAccess].setAttribute('disabled', true);
             //checks[indexNumAccess].style.display = 'none';
         }
