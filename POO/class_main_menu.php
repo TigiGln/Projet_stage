@@ -4,7 +4,7 @@
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Tue Apr 29 2021
+ * Latest update on Fri Apr 30 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -74,11 +74,11 @@ class MainMenu {
      * @return void
      */
     public function write() {
-        $html = '
-                <button type="button" class="sticky-top btn btn-info align-middle text-white" data-bs-toggle="offcanvas" data-bs-target="#mainMenu" role="button">
-                    <p data-bs-toggle="offcanvas" data-bs-target="#mainMenu" style="height: 95vh; display: table-cell; vertical-align: middle;">&#9776;</p>
+        $html = '<div>
+                <button type="button" class="btn btn-info align-middle text-white" data-bs-toggle="offcanvas" data-bs-target="#mainMenu" role="button" style="height: 100vh;">
+                    <p data-bs-toggle="offcanvas" data-bs-target="#mainMenu">&#9776;</p>
                 </button>
-                <div class="menu offcanvas offcanvas-start" tabindex="-1" id="mainMenu" data-bs-keyboard="false" data-bs-backdrop="false" width: 15em;>
+                <div class="menu offcanvas offcanvas-start d-flex flex-column" tabindex="-1" id="mainMenu" data-bs-keyboard="false" data-bs-backdrop="false" width: 15em;>
                     <div class="offcanvas-header">
                         <div class="offcanvas-title col-md-auto">
                             <img src="/pictures/logo_small-top.png" width="30">
@@ -123,7 +123,7 @@ class MainMenu {
                             <br>
                           </div>
                         </div>
-                    </div>';
+                    </div></div>';
 
         //echo final html string
         echo $html;
