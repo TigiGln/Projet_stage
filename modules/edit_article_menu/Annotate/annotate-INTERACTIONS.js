@@ -1,6 +1,6 @@
 /*
  * Created on Mon Apr 19 2021
- * Latest update on Mon Apr 26 2021
+ * Latest update on Fri Apr 30 2021
  * Info - JS for annotate module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -142,7 +142,7 @@ function updateArticle(id, date, author, color, text, comment) {
   article = document.getElementById("article").innerHTML;
   /* Prepare request */
   let url = "./modules/edit_article_menu/Annotate/save-article.php";
-  let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id);
+  let params = "ID="+encodeURIComponent(id)+"&ARTICLE="+encodeURIComponent(article);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();
