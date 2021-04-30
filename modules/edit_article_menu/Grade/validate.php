@@ -1,7 +1,7 @@
 <?php
 	/*
 	* Created on Wed Apr 28 2021
-	* Latest update on Wed Apr 28 2021
+	* Latest update on Fri Apr 30 2021
 	* Info - PHP for grade module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/

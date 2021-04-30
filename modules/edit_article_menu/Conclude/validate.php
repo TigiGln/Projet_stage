@@ -17,7 +17,7 @@
     $connexionbd = new ConnexionDB("localhost", "stage", "root", "");
     $_SESSION["connexionbd"] = $connexionbd;
 	$manager = new Manager($_SESSION["connexionbd"]->pdo);
-	if(!$manager->get_exist("id_article", $ID, "article")) { http_response_code(404); }
+	if(!$manager->get_exist("num_access", $ID, "article")) { http_response_code(404); }
 	$res = $manager->update($ID, 'status', $status, 'article');
 	($res) ? http_response_code(200) : http_response_code(520);
 	echo http_response_code();
