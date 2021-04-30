@@ -71,7 +71,7 @@ class EditArticleMenu {
             $html = $this->writeOne($html, 'Conclude');
         }
 
-        $html = $html . '</div></div>';
+        $html = $html . '</div></div></div>';
 
         //echo final html string
         echo $html;

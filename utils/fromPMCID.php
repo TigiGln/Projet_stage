@@ -18,7 +18,7 @@
      * List of authors: contrib-group (contrib-group fm-author)
      * Associated data: ass-data
      * Abstract: absX, (first) idmXXXXXX [We will use idm]
-     * Artile sections: sX, secX, __secX, [We will use secX]
+     * Artile sections: sX, secX, __secX, [We will use sX]
      * Supplementary materials: sd
      * References: (ref-list-sec sec, id: reference-list) [no need to change, since it is common everywhere]
      * ---------------------------------
@@ -81,8 +81,8 @@
     $res = str_replace('id="Abs', 'id="idm', $res);
     $res = str_replace('id="abs', 'id="idm', $res);
     //Sections
-    $res = str_replace('id="s', 'id="sec', $res);
-    $res = str_replace('id="__sec', 'id="sec', $res);
+    $res = str_replace('id="sec', 'id="s', $res);
+    $res = str_replace('id="__sec', 'id="s', $res);
     //Step 3: Find content
     /*
         * Match the correct portion thanks to id and classes reffered in the taxonomy

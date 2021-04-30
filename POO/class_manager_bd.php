@@ -34,11 +34,6 @@
                 echo "\nPDO::errorInfo():\n";
                 print_r($db->errorInfo());
             }
-            //Ajout de l'HTML/XML du PMCID correspondant:
-            if(null != $article->pmcid()) {
-                $this->addHTMLXMLByPMCID($article->num_access(), $article->pmcid());
-            }
-            
         }
 
         public function add_form($protocol, $list, $table) //insertion grâce au information d'un formulaire
@@ -245,7 +240,7 @@
         public function addHTMLXMLByPMCID($num_access, $pmcid) {
             $pmcid = str_replace("PMC", "", $pmcid);
             $_GET['PMCID'] = $pmcid;
-            $url = '../utils/fromPMCID.php';
+            $url = './utils/fromPMCID.php';
             $data = include($url);
             $this->update($num_access, "html_xml", $data, "article");
         }
