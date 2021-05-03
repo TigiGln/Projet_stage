@@ -4,25 +4,15 @@
  * SaveLoadStrategies
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Fri Apr 30 2021
- * Info - PHP Class for different saves strategies
+ * Latest update on Mon May 3 2021
+ * Info - PHP Class for different saves strategies outside database (see class manager for this).
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
 class SaveLoadStrategies {
 
     protected $file;
-    protected $connexionbd;
-    protected $manager;
     
-    /**
-     * __construct
-     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-     * @return void
-     */
-    public function __construct($path) {
-        require($path."/class_connexion.php");
-        require($path."/class_manager_bd.php");
-    }
+    public function __construct($path) {}
 
         
     /**
@@ -73,7 +63,32 @@ class SaveLoadStrategies {
         } else { return 404; }
     }
 
-    public function loadAsXML($file, $ID) {
+    /**
+     * loadAsXML
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $file
+     *            the path to file to save.
+     * @param  mixed ID
+     *            article ID.
+     * @param  mixed PRIMARYTAGDATA
+     *            the name of the primary tag, the one right after IDXXX in the xml hierarchy.
+     * @param  mixed user
+     *            used to separate user data from other, write null or empty string is you dn't want to separate.
+     * @return http response code 404 if failure, or content of the requested ID in the xml
+     */
+    public function loadAsXML($file, $ID, $PRIMARYTAGDATA, $user) {
+        if(file_exists($file)) {
+            $xml = simplexml_load_file($file);
+            if(!isset($xml->$ID)) { return 400; }
+            $userArray = ["empty"];
+            $othersArray = [];
+            foreach ($xml->$ID->{$PRIMARYTAGDATA} as $primaryTag) {
+                if($primaryTag->attributes() == $user) {
+                    $userArray = [];   array_push($userArray, $primaryTag);
+                } else {   array_push($othersArray, $primaryTag); }
+            }
+            return json_encode(array_merge($userArray, $othersArray));
+        } else { return 404; }
     }
 }
 ?>
