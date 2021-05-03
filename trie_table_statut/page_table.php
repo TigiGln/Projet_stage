@@ -19,7 +19,8 @@
             $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
             $_SESSION["connexionbd"] = $connexionbd;//Enregistrement de la conexxion pour le transfert aux page par variable d'environnement
             $_SESSION['status_page'] = $_GET["status"];#Enregistrement du staut de la page dans une variable de session
-            $list_status_initial = search_table_status($_GET["status"]);#affichage de notre tableau en fonction du statut
+            $_SESSION['user'] = $_GET['user'];
+            $list_status_initial = search_table_status($_GET["status"], $_GET['user']);#affichage de notre tableau en fonction du statut
             $_SESSION['list_status_initial'] = $list_status_initial;#on insère notre liste de statut initial dans une variable d'environnement qui suit tous le long de la session.
         ?>
     </div>

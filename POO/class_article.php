@@ -9,11 +9,11 @@
         protected $journal;
         protected $pmcid;
         protected $status;
-        #protected $authors;
+        protected $authors;
         
         
 
-        public function __construct($num_access, $title, $abstract, $year, $journal, $pmcid, $origin = "pubmed", $status = '1')
+        public function __construct($num_access, $title, $abstract, $year, $journal, $pmcid, $authors, $origin = "pubmed", $status = '1')
         {
             #echo "<p>Création d'un objet Article</p>";
             $this->setOrigin($origin);
@@ -24,7 +24,7 @@
             $this->setJournal($journal);
             $this->setPmcid($pmcid);
             $this->setStatus($status);
-            #$this->setAuthors($authors);
+            $this->setAuthors($authors);
         }
         //Les fonctions getters
         public function origin()
@@ -60,10 +60,10 @@
         {
             return $this->status;
         }
-        /*public function authors()
+        public function authors()
         {
             return $this->authors;
-        }*/
+        }
 
         //Les fonctions setters
         public function setOrigin($origin)
@@ -122,13 +122,13 @@
                 $this->status = $status;
             }
         }
-        /*public function setAuthors($authors)
+        public function setAuthors($authors)
         {
             if (is_string($authors))
             {
                 $this->authors = $authors;
             }
-        }*/
+        }
         public function __toString()
         {
             return $this->num_access;

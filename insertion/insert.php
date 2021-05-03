@@ -26,12 +26,13 @@
             $manager = new Manager($_SESSION["connexionbd"]->pdo);
             foreach ($_GET["check"] as $value)
             {
-                
-                if (array_key_exists($value, $list_articles))
+                $manager->add($list_articles[$value]);
+                echo "<p>Article N°" . $value . " a bien été ajouté dans la base de données</p>";
+                /*if (array_key_exists($value, $list_articles))
                 {
                     if ($manager->get_exist("num_access" , $list_articles[$value]->num_access(), "article"))
                     {
-		                echo "L'article N°" . $value . " est déjà dans la base";
+		                echo "<p>L'article N°" . $value . " est déjà dans la base</p>";
                     }
                     else
                     {
@@ -40,7 +41,7 @@
                         echo "<p>Article N°" . $value . " a bien été ajouté dans la base de données</p>";
                         #echo $list_articles[$value];
                     }
-                }
+                }*/
             }
         }
         

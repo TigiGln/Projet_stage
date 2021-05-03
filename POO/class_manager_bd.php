@@ -61,14 +61,15 @@
             $requete->execute(array(htmlspecialchars($value)));
             #$requete = $this->db->query("SELECT pmid, doi, pmcid, title, years, abstract, authors, journal, statut FROM Articles WHERE " .  $key . " = " . $id);
             $donnees = $requete->fetch();
-            if (empty($donnees))
+            return empty($donnees);
+            /*if (empty($donnees))
             {
                 return False;
             }
             else
             {
                 return True;
-            }
+            }*/
             
         }
         public function get_test($columns, $table)
@@ -91,30 +92,32 @@
             return $donnees;
 
         }
-        public function get_fields($fields ,$value)//Récupération des lignes filtré par la valeur du champs
+        public function get_fields($table1, $table2, $table3, $champs_status ,$status, $champs_user, $user)//Récupération des lignes filtré par la valeur du champs
         {
-            $requete = $this->db->prepare("SELECT * FROM article WHERE $fields = :valeur");
-            $requete->bindValue(':valeur', $value);
+            //$requete = $this->db->prepare("SELECT * FROM article WHERE $fields = :valeur");
+            $requete = $this->db->prepare("SELECT * FROM $table1 INNER JOIN $table2 ON $table1.status = $table2.id_status INNER JOIN $table3 ON $table1.user = $table3.id_user WHERE $table2.$champs_status = :status AND $table3.$champs_user = :user");
+            $requete->bindValue(':status', $status);
+            $requete->bindValue(':user', $user);
             $requete->execute();
             $article_list = $requete->fetchAll(PDO::FETCH_ASSOC);
 
             return $article_list;
         }
         //fonction de mise à jour des données par le num_access
-        public function update($num_access, $fields, $status, $table)
+        public function update($num_access, $fields, $modif, $table1, $table2)
         {
             // Prépare une requête de type UPDATE.
             // Assignation des valeurs à la requête.
             // Exécution de la requête.
-            $requete = $this->db->prepare("UPDATE $table SET $fields = :status WHERE num_access = $num_access");
-            
-            $requete->bindValue(":status", $status);
+            $requete = $this->db->prepare("UPDATE $table1 SET $table1.$fields = (SELECT id_$table2 FROM $table2  WHERE $table2.name_$table2 = '$modif') WHERE $table1.num_access = $num_access");
+            var_dump($requete);
+            $requete->bindValue(":status", $modif);
             $requete->execute();
             
 
         }
         //fonction pour récupérer les différents statuts
-        public function search_enum_fields($table, $fields)
+        public function search_enum_fields($table1, $table2, $fields, $champs_statut)
         {
             /*$requete1 = $this->db->prepare("SHOW COLUMNS FROM article LIKE 'status'");
             $requete1->execute();
@@ -123,14 +126,15 @@
             $liste_type = explode( "','", $type );
             $list_statut_present = array_values($liste_type);*/
 
-            $requete = $this->db->prepare("SELECT DISTINCT $fields FROM $table");
+            //$requete = $this->db->prepare("SELECT DISTINCT $fields FROM $table");
+            $requete = $this->db->prepare("SELECT DISTINCT $fields FROM $table1 INNER JOIN $table2 ON $table1.id_$table1 = $table2.$champs_statut;");
             $requete->execute();
             $list_statut_present = [];
             while($requete_enum = $requete->fetch(PDO::FETCH_ASSOC))
             {
-                $list_statut_present[] = $requete_enum['status'];
+                $list_statut_present[] = $requete_enum['name_' . $table1];
             }
-            
+        
             return $list_statut_present;
         }
         //permet de récupérer la connexion à la base de données

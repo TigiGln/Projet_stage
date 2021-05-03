@@ -46,25 +46,25 @@ class MainMenu {
     public function write() {
         $html = '<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 16em; height: 100vh;">
                     <div class="col-md-auto">
-                        <img src="/pictures/logo_small-top.png" width="30">
+                        <img src="../pictures/logo_small-top.png" width="30">
                         <span class="fs-5">'.$this->title.'</span></div><hr>
                         <ul class="nav nav-pills flex-column mb-auto">';
 
         if($this->My_Tasks) {
             if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=2");
+            $html = $this->writeOne($html, 'My_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=to_treat&user=Elodie");
         }
         if($this->Open_Tasks) {
             if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=1");
+            $html = $this->writeOne($html, 'Open_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=undefined&user=Elodie");
         }
         if($this->Processed_Tasks) {
             if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=3");
+            $html = $this->writeOne($html, 'Processed_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=treat&user=Elodie");
         }
         if($this->Rejected_Tasks) {
             if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=4");
+            $html = $this->writeOne($html, 'Rejected_Tasks', '/Projet_stage/trie_table_statut/page_table.php', "?status=reject&user=Elodie");
         }
         if($this->Insertion) {
             $html = $this->writeOne($html, 'Insertion', '/Projet_stage/insertion/form.php', "");
@@ -74,12 +74,12 @@ class MainMenu {
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
                               <a href="http://www.afmb.univ-mrs.fr" target="_blank">
-                                <img src="/pictures/logo_afmb.png" width="50" height="50">
+                                <img src="../pictures/logo_afmb.png" width="50" height="50">
                               </a>
                             </div>
                             <div class="col col-md-auto">
                               <a href="https://www.cea.fr/Pages/le-cea/les-centres-cea/cadarache.aspx" target="_blank">
-                                <img src="/pictures/logo_cea.png" width="50" height="50">
+                                <img src="../pictures/logo_cea.png" width="50" height="50">
                               </a>
                             </div>
                           </div>

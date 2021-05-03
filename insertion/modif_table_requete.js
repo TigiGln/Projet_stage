@@ -12,7 +12,6 @@ function changeColorLigne()
     {
         tableCells = tableRow[i].cells;
         listNumAccess.push(tableCells[0].innerHTML);
-        console.log(i);
         title[i-1].style.color = 'black';
 
     }

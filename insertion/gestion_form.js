@@ -50,7 +50,7 @@
         }
         else if (changeSelect == 'ELocationID')
         {
-            if(/^[\n0-9a-z/\.-]+$/.test(e.target.value))
+            if(/^10\.[0-9]{4}\//.test(e.target.value))
             {
                 disabledSubmit(false);
             }

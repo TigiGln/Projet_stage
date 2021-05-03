@@ -14,11 +14,11 @@
     //echo "<pre>";
     //var_dump($_GET);
     //echo "</pre>";
-    $manager->update($_GET['id'], 'status', $_GET['status'], 'article');#mise à jour du statut
+    $manager->update($_GET['id'], $_GET['modif'], $_GET[$_GET['modif']], 'article', $_GET['modif']);#mise à jour du statut
 
 
     echo "<div class='p-4 w-100'>";
-    search_table_status($_SESSION['status_page']); // rechargement de la table
+    search_table_status($_SESSION['status_page'], $_SESSION['user']); // rechargement de la table
     #header('Location:page_table.php?status=' . $_SESSION['status_page']);
     echo "</div>";
 ?>

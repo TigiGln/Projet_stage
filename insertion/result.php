@@ -26,9 +26,9 @@
             $list_objects = [];
             if (isset($_GET["textarea"]) AND $_GET["textarea"] != "")#test l'existence d'un élément dans le textarea
             {
-                if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "DOI")#condition selon le choix de la liste déroulante
+                if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "ELocationID")#condition selon le choix de la liste déroulante
                 {
-                    $pmid = $_GET["textarea"];
+                    $pmid = trim($_GET["textarea"]);
                     $listpmid = explode("\n", str_replace("\r\n", "\n", $pmid));//création de la liste de PMID ou DOI pour la requête
                     $listpmid = array_values(array_unique($listpmid));
                     //var_dump($listpmid);
@@ -92,7 +92,8 @@
                         $abstract = $list_info[5];
                         $authors = $list_info[6];
                         $journal = $list_info[7];
-                        $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid);
+                        $listauthors = $list_info[8];
+                        $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid, $listauthors);
                         $list_objects[$num_access] = $object_article;
                         $check = "<input type='checkbox' class = check name='check[]' id = $num_access value= '" . $object_article . "'>\n";
                         $survol = '<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . "\">\n";
