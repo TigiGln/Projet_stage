@@ -81,7 +81,7 @@ class MainMenu {
                 <div class="menu offcanvas offcanvas-start d-flex flex-column" tabindex="-1" id="mainMenu" data-bs-keyboard="false" data-bs-backdrop="false" width: 15em;>
                     <div class="offcanvas-header">
                         <div class="offcanvas-title col-md-auto">
-                            <img src="/pictures/logo_small-top.png" width="30">
+                            <img src="'.$this->path.'/pictures/logo_small-top.png" width="30">
                             <span class="fs-5">'.$this->title.'</span>
                         </div>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#mainMenu"></button>
@@ -93,12 +93,12 @@ class MainMenu {
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
                               <a href="http://www.afmb.univ-mrs.fr" target="_blank">
-                                <img src="/pictures/logo_afmb.png" width="50" height="50">
+                                <img src="'.$this->path.'/pictures/logo_afmb.png" width="50" height="50">
                               </a>
                             </div>
                             <div class="col col-md-auto">
                               <a href="https://www.cea.fr/Pages/le-cea/les-centres-cea/cadarache.aspx" target="_blank">
-                                <img src="/pictures/logo_cea.png" width="50" height="50">
+                                <img src="'.$this->path.'/pictures/logo_cea.png" width="50" height="50">
                               </a>
                             </div>
                           </div>
@@ -138,19 +138,19 @@ class MainMenu {
     public function writeLegacy() {
         $html = '<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 16em; height: 100vh;">
                     <div class="col-md-auto">
-                        <img src="/pictures/logo_small-top.png" width="30">
+                        <img src="'.$this->path.'/pictures/logo_small-top.png" width="30">
                         <span class="fs-5">'.$this->title.'</span></div><hr>
                         <ul id="subMenu" class="nav nav-pills flex-column mb-auto">';
         $html = $this->writeSubMenus($html) . '</ul>
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
                               <a href="http://www.afmb.univ-mrs.fr" target="_blank">
-                                <img src="/pictures/logo_afmb.png" width="50" height="50">
+                                <img src="'.$this->path.'/pictures/logo_afmb.png" width="50" height="50">
                               </a>
                             </div>
                             <div class="col col-md-auto">
                               <a href="https://www.cea.fr/Pages/le-cea/les-centres-cea/cadarache.aspx" target="_blank">
-                                <img src="/pictures/logo_cea.png" width="50" height="50">
+                                <img src="'.$this->path.'/pictures/logo_cea.png" width="50" height="50">
                               </a>
                             </div>
                           </div>
