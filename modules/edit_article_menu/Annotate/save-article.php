@@ -1,7 +1,7 @@
 <?php
 	/*
 	* Created on Mon Apr 19 2021
-	* Latest update on Fri Apr 30 2021
+	* Latest update on Mon May 3 2021
 	* Info - PHP for annotate module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/
@@ -21,7 +21,7 @@
 	if(!$manager->get_exist("num_access", $ID, "article")) { http_response_code(404); }
 	else {
 		$cols = array();
-		array_push($cols, array("html_xml", $XML));
+		array_push($cols, array("html_xml", trim($XML)));
 	
 		$conditions = array();
 		array_push($conditions, array("num_access", $ID));

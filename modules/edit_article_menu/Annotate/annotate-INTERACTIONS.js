@@ -1,6 +1,6 @@
 /*
  * Created on Mon Apr 19 2021
- * Latest update on Fri Apr 30 2021
+ * Latest update on Mon May 3 2021
  * Info - JS for annotate module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -11,6 +11,7 @@
 
 const logHeaderAnnotateInteractions = "[edit article menu : annotate module]";
 const maxLengthAnnotateInteractions = 300;
+const annotateArtID = new URLSearchParams(window.location.search).get("NUMACCESS");
 
 var isOpen = false;
 
@@ -60,6 +61,9 @@ function annotateUndo(id, date) {
             if (!!document.getElementById("mark_"+date)) document.getElementById("mark_"+date).outerHTML = document.getElementById("link_"+date).innerHTML;
             if(!!document.getElementById("annotateUndo")) document.getElementById("annotateUndo").outerHTML = "";
             document.querySelector("#annotateArea").style.backgroundColor = "salmon";
+            if(!!document.getElementById("annotates")) {
+              document.getElementById("annotates").innerHTML = "";
+            }
             simpleUpdateArticle(id);
         } else {
           console.log(logHeaderAnnotateInteractions+" annotate removal failed with status code: "+this.status);
@@ -137,7 +141,7 @@ function updateArticle(id, date, author, color, text, comment) {
   /* Update article's html */
   let article = document.getElementById("article").innerHTML;
   let highlight = '<mark id=mark_'+date+' style="background-color: '+color+';"><a id=link_'+date+' class="note" data-artID='+id+' data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
-  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'">'+text.toString()+'</a></mark>';
+  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'" onClick="annotateShow(\''+date.toString()+'\')">'+text.toString()+'</a></mark>';
   document.getElementById("temp").outerHTML = highlight;
   article = document.getElementById("article").innerHTML;
   /* Prepare request */
@@ -248,7 +252,17 @@ document.getElementById("article").addEventListener("mouseup", function() {
     if(!!document.getElementById("annotateUndo")) {
       document.getElementById("annotateUndo").outerHTML = "";
     }
+    if(!!document.getElementById("annotates")) {
+      document.getElementById("annotates").innerHTML = "";
+    }
     isOpen = true;
     if(!document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
   } 
 });
+
+/**
+ * Will be overwrite by whataver come after annotation and has to show the annotation + the replies thread. Just to avoid "missing function" log.
+ * example: the module AnnotateThreads will use it and redefine it.
+ * @param {*} id 
+ */
+function annotateShow(id) {}

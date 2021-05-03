@@ -1,11 +1,13 @@
 <link href="./modules/edit_article_menu/Annotate/annotate.css" rel="stylesheet"/>
 <div id="subMenu">
-	<div id="annotateEditor" class="annotateEditor d-flex flex-column" style="pointer-events: none; user-select: none;">
-	  <div class="annotateToolbar">
-	  	<div class="alert alert-secondary mt-0 mb-0">Selection:</div>
+	<div class="annotateEditor d-flex flex-column">
+	  <div id="annotateSelection">
+	  <div class="alert alert-secondary mt-0 mb-0">Selection:</div>
 		<div class="selected overflow-auto alert-light mt-0 mb-0">
 			<div id="selection"></div>
 	  	</div>
+	  </div>
+	  <div id="annotateEditor" class="annotateToolbar" style="pointer-events: none; user-select: none;">
 	  	<div id="annotateInteraction" class="alert alert-secondary mt-0 mb-0 p-1">
 	  		<button id="annotateSave" type="button" onclick="annotateSend([ID])" class="btn btn-success">S</button>
     		<button id="annotateAbort" type="button" onclick="annotateClose()" class="btn btn-danger">X</button>

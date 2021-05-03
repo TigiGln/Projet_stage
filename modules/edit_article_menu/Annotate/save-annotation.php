@@ -14,7 +14,7 @@
 	$text = $_POST["text"];
 	$color = $_POST["color"];
 	$content = $_POST["comment"];
-	$date = (new DateTime())->format('Y-m-d_h-i-s');
+	$date = (new DateTime())->format('Y-m-d-h-i-s');
 	$tag = "annotation";
 
 	/* Handle Annotation Saving */
