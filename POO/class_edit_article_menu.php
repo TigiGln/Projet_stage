@@ -19,6 +19,7 @@ class EditArticleMenu {
     //boolean to activate some menu parts
     protected $Notes;
     protected $Annotate;
+    protected $AnnotateThreads;
     protected $Cazy;
     protected $Send;
     protected $Grade;
@@ -37,6 +38,7 @@ class EditArticleMenu {
         $this->Folder = "edit_article_menu";
         $this->setNotes(true);
         $this->setAnnotate(true);
+        $this->setAnnotateThreads(true);
         $this->setCazy(true);
         $this->setSend(true);
         $this->setGrade(true);
@@ -57,6 +59,9 @@ class EditArticleMenu {
         }
         if($this->Annotate) {
             $html = $this->writeOne($html, 'Annotate');
+        }
+        if($this->AnnotateThreads) {
+            $html = $this->writeOne($html, 'Annotate_Threads');
         }
         if($this->Cazy) {
             $html = $this->writeOne($html, 'Cazy');
@@ -120,6 +125,17 @@ class EditArticleMenu {
      */
     public function setAnnotate($value) {
         if (is_bool($value)) { $this->Annotate = $value; }
+    }
+
+        /**
+     * setAnnotate is the setter to activate or not the section of the same name.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $value
+     *            boolean value.
+     * @return void
+     */
+    public function setAnnotateThreads($value) {
+        if (is_bool($value)) { $this->AnnotateThreads = $value; }
     }
 
     /**
