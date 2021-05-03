@@ -1,6 +1,6 @@
 /*
  * Created on Tue Apr 21 2021
-	* Latest update on Wed Apr 28 2021
+	* Latest update on Mon May 3 2021
  * Info - JS for notes module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -19,8 +19,7 @@ notesInteractionsLoadNotes();
 function notesInteractionsLoadNotes() {
   let header = document.getElementById('notes');
   let id = header.dataset.article;
-  notesLoad(id, 0);
-  notesLoad(id, 1);
+  notesLoad(id);
 }
 
 /**
@@ -63,14 +62,12 @@ function notesInteractionsLoadNotes() {
  * notesLoad allows to load the user's saved notes, as well as others' notes.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  * @param {*} id 
- * @param {*} all 
- *            If all value is 0, the server will request the user's notes. If 1, the server will request others' notes.
  * @fires XMLHttpRequest
  */
-function notesLoad(id, all) {
+function notesLoad(id) {
   /* Prepare request */
   let url = "./modules/edit_article_menu/notes/load-notes.php";
-  let params = "ALL="+all+"&ID="+encodeURIComponent(id);
+  let params = "ID="+encodeURIComponent(id);
   console.log(logHeaderNotesInteractions+" Notes Load with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();
@@ -81,14 +78,27 @@ function notesLoad(id, all) {
     if (this.readyState == 4) {
       if (this.status == 200) {
       console.log(logHeaderNotesInteractions+' Notes received successfuly with status code: '+this.status);
-      let res = this.response.toString().split(',');
-      if(res[0] == 'USER') { notesLoadUser(res[1]); }
-      if(res[0] == 'OTHERS') { notesLoadOthers(res); }
+      notesFill(JSON.parse(this.response));
       } else { 
         document.querySelector("#notes").innerHTML = '<div class="alert alert-danger" role="alert">An error occured. Please reload to use this module</div>';
         console.log(logHeaderNotesInteractions+' Notes received failed with status code: '+this.status); 
       }
     } 
+  }
+}
+
+/**
+ * notesFill will parse the JSON of notes and fill the notes categories.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ * @param {*} notes
+ *            JSON content containing the notes fetched by notesLoad.
+ */
+function notesFill(notes) {
+  if(!!notes[0]["@attributes"]) {
+    notesLoadUser(notes[0]["content"]);
+  }
+  for (let i = 1; i<notes.length; i++) {
+    notesLoadOther(notes[i]);
   }
 }
 
@@ -110,14 +120,10 @@ function notesLoadUser(content) {
  * @param {*} content 
  *            A to-be-parsed string separated with coma and semicolon.
  */
-function notesLoadOthers(content) {
-  content.shift();
-  for (let note of content) {
-    let data = note.split(";");
-    document.getElementById("notesThread").innerHTML += 
-    '<div class="card m-0 p-0"><div class="card-header m-0 p-1">['+decodeURIComponent(data[1])+'] '+decodeURIComponent(data[0])
-    +'</div><div class="card-body m-0 p-1">'+decodeURIComponent(data[2])+'</div></div>';
-  }
+function notesLoadOther(note) {
+  document.getElementById("notesThread").innerHTML += 
+    '<div class="card m-0 p-0"><div class="card-header m-0 p-1">['+decodeURIComponent(note["date"])+'] '+decodeURIComponent(note["@attributes"]["name"])
+    +'</div><div class="card-body m-0 p-1">'+decodeURIComponent(note["content"])+'</div></div>';
 }
 
 /**

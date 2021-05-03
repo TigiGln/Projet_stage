@@ -5,8 +5,7 @@
 
 .notesThread {
   height: 20em;
-  max-height: 20em;
-  min-height: 20em;
+  resize: vertical;
 }
 
 .notesToolbar {
@@ -20,8 +19,6 @@
 }
 
 /* Action Buttons */
-.notesBox {
-}
 
 .notesAction {
   transition: 0.2s ease all;
