@@ -62,7 +62,7 @@ class ArticleFetcher {
             return true;
         } else {
             $errorCode = 403;
-            $this->printError("danger", 'You don\'t have the right to work on this article. If you think you had the rightts, please refers this issue to your administrator or your team.', $errorCode);
+            $this->printError("danger", 'You don\'t have the right to work on this article. If you think you had the rights, please refers this issue to your administrator or your team.', $errorCode);
             http_response_code($errorCode); 
             return false;
         }
@@ -99,7 +99,7 @@ class ArticleFetcher {
             return true;
         } else {
             $errorCode = 400;
-            $this->printError("warning", "Couldn\'t fetch article with NUMACCESS='.$this->article['num_access'].'. Please refers this issue to your administrator or your team.", $errorCode);
+            $this->printError("warning", "Couldn't fetch article with NUMACCESS=".$this->article['num_access'].". Please refers this issue to your administrator or your team.", $errorCode);
             http_response_code($errorCode); 
             return false; 
         }

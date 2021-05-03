@@ -18,7 +18,15 @@
     $_SESSION["connexionbd"] = $connexionbd;
 	$manager = new Manager($_SESSION["connexionbd"]->pdo);
 	if(!$manager->get_exist("num_access", $ID, "article")) { http_response_code(404); }
-	$res = $manager->update($ID, 'status', $status, 'article');
+
+
+	$cols = array();
+	array_push($cols, array("status", $status));
+	
+	$conditions = array();
+	array_push($conditions, array("num_access", $ID));
+
+	$res = $manager->updateSpecific($cols, $conditions, "article");
 	($res) ? http_response_code(200) : http_response_code(520);
 	echo http_response_code();
 		

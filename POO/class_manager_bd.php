@@ -34,6 +34,7 @@
                 echo "\nPDO::errorInfo():\n";
                 print_r($db->errorInfo());
             }
+            
         }
 
         public function add_form($protocol, $list, $table) //insertion grâce au information d'un formulaire
@@ -60,17 +61,11 @@
             $requete->execute(array(htmlspecialchars($value)));
             #$requete = $this->db->query("SELECT pmid, doi, pmcid, title, years, abstract, authors, journal, statut FROM Articles WHERE " .  $key . " = " . $id);
             $donnees = $requete->fetch();
-            if (empty($donnees))
-            {
-                return False;
-            }
-            else
-            {
-                return True;
-            }
+            return !empty($donnees);
             
         }
-        public function get($fields, $value, $table)//Récupérer les éléments correspondant à la requête
+
+        public function get($fields, $value, $table)//Récupérer l'élément correspondant à la requête
         {
             $requete = $this->db->prepare("SELECT * FROM $table WHERE " . $fields . " = ?");
             $requete->execute(array(htmlspecialchars($value)));
@@ -79,27 +74,32 @@
             return $donnees;
 
         }
-        public function get_fields($fields ,$value)//Récupération des lignes filtré par la valeur du champs
+        public function get_fields($table1, $table2, $table3, $champs_status ,$status, $champs_user, $user)//Récupération des lignes filtré par la valeur du champs
         {
-            $requete = $this->db->prepare("SELECT * FROM article WHERE $fields = :valeur");
-            $requete->bindValue(':valeur', $value);
+            //$requete = $this->db->prepare("SELECT * FROM article WHERE $fields = :valeur");
+            $requete = $this->db->prepare("SELECT * FROM $table1 INNER JOIN $table2 ON $table1.status = $table2.id_status INNER JOIN $table3 ON $table1.user = $table3.id_user WHERE $table2.$champs_status = :status AND $table3.$champs_user = :user");
+            $requete->bindValue(':status', $status);
+            $requete->bindValue(':user', $user);
             $requete->execute();
             $article_list = $requete->fetchAll(PDO::FETCH_ASSOC);
 
             return $article_list;
         }
-        public function update($num_access, $fields, $status, $table)//permet de mettre à jour certaine colonnes de la table
+        
+        //fonction de mise à jour des données par le num_access
+        public function update($num_access, $fields, $modif, $table1, $table2)
         {
             // Prépare une requête de type UPDATE.
             // Assignation des valeurs à la requête.
             // Exécution de la requête.
-            $requete = $this->db->prepare("UPDATE $table SET $fields = :status WHERE num_access = $num_access");
+            $requete = $this->db->prepare("UPDATE $table1 SET $table1.$fields = (SELECT id_$table2 FROM $table2  WHERE $table2.name_$table2 = '$modif') WHERE $table1.num_access = $num_access");
+            var_dump($requete);
+            $requete->bindValue(":status", $modif);
+            $requete->execute();
             
-            $requete->bindValue(":status", $status);
-            $res = $requete->execute();
-            
-            return $res;
+
         }
+        //fonction pour récupérer les différents statuts
         public function search_enum_fields($table, $fields)
         {
             /*$requete1 = $this->db->prepare("SHOW COLUMNS FROM article LIKE 'status'");
@@ -117,7 +117,7 @@
             
             return $list_statut_present;
         }
-
+        //permet de récupérer la connexion à la base de données
         public function setDb(PDO $db)
         {
             $this->db = $db;
@@ -131,6 +131,16 @@
             $this->setDb($db);
         }
         
+        /**
+         * getUsersList
+	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+         * @return void
+         */
+        public function getUsers() {
+            $req = $this->db->prepare("SELECT id_user, username, email FROM user");
+            $req->execute();
+            return $req->fetchAll(PDO::FETCH_ASSOC);
+        } 
         
         /**
          * getSpecific is a method to request more specifics data where we select the columns, the conditions and the table.
@@ -242,7 +252,11 @@
             $_GET['PMCID'] = $pmcid;
             $url = './utils/fromPMCID.php';
             $data = include($url);
-            $this->update($num_access, "html_xml", $data, "article");
+            $cols = array();
+            array_push($cols, array("html_xml", $data));
+            $conditions = array();
+            array_push($conditions, array("num_access", $num_access));
+            $this->updateSpecific($cols, $conditions, "article");
         }
     }
 
