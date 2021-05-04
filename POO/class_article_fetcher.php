@@ -73,6 +73,7 @@ class ArticleFetcher {
      * @return true if the fetch was sucessful, false if not.
      */
     public function fetch() {
+        //todo fetch if a pmcid was added
         if(!empty($this->article['pmcid'])) { return $this->fetchByPMCID(); }
         else { 
             $errorCode = 400;
@@ -111,7 +112,7 @@ class ArticleFetcher {
      */
     public function fetchPMC() {
         $this->saveload->DB()->addHTMLXMLByPMCID($this->article['num_access'], $this->article['pmcid']);
-        $this->article = $this->saveload->loadAsDB("article", array("*"), array(array("num_access", $this->article['num_access'])));
+        $this->article = $this->saveload->loadAsDB("article", array("*"), array(array("num_access", $this->article['num_access']), null));
         if(!empty($this->article['html_xml'])) { return true; }
         else { return false; }
     }
