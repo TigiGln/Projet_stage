@@ -217,29 +217,25 @@
          * return true if insertion was a success, false if not.
 	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
          * @param  mixed $cols
-         *            Array with columns name to set.
-         * @param  mixed $conditions
-         *            Array with values of the columns.
+         *            Array of arrays to get the Columns and their values. in each subArrays position 0 is the left member, position 1 is the right member.
          * @param  mixed $table
          *            Table where we perform the request.
          * @return void
          */
-        public function insertSpecific($cols, $datas, $table) {
+        public function insertSpecific($cols, $table) {
             $values = array();
             $prepReq = "INSERT INTO ".$table."(";
             foreach ($cols as $col) { 
-                $prepReq = $prepReq." ".$col.","; 
+                $prepReq = $prepReq." ".$col[0].","; 
             }
             $prepReq = substr_replace($prepReq ,"",-1) . ")"; //remove last coma and add contents
 
-            if(sizeof($datas) != 0) {
-                $prepReq = $prepReq . " VALUES(";
-                foreach ($datas as $data) { 
-                    $prepReq = $prepReq." ?,"; 
-                    array_push($values, $data);
-                }
-                $prepReq = substr_replace($prepReq ,"",-1) . ")"; //remove last coma and add contents
-            } else {  $prepReq = $prepReq . " VALUES 1"; }
+            $prepReq = $prepReq . " VALUES(";
+            foreach ($cols as $col) { 
+                $prepReq = $prepReq." ?,"; 
+                array_push($values, $col[1]);
+            }
+            $prepReq = substr_replace($prepReq ,"",-1) . ")"; //remove last coma and add contents
 
             $req = $this->db->prepare($prepReq);
             $res = $req->execute($values);

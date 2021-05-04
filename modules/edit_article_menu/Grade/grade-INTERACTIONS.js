@@ -1,6 +1,6 @@
 /*
  * Created on Web Apr 28 2021
- * Latest update on Tue Apr 29 2021
+ * Latest update on Tue May 4 2021
  * Info - JS for grade module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -61,14 +61,12 @@ function initGradeInteractions() {
   http.onreadystatechange = function() {
     if (http.readyState === 4) {
         if (http.status === 200) {
-          console.log(this.response);
           let value = JSON.parse(this.response)[0]['notes'] - 1;
           gradeResetShapes(stars);
           gradeUpdateShapes(stars, value);
-          console.log(logHeaderSendInteractions+' Request users List successfully with status code: '+this.status);
+          console.log(logHeaderSendInteractions+' Request user grade successfully with status code: '+this.status);
         } else {
-          document.querySelector("#grade").innerHTML = '<div class="alert alert-danger" role="alert">An error occured. Please reload to use this module</div>';
-          console.log(logHeaderSendInteractions+' Request users List failed with status code: '+this.status);
+          console.log(logHeaderSendInteractions+' Request user grade failed with status code: '+this.status);
         }
     }
   }

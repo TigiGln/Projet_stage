@@ -1,25 +1,20 @@
 <?php
 	/*
 	* Created on Tue Apr 27 2021
-	* Latest update on Wed Apr 28 2021
+	* Latest update on Tue May 4 2021
 	* Info - PHP for send module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/
 	session_start();
 	//CLASS IMPORT
-	require ("../../../POO/class_connexion.php");
-    require ("../../../POO/class_manager_bd.php");
+	require ("../../../POO/class_saveload_strategies.php");
 
-    $connexionbd = new ConnexionDB("localhost", "stage", "root", "");
-    $_SESSION["connexionbd"] = $connexionbd;
-	$manager = new Manager($_SESSION["connexionbd"]->pdo);
-
-	
+	$saveload = new SaveLoadStrategies("../../../POO");
 	$cols = array();
 	array_push($cols, "id_user", "username", "email");
 	$conditions = array();
-
-	$res = $manager->getSpecific($cols, $conditions, "user");
+	
+	$res = $saveload->loadAsDB("user", $cols, $conditions, null);
 	if(empty($res)) { http_response_code(404); }
 	else {
 	echo json_encode($res); 
