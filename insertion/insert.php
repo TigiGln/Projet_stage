@@ -24,15 +24,15 @@
             #echo "<p></p>";
             
             $manager = new Manager($_SESSION["connexionbd"]->pdo);
-            echo '<div class="p-4 w-100 overflow-auto" style="height: 100vh;">';
             foreach ($_GET["check"] as $value)
             {
-                
-                if (array_key_exists($value, $list_articles))
+                $manager->add($list_articles[$value]);
+                echo "<p>Article N°" . $value . " a bien été ajouté dans la base de données</p>";
+                /*if (array_key_exists($value, $list_articles))
                 {
                     if ($manager->get_exist("num_access" , $list_articles[$value]->num_access(), "article"))
                     {
-		                echo "L'article N°" . $value . " est déjà dans la base";
+		                echo "<p>L'article N°" . $value . " est déjà dans la base</p>";
                     }
                     else
                     {
@@ -41,13 +41,13 @@
                         echo "<p>Article N°" . $value . " a bien été ajouté dans la base de données</p>";
                         #echo $list_articles[$value];
                     }
-                }
+                }*/
             }
-            echo '</div>';
         }
         
         
     }
+    session_destroy();
 ?>
 <?php      
     include('../views/footer.html');

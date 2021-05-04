@@ -17,7 +17,7 @@
 	$cols = array();
 	array_push($cols, "*");
 	$conditions = array();
-	array_push($conditions, array("id_article", $ID), array("id_user", 1));
+	array_push($conditions, array("id_article", $ID), array("id_user", $_SESSION['userID']));
 	$doExist = $saveload->checkAsDB("notes", $cols, $conditions);
 	if($doExist) {
 		$cols = array();
@@ -25,7 +25,7 @@
 		http_response_code($saveload->saveAsDB("notes", $cols, $conditions, true));
 	} else {
 		$cols = array();
-		array_push($cols, array("id_article", $ID), array("id_user", 1), array("notes", $GRADE));
+		array_push($cols, array("id_article", $ID), array("id_user", $_SESSION['userID']), array("notes", $GRADE));
 		$conditions = array();
 		http_response_code($saveload->saveAsDB("notes", $cols, $conditions, false));
 	}

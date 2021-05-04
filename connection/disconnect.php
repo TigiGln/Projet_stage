@@ -8,8 +8,8 @@
 
 session_start() ;
 
-session_destroy();
-setcookie('connexion', "", time()-3600);
+header('Location:./form_connection.php');
 
-header('Location: ./index.php');
+session_destroy();
+setcookie('connexion', "", time()-60);
 ?>

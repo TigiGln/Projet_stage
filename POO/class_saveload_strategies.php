@@ -38,9 +38,28 @@ class SaveLoadStrategies {
      * @return void
      */
     protected function connect() {
+        if (session_status() === PHP_SESSION_NONE) session_start();
         $this->connexionbd = new ConnexionDB($this->bdInfo[0], $this->bdInfo[1], $this->bdInfo[2], $this->bdInfo[3]);
         $_SESSION[$this->dbSession] = $this->connexionbd;
         $this->manager = new Manager($_SESSION[$this->dbSession]->pdo);
+    }
+
+    /**
+     * DB will return the database item to directly use its functions for some cases.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return $manager object
+     */
+    public function DB() {
+        return $this->manager;
+    }
+
+    /**
+     * connexionbd will return the database item to directly use its functions for some cases.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return $connexionbd object
+     */
+    public function connexiondb() {
+        return $this->connexionbd;
     }
   
     /**
@@ -55,7 +74,6 @@ class SaveLoadStrategies {
         $res = $this->manager->getSpecific($cols, $conditions, $table);
         return !empty($res);
     }
-
     
     /**
      * saveAsDB allows to save (insert or update) data in a $table in the database, given $cols to gives values, $conditions for update.

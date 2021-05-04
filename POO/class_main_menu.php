@@ -107,7 +107,7 @@ class MainMenu {
                             <div class="row justify-content-start m-1 p-1">
                               <div class="col-md-auto">
                                 <!-- Disconenct Button -->
-                                <form action="'.$this->path.'/disconnect.php" method="post">
+                                <form action="'.$this->path.'/connection/disconnect.php" method="post">
                                   <button class="btn btn-outline-danger" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                                       <path d="M7.5 1v7h1V1h-1z"></path>
@@ -117,7 +117,7 @@ class MainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION['connexion'].'</strong>
+                                <strong>'.$_SESSION['userName'].'</strong>
                               </div>
                             </div>
                             <br>
@@ -159,7 +159,7 @@ class MainMenu {
                             <div class="row justify-content-start">
                               <div class="col-md-auto">
                                 <!-- Disconenct Button -->
-                                <form action="'.$this->path.'/disconnect.php" method="post">
+                                <form action="'.$this->path.'/connection/disconnect.php" method="post">
                                   <button class="btn btn-outline-danger" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                                       <path d="M7.5 1v7h1V1h-1z"></path>
@@ -169,7 +169,7 @@ class MainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION['connexion'].'</strong>
+                                <strong>'.$_SESSION['userName'].'</strong>
                               </div>
                             </div>
                           </div>

@@ -17,7 +17,7 @@
 	array_push($cols, "notes");
 	$conditions = array();
 	//Todo Get user ID with session later
-	array_push($conditions, array("id_article", $ID), array("id_user", 1));
+	array_push($conditions, array("id_article", $ID), array("id_user", $_SESSION['userID']));
 	
 	$res = $saveload->loadAsDB("notes", $cols, $conditions, null);
 	if(empty($res)) { http_response_code(520); }

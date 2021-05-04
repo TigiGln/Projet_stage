@@ -7,6 +7,7 @@
 ?>
 <?php
     include('../views/header.php');//inclusion
+    $_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu($_GET['status']);//creation du menu
     $menu->write();//ecriture des éléments du menu
 ?>
@@ -15,10 +16,12 @@
     <div class='p-4 w-100'>
         <?php
             #connexion à la base de données
+            $user = "Elodie";
             $connexionbd = new ConnexionDB("localhost", "stage", "root", "");
             $_SESSION["connexionbd"] = $connexionbd;//Enregistrement de la conexxion pour le transfert aux page par variable d'environnement
             $_SESSION['status_page'] = $_GET["status"];#Enregistrement du staut de la page dans une variable de session
-            $list_status_initial = search_table_status($_GET["status"]);#affichage de notre tableau en fonction du statut
+            $_SESSION['user'] = $user;
+            $list_status_initial = search_table_status($_GET["status"], $_SESSION['user']);#affichage de notre tableau en fonction du statut
             $_SESSION['list_status_initial'] = $list_status_initial;#on insère notre liste de statut initial dans une variable d'environnement qui suit tous le long de la session.
         ?>
     </div>

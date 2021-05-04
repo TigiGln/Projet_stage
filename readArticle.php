@@ -18,12 +18,8 @@ include('./views/header.php');
 (new mainMenu('My_Tasks'))->write();
 
 //Database
-$user = $_SESSION['connexion'];
-$userID = 2; //$userID = $_SESSION['id'];
-
-$connexionbd = new ConnexionDB("localhost", "stage", "root", "");
-$_SESSION["connexionbd"] = $connexionbd;
-$manager = new Manager($_SESSION["connexionbd"]->pdo);
+$user = $_SESSION['userName'];
+$userID = $_SESSION['userID'];
 ?>
 
 <div id="article" class="p-4 w-100 overflow-auto" style="height: 100vh;">

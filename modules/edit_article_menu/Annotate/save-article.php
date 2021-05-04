@@ -7,26 +7,23 @@
 	*/
 	session_start();
 	//CLASS IMPORT
-	require ("../../../POO/class_connexion.php");
-	require ("../../../POO/class_manager_bd.php");
+	require ("../../../POO/class_saveload_strategies.php");
 
 	$userID = $_SESSION['connexion']; //use ids
 	/* Parse Request Parameters */
 	$XML = $_POST["ARTICLE"];
 	$ID = $_POST["ID"];
 
-	$connexionbd = new ConnexionDB("localhost", "stage", "root", "");
-    $_SESSION["connexionbd"] = $connexionbd;
-	$manager = new Manager($_SESSION["connexionbd"]->pdo);
-	if(!$manager->get_exist("num_access", $ID, "article")) { http_response_code(404); }
+
+	$saveload = new SaveLoadStrategies("../../../POO");
+	if(!$saveload->checkAsDB("article", array("num_access"), array(array("num_access", $ID)))) { http_response_code(404); }
 	else {
 		$cols = array();
 		array_push($cols, array("html_xml", trim($XML)));
-	
 		$conditions = array();
 		array_push($conditions, array("num_access", $ID));
-
-		$res = $manager->updateSpecific($cols, $conditions, "article");
-		($res) ? http_response_code(200) : http_response_code(520);
+		http_response_code($saveload->saveAsDB("article", $cols, $conditions, true));
 	}
+	echo http_response_code();	
+
 ?>

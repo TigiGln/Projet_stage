@@ -1,8 +1,9 @@
 <?php
   session_start();
   $path = "/Projet_stage";
-  $username = 'John Doe';
-  $_SESSION["connexion"] = $username; //Todo use item, but here its just for debug issues
+  if(!isset($_SESSION['connexion']) && false) {
+    header('Location: '.$_SERVER["DOCUMENT_ROOT"].$path.'/connection/form_connection.php');
+  }
 ?>
 
 <!DOCTYPE html>

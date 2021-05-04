@@ -1,7 +1,6 @@
 <?php
 //IMPORT CLASSES
-require("./POO/class_connexion.php");
-require("./POO/class_manager_bd.php");
+require("./POO/class_saveload_strategies.php");
 
 /**
  * ArticleFetcher
@@ -17,8 +16,7 @@ class ArticleFetcher {
 
     protected $numaccess;
     protected $article;
-    protected $connexionbd;
-    protected $manager;
+    protected $saveload;
     
     /**
      * __construct
@@ -29,9 +27,7 @@ class ArticleFetcher {
      */
     public function __construct($numaccess) {
         $this->numaccess = $numaccess;
-        $this->connexionbd = new ConnexionDB("localhost", "stage", "root", "");
-        $_SESSION["connexionbd"] = $this->connexionbd;
-        $this->manager = new Manager($_SESSION["connexionbd"]->pdo);
+        $this->saveload = new SaveLoadStrategies("./POO");
     }
     
     /**
@@ -40,8 +36,10 @@ class ArticleFetcher {
      * @return true if an article of num_access exist, false if not (with an error message).
      */
     public function doExist() {
-        if($this->manager->get_exist("num_access", $this->numaccess, "article")) { 
-            $this->article = $this->manager->get("num_access",$this->numaccess, "article");
+        $cols = array(); array_push($cols, "num_access");
+        $conditions = array(); array_push($conditions, array("num_access", $this->numaccess));
+        if($this->saveload->checkAsDB("article", $cols, $conditions)) { 
+            $this->article = $this->saveload->loadAsDB("article", array("*"), $conditions, null)[0];
             return true;
         } else {
             $errorCode = 404;
@@ -112,8 +110,8 @@ class ArticleFetcher {
      * @return true if the fetch and download of xml content was sucessfull, false if not or if an error occured
      */
     public function fetchPMC() {
-        $this->manager->addHTMLXMLByPMCID($this->article['num_access'], $this->article['pmcid']);
-        $this->article = $this->manager->get("num_access", $this->article['num_access'], "article");
+        $this->saveload->DB()->addHTMLXMLByPMCID($this->article['num_access'], $this->article['pmcid']);
+        $this->article = $this->saveload->loadAsDB("article", array("*"), array(array("num_access", $this->article['num_access'])));
         if(!empty($this->article['html_xml'])) { return true; }
         else { return false; }
     }

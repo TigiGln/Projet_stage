@@ -6,18 +6,12 @@
  * Two cases: If not connected, show the connection view (signIn), if connected, show the "my tasks" view (myTasks)
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
-include('./views/header.html');
+include('./views/header.php');
 
-//DEBUG: SET SESSION AND COOKIES (to remove after we get the database)
-$username = 'John Doe';
-//setcookie('connexion', $username);
-//$_COOKIE['connexion'] = $username;
-$_SESSION["connexion"] = $username; //Todo use item, but here its just for debug issues
-
-if(isset($_SESSION["connexion"])) {
+if(isset($_SESSION['connexion'])) {
 	header('Location: ./trie_table_statut/page_table.php?status=2');
 } else {
 	$connectErr = "";
-	header('Location: ./signIn.php');
+	header('Location: ./connection/form_connection.php');
 }
 ?>

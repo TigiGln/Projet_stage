@@ -1,0 +1,64 @@
+<?php
+require('../views/header.php');
+?>
+
+<link href="./signIn.css" rel="stylesheet">
+<main class="form-signin">
+  <form name="signInForm">
+    <div class="text-center">
+      <img src="../pictures/logo_big.png" width="150">
+      <br>
+      <h1>Outil Bibilio</h1>
+    </div>
+    <br>
+<?php
+require("../POO/class_saveload_strategies.php");
+$saveload = new SaveLoadStrategies("../POO");
+if(isset($_GET['email']) && isset($_GET['password'])) {
+    /* check if email exist */
+    $cols = array(); array_push($cols, "email");
+    $conditions = array(); array_push($conditions, array("email", $_GET['email']));
+    if(empty($saveload->loadAsDB("user", $cols, $conditions, null))) {
+        $GLOBALS['connectionError'] = "Unknown email, please retry.";
+    } 
+    /* else we can check if user is correct */
+    else {
+        $cols = array(); array_push($cols, "id_user", "email", "username");
+        $conditions = array(); array_push($conditions, array("email", $_GET['email']), array("password", $_GET['password']));
+        $res = $saveload->loadAsDB("user", $cols, $conditions, null);
+        if(empty($res)) {
+            $GLOBALS['connectionError'] = "Wrong password, please retry.";
+        } 
+        else {
+            $_SESSION['connexiondb'] = $saveload->connexiondb();
+            $_SESSION['connexion'] = $res[0]['username'];
+            $_SESSION['userName'] = $res[0]['username'];
+            $_SESSION['userID'] = $res[0]['id_user'];
+            header('Location: ../');
+        }
+    }
+}
+/* print connection error message */
+if(isset($GLOBALS['connectionError'])) {
+    echo '<div class="alert alert-danger" role="alert">'.$GLOBALS['connectionError'].'</div>';
+}
+?>
+    <form method="get" action="form_connection.php">
+        <p class="form-floating">
+            <input class="form-control" type="text" name="email" id="email"> 
+            <label for="name_user">Email</label>
+        </p>
+        <p class="form-floating">
+            <input class="form-control" type="password" name="password" id="password" required="required">
+            <label for="password">Password</label>
+        </p>
+        <button class="w-100 btn btn-lg btn-outline-primary" type="submit">Connexion</button>
+        <p class="checkbox_mb-3 text-center">
+            <input type="checkbox" value="remember-me"> Connect me Automatically
+        </p>
+    </form>
+</main>
+
+<?php
+require('../views/footer.html');
+?>

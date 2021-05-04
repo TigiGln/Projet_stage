@@ -44,32 +44,13 @@ function annotateClose() {
  * @fires XMLHttpRequest
  */
 function annotateUndo(id, date) {
-  /* Prepare request */
-  let url = "./modules/edit_article_menu/Annotate/remove-annotation.php";
-  let params = "ID="+encodeURIComponent(id)+"&date="+encodeURIComponent(date);
-  console.log(logHeaderAnnotateInteractions+" annotate remove request with parameters: "+params);
-  /* Fires request */
-  var http = new XMLHttpRequest();
-  http.open("POST", url, true);
-  http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  http.send(params);
-  /* Handle request results */
-  http.onreadystatechange = function() {
-    if (http.readyState === 4) {
-        if (http.status === 200) {
-          console.log(logHeaderAnnotateInteractions+" annotate removed successfully with status code: "+this.status);
-            if (!!document.getElementById("mark_"+date)) document.getElementById("mark_"+date).outerHTML = document.getElementById("link_"+date).innerHTML;
-            if(!!document.getElementById("annotateUndo")) document.getElementById("annotateUndo").outerHTML = "";
-            document.querySelector("#annotateArea").style.backgroundColor = "salmon";
-            if(!!document.getElementById("annotates")) {
-              document.getElementById("annotates").innerHTML = "";
-            }
-            simpleUpdateArticle(id);
-        } else {
-          console.log(logHeaderAnnotateInteractions+" annotate removal failed with status code: "+this.status);
-        }
-    }
+  if (!!document.getElementById("mark_"+date)) document.getElementById("mark_"+date).outerHTML = document.getElementById("link_"+date).innerHTML;
+  if(!!document.getElementById("annotateUndo")) document.getElementById("annotateUndo").outerHTML = "";
+  document.querySelector("#annotateArea").style.backgroundColor = "salmon";
+  if(!!document.getElementById("annotates")) {
+    document.getElementById("annotates").innerHTML = "";
   }
+  simpleUpdateArticle(id);
 }
 
 /**

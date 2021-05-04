@@ -14,36 +14,41 @@
 ?>
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
-            
+            //connexion base de donnée
             $connexionbd = new ConnexionDB("localhost", "stage", "root", "");
             $_SESSION["connexionbd"] = $connexionbd;
+            
+            $manager = new Manager($_SESSION["connexionbd"]->pdo);//création de l'objet de requete
+            $list_num_access_bd = $manager->get_test('num_access', 'article');//requete sur la base pour récupérer pour récupérer les num_access présent
             #include("../POO/start_session.php");
             $pmid = "";
             $listpmid = [];
             $list_objects = [];
             if (isset($_GET["textarea"]) AND $_GET["textarea"] != "")#test l'existence d'un élément dans le textarea
             {
-                if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "DOI")#condition selon le choix de la liste déroulante
+                if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "ELocationID")#condition selon le choix de la liste déroulante
                 {
-                    $pmid = strip_tags($_GET["textarea"]);
-                    $listpmid = explode("\n", $pmid);
-                    #var_dump($listpmid);          
+                    $pmid = trim($_GET["textarea"]);
+                    $listpmid = explode("\n", str_replace("\r\n", "\n", $pmid));//création de la liste de PMID ou DOI pour la requête
+                    $listpmid = array_values(array_unique($listpmid));
+                    //var_dump($listpmid);
+                       
                 }
                 elseif ($_GET["list_query"] == "Author" OR $_GET["list_query"] == "Title")#condition selon le choix de la liste déroulante
                 {
-                    $nb = strval(10); 
-                    $base = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&retmax=' . $nb .'&usehistory=y&term=';
+                    $nb = strval(10); //nb d'articles à récupérer
+                    $base = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&retmax=' . $nb .'&usehistory=y&term=';//variable contenant la requête pour récupérer la liste de PMID selon les crières de requête
                     $text = urlencode(rtrim(strip_tags($_GET["textarea"])));
-                    $search_pmid = file_get_contents($base . $text . "[" . $_GET['list_query'] . "]");
-                    $search_pmid = new SimpleXMLElement($search_pmid);
+                    $search_pmid = file_get_contents($base . $text . "[" . $_GET['list_query'] . "]");//lancement de la requête
+                    $search_pmid = new SimpleXMLElement($search_pmid);//création de l'objet de parsing XML
                     foreach ($search_pmid->IdList->Id as $id)
                     {
                         $listpmid[] = $id;
                     }
                 }
-                else
+                elseif ($_GET['list_query'] == 'dp')//cas particuler pour la date de publication
                 {
-                    $nb = strval(10); 
+                    $nb = strval(20); 
                     $base = 'https://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&retmax=' . $nb .'&usehistory=y&term=';
                     $text = strval(rtrim(strip_tags($_GET["textarea"])));
                     #echo $text;
@@ -68,13 +73,13 @@
             }*/
             if (!empty($listpmid))
             {
-                echo '<div class="p-4 w-100 overflow-auto" style="height: 100vh;">';
-                echo "<h1>Insertion Request Results: </h1><br>";
+                echo "<h1>Table of our research</h1>";
                 $global_check = "<input type='checkbox' name = 'global_check' onclick = 'check(this)'>";
                 echo "<table>\n<tr><th>PMID</th><th>Title</th><th>" . $global_check . "</th></tr>\n";
                 $i = 0;
-                while($i < count($listpmid))
+                while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
                 {
+                    //$id = $listpmid[$i];
                     $output = search($listpmid, $i);
                     $list_info = recovery($output);
                     if (!empty($list_info))
@@ -87,16 +92,17 @@
                         $abstract = $list_info[5];
                         $authors = $list_info[6];
                         $journal = $list_info[7];
-                        $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid);
+                        $listauthors = $list_info[8];
+                        $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid, $listauthors);
                         $list_objects[$num_access] = $object_article;
-                        $check = "<input type='checkbox' name='check[]' value= '" . $object_article . "'>\n";
-                        $survol = '<a class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . "\">\n";
+                        $check = "<input type='checkbox' class = check name='check[]' id = $num_access value= '" . $object_article . "'>\n";
+                        $survol = '<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . "\">\n";
                         echo "<tr><td>" .  $object_article->num_access() . "</td>\n<td>" . $survol . trim($object_article->title()) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
                     }
                     $i++;
                 }
                 echo "</table>";
-                echo "<p><input type='submit' value='Insert'></p></div>";
+                echo "<p><input type='submit' value='Insert'></p>";
 
             }
             else
@@ -107,8 +113,13 @@
             }
             $_SESSION["list_articles"] = $list_objects;
             #var_dump($_SESSION["liste"]);
+
         ?>
-    </form>
-<?php      
+        <script>
+            var listNumAccessDb = <?php echo json_encode($list_num_access_bd); ?>;
+        </script>
+    <script src="./modif_table_requete.js"></script> 
+<?php
+         
     include('../views/footer.html');
 ?>
