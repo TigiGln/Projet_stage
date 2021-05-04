@@ -24,7 +24,20 @@ class ConnexionDB
 
     protected function connexionBDD()
     {
-        $this->pdo = new PDO("mysql:host=" . $this->serveur . ";dbname=" . $this->db, $this->user , $this->mdp, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        try
+        {
+            $this->pdo = new PDO("mysql:host=" . $this->serveur . ";dbname=" . $this->db, $this->user , $this->mdp, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            //echo "Connexion réussi !";
+        }
+        catch (PDOException $e) // On attrape les exceptions PDOException.
+        {
+        echo 'La connexion a échoué.<br />';
+        //echo 'Informations : [', $e->getCode(), '] ', $e->getMessage(); // On affiche le n° de l'erreur ainsi que le message.
+        }
+    }
+    public function user()
+    {
+        return $this->user;
     }
     public function __sleep()
     {

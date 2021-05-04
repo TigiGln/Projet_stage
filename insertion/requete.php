@@ -20,7 +20,6 @@ function recovery($output)
     if (!empty($output1->PubmedArticle->MedlineCitation->Article->{'Abstract'}->AbstractText) AND !empty($output1->PubmedArticle->MedlineCitation->Article->AuthorList->Author))
     {
         $pmid1 = strval($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId[0]);
-        $doi = strval($output1->PubmedArticle->PubmedData->ArticleIdList);
         $doi = '';
         foreach($output1->PubmedArticle->PubmedData->ArticleIdList->ArticleId as $elem)
         {

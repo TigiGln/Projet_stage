@@ -1,7 +1,7 @@
 <?php
     class Manager
     {
-        protected $db; // Instance de PDO. 
+        public $db; // Instance de PDO. 
 
         public function __construct($db)
         {
@@ -13,7 +13,7 @@
             // Préparation de la requête d'insertion.
             // Assignation des valeurs.
             // Exécution de la requête.
-            $requete = $this->db->prepare("INSERT INTO article(origin, num_access, title, abstract, year, journal, pmcid, status) VALUES(:origin, :num_access, :title, :abstract, :year, :journal, :pmcid, :status)");
+            $requete = $this->db->prepare("INSERT INTO article(origin, num_access, title, abstract, year, journal, pmcid, status, user) VALUES(:origin, :num_access, :title, :abstract, :year, :journal, :pmcid, :status, :user)");
             
             #$requete = $this->db->prepare("INSERT INTO Articles(statut, pmid, doi, pmcid, title, years, abstract, authors, journal) VALUES(:statut, :pmid, :doi, :pmcid, :title, :years, :abstract, :authors, :journal)");
             $requete->bindValue(":origin", $article->origin());
@@ -24,6 +24,8 @@
             $requete->bindValue(":journal", $article->journal());
             $requete->bindValue(":pmcid", $article->pmcid());
             $requete->bindValue(":status", $article->status());
+            $requete->bindValue(":status", $article->status());
+            $requete->bindValue(":user", 6);
             #$requete->bindValue(":pmid", strval($article->pmid()));
             #$requete->bindValue(":doi", $article->doi());
             #$requete->bindValue(":authors", $article->authors());
@@ -31,7 +33,7 @@
             $requete->execute();
             if (!$requete) 
             {
-                echo "\nPDO::errorInfo():\n";
+                echo "\n PDO::errorInfo():\n";
                 print_r($db->errorInfo());
             }
             
@@ -43,9 +45,15 @@
 
             for($i=0 ; $i < count($list) ; $i++)
             {
-                $requete->bindValue(":" . $list[$i], htmlspecialchars($protocol[$list[$i]]));
+                if ($list[$i] == 'password')
+                {
+                    $requete->bindValue(":" . $list[$i], password_hash(htmlspecialchars($protocol[$list[$i]]), PASSWORD_DEFAULT));
+                }
+                else
+                {
+                    $requete->bindValue(":" . $list[$i], htmlspecialchars($protocol[$list[$i]]));
+                }
             }
-
             $requete->execute();
             if (!$requete) 
             {
@@ -54,14 +62,15 @@
             }
 
         }
-        public function get_exist($fields, $value, $table)//Savoir si une valeur existe dans la table à un champ donnée
+        public function get_exist($table, $fields, $value)//Savoir si une valeur existe dans la table à un champ donnée
         {
             // Exécute une requête de type SELECT avec une clause WHERE.
-            $requete = $this->db->prepare("SELECT * FROM " . $table . " WHERE " .  $fields . " = ?");
+            $requete = $this->db->prepare("SELECT * FROM  $table  WHERE  $fields = ?");
+            //$requete->bindValue(':value', $value);
             $requete->execute(array(htmlspecialchars($value)));
             #$requete = $this->db->query("SELECT pmid, doi, pmcid, title, years, abstract, authors, journal, statut FROM Articles WHERE " .  $key . " = " . $id);
             $donnees = $requete->fetch();
-            return empty($donnees);
+            return !empty($donnees);
             /*if (empty($donnees))
             {
                 return False;
@@ -113,7 +122,6 @@
             var_dump($requete);
             $requete->bindValue(":status", $modif);
             $requete->execute();
-            
 
         }
         //fonction pour récupérer les différents statuts
@@ -138,18 +146,18 @@
             return $list_statut_present;
         }
         //permet de récupérer la connexion à la base de données
-        public function setDb(PDO $db)
+        public function setDb($db)
         {
             $this->db = $db;
         }
-        public function __sleep()
+        /*public function __sleep()
         {
             return ['db'];
         }
-        public function __wakeup($db)
+        public function __wakeup()
         {
-            $this->setDb($db);
-        }
+            $this->setDb($this->db);
+        }*/
         
         /**
          * getUsersList

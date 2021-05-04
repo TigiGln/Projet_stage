@@ -47,7 +47,6 @@
         
         
     }
-    session_destroy();
 ?>
 <?php      
     include('../views/footer.html');
