@@ -6,7 +6,7 @@ require("./POO/class_saveload_strategies.php");
  * ArticleFetcher
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Fri Apr 30 2021
+ * Latest update on Wed May 5 2021
  * Info - PHP Class to fetch the xml content of the articles.
  * Usage: refers to the readArticle.php file: Do the followings
  * Instantiate object, call doExist(NUMACCESS), is true call hasRights(), if true call fetch(), fetch() will return true if could fetch, false else with an error message.
@@ -14,6 +14,7 @@ require("./POO/class_saveload_strategies.php");
  */
 class ArticleFetcher {
 
+    protected $origin;
     protected $numaccess;
     protected $article;
     protected $saveload;
@@ -25,7 +26,8 @@ class ArticleFetcher {
      *            the NUM_ACCESS of the article to whom we will fetch the xml content in the database or download it.
      * @return void
      */
-    public function __construct($numaccess) {
+    public function __construct($origin, $numaccess) {
+        $this->origin = $origin;
         $this->numaccess = $numaccess;
         $this->saveload = new SaveLoadStrategies("./POO");
     }
@@ -36,17 +38,26 @@ class ArticleFetcher {
      * @return true if an article of num_access exist, false if not (with an error message).
      */
     public function doExist() {
-        $cols = array(); array_push($cols, "num_access");
-        $conditions = array(); array_push($conditions, array("num_access", $this->numaccess));
+        $cols = array(); array_push($cols, "origin", "num_access");
+        $conditions = array(); array_push($conditions, array("num_access", $this->numaccess),  array("origin", $this->origin));
         if($this->saveload->checkAsDB("article", $cols, $conditions)) { 
             $this->article = $this->saveload->loadAsDB("article", array("*"), $conditions, null)[0];
             return true;
         } else {
             $errorCode = 404;
-            $this->printError("danger", 'Couldn\'t find article with NUMACCESS='.$this->numaccess.' in the database.', $errorCode);
+            $this->printError("danger", 'Couldn\'t find article with NUMACCESS='.$this->numaccess.' from '.$this->origin.' in the database.', $errorCode);
             http_response_code($errorCode); 
             return false;
         }
+    }
+
+    /**
+     * getter on the article item
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return the stored article item
+     */
+    public function getArticle() {
+        return $this->article;
     }
     
     /**
@@ -56,11 +67,11 @@ class ArticleFetcher {
      * @return true if the given userID do have the right to work on this article of num_access, false if not (with an error message).
      */
     public function hasRights($userID) {
-        if($this->article['id_user'] == $userID) {
+        if($this->article['user'] == $userID) {
             return true;
         } else {
             $errorCode = 403;
-            $this->printError("danger", 'You don\'t have the right to work on this article. If you think you had the rights, please refers this issue to your administrator or your team.', $errorCode);
+            $this->printError("danger", 'You don\'t have the right to work on this article. If you think you had the rights, please refer this issue to your administrator or your team.', $errorCode);
             http_response_code($errorCode); 
             return false;
         }
@@ -77,8 +88,8 @@ class ArticleFetcher {
         if(!empty($this->article['pmcid'])) { return $this->fetchByPMCID(); }
         else { 
             $errorCode = 400;
-            $this->printError("warning", 'Couldn\'t fetch article with NUMACCESS='.$this->article['num_access'].'. It is either because an error occured, either because we can\'t yet download this kind of article 
-            (it depends of the database and/or the journal of this publication). Please refers this issue to your administrator or your team.', $errorCode);
+            $this->printError("warning", 'Couldn\'t fetch article with NUMACCESS='.$this->numaccess.' from '.$this->origin.'. It is either because an error occured, either because we can\'t yet download this kind of article 
+            (it depends of the database and/or the journal of this publication). Please refer this issue to your administrator or your team.', $errorCode);
             http_response_code($errorCode); 
             return false; 
         }
@@ -98,7 +109,7 @@ class ArticleFetcher {
             return true;
         } else {
             $errorCode = 400;
-            $this->printError("warning", "Couldn't fetch article with NUMACCESS=".$this->article['num_access'].". Please refers this issue to your administrator or your team.", $errorCode);
+            $this->printError("warning", "Couldn't fetch article with NUMACCESS=".$this->numaccess.' from '.$this->origin.". Please refer this issue to your administrator or your team.", $errorCode);
             http_response_code($errorCode); 
             return false; 
         }
@@ -112,7 +123,7 @@ class ArticleFetcher {
      */
     public function fetchPMC() {
         $this->saveload->DB()->addHTMLXMLByPMCID($this->article['num_access'], $this->article['pmcid']);
-        $this->article = $this->saveload->loadAsDB("article", array("*"), array(array("num_access", $this->article['num_access']), null));
+        $this->article = $this->saveload->loadAsDB("article", array("*"), array(array("num_access", $this->article['num_access'])), null)[0];
         if(!empty($this->article['html_xml'])) { return true; }
         else { return false; }
     }
