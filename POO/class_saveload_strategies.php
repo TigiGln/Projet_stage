@@ -4,7 +4,7 @@
  * SaveLoadStrategies
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Tue May 4 2021
+ * Latest update on Wed May 5 2021
  * Info - PHP Class for different saves strategies.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -16,13 +16,28 @@ class SaveLoadStrategies {
     protected $connexionbd;
     protected $manager;
     protected $dbSession;
-    
-    public function __construct($path) {
-        $this->path = $path;
+        
+    /**
+     * __construct
+     * if you only gives $path as argument when calling this constructor, will connect to the specified database in the class
+     * if you gives $path + 4 arguments for connection, will connect to this database instead
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return void
+     */
+    public function __construct() {
+        $this->path = func_get_args()[0];
+        switch(func_num_args()) {
+            case 1:
+                $this->bdInfo = array("localhost", "biblio", "root", "");
+                break;
+            case 5:
+                $this->bdInfo = array(func_get_args()[1], func_get_args()[2], func_get_args()[3], func_get_args()[4]);
+                break;
+
+        }
+        $this->path = func_get_args()[0];
         require ($this->path."/class_connexion.php");
         require ($this->path."/class_manager_bd.php");
-        //Server, table name, id, password
-        $this->bdInfo = array("localhost", "stage", "root", "");
         $this->dbSession = "connexionbd";
         $this->connect();
     }
