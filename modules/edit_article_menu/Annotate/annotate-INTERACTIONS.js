@@ -1,6 +1,6 @@
 /*
  * Created on Mon Apr 19 2021
- * Latest update on Mon May 3 2021
+ * Latest update on Wed May 5 2021
  * Info - JS for annotate module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -11,7 +11,6 @@
 
 const logHeaderAnnotateInteractions = "[edit article menu : annotate module]";
 const maxLengthAnnotateInteractions = 300;
-const annotateArtID = new URLSearchParams(window.location.search).get("NUMACCESS");
 
 var isOpen = false;
 
@@ -51,6 +50,13 @@ function annotateUndo(id, date) {
     document.getElementById("annotates").innerHTML = "";
   }
   simpleUpdateArticle(id);
+  //Pairing with annotateThread module
+  if(!!document.getElementById("selectedAnnotation")) {
+    document.getElementById("selectedAnnotation").innerHTML = "";
+  }
+  if(!!document.getElementById("AnnotationRepliesThread")) {
+    document.getElementById("AnnotationRepliesThread").innerHTML = "";
+  }
 }
 
 /**
@@ -61,7 +67,7 @@ function annotateUndo(id, date) {
  *            The annotation ID on this article.
  * @fires XMLHttpRequest
  */
-function annotateSend(id) {
+function annotateSend() {
   if(isOpen) {
     /* Prepare request */
     document.querySelector('#annotateCode').click();
@@ -69,8 +75,10 @@ function annotateSend(id) {
     let color = document.getElementById("annotateColorPicker").value;
     let text = document.getElementById("temp").innerHTML;
     let comment = document.querySelector("#annotateHtmlView").textContent;
+    let id = articleGet("numaccess");
+    let origin = articleGet("origin");
     document.querySelector('#annotateCode').click();
-    let params = "ID="+encodeURIComponent(id)+"&color="+encodeURIComponent(color)+"&text="+encodeURIComponent(text)+"&comment="+encodeURIComponent(comment);
+    let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&color="+encodeURIComponent(color)+"&text="+encodeURIComponent(text)+"&comment="+encodeURIComponent(comment);
     console.log(logHeaderAnnotateInteractions+" annotate send request with parameters: "+params);
     /* Fires request */
     var http = new XMLHttpRequest();
@@ -83,7 +91,7 @@ function annotateSend(id) {
           if (http.status === 200) {
             console.log(logHeaderAnnotateInteractions+" annotate sent successfully with status code: "+this.status);
             let res = this.response.toString().split(',');
-            let result = updateArticle(id, res[0], res[1],  color, text, comment);
+            let result = updateArticle(res[0], res[1],  color, text, comment);
             if (result) {
               annotateClose();
               let commentID = "'"+res[0].toString()+"'";
@@ -118,16 +126,18 @@ function annotateSend(id) {
  *            Boolean to notify of the success of the save.
  * @fires XMLHttpRequest
  */
-function updateArticle(id, date, author, color, text, comment) {
+function updateArticle(date, author, color, text, comment) {
+  let id = articleGet("numaccess");
+  let origin = articleGet("origin");
   /* Update article's html */
   let article = document.getElementById("article").innerHTML;
-  let highlight = '<mark id=mark_'+date+' style="background-color: '+color+';"><a id=link_'+date+' class="note" data-artID='+id+' data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
-  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'" onClick="annotateShow(\''+date.toString()+'\')">'+text.toString()+'</a></mark>';
+  let highlight = '<mark id=mark_'+date+' style="background-color: '+color+';"><a id=link_'+date+' class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
+  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'<hr class=\'sep\'>0 Replies" onClick="annotateShow(\''+date.toString()+'\')">'+text.toString()+'</a></mark>';
   document.getElementById("temp").outerHTML = highlight;
   article = document.getElementById("article").innerHTML;
   /* Prepare request */
   let url = "./modules/edit_article_menu/Annotate/save-article.php";
-  let params = "ID="+encodeURIComponent(id)+"&ARTICLE="+encodeURIComponent(article);
+  let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&ARTICLE="+encodeURIComponent(article);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();
@@ -159,11 +169,13 @@ function updateArticle(id, date, author, color, text, comment) {
  *            Boolean to notify of the success of the save.
  * @fires XMLHttpRequest
  */
- function simpleUpdateArticle(id) {
+ function simpleUpdateArticle() {
   /* Prepare request */
+  let id = articleGet("numaccess");
+  let origin = articleGet("origin");
   let article = document.getElementById("article").innerHTML;
   let url = "./modules/edit_article_menu/Annotate/save-article.php";
-  let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id);
+  let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id)+"&ORIGIN="+encodeURIComponent(origin);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();

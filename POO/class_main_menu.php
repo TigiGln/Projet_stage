@@ -117,7 +117,7 @@ class MainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION['userName'].'</strong>
+                                <strong>'.$_SESSION['username'].'</strong>
                               </div>
                             </div>
                             <br>
@@ -169,7 +169,7 @@ class MainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION['userName'].'</strong>
+                                <strong>'.$_SESSION['username'].'</strong>
                               </div>
                             </div>
                           </div>

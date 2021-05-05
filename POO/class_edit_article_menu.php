@@ -4,7 +4,7 @@
  * EditArticleMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Wed Apr 28 2021
+ * Latest update on Wed May 5 2021
  * Info - PHP Class for the article editing tools' menu
  * The functionning differ from mainMenu, here we include php but never do a href link. 
  * If you require a module in this section asking for parameters, use super variables to store and throw.
@@ -15,6 +15,8 @@
 class EditArticleMenu {
 
     protected $ArtID;
+    protected $NumAccess;
+    protected $ArtOrigin;
     protected $Folder;
     //boolean to activate some menu parts
     protected $Notes;
@@ -29,12 +31,14 @@ class EditArticleMenu {
     /**
      * __construct
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-     * @param  mixed $ArtID
+     * @param  mixed $NumAccess
      *            The ID of the article in the database.
      * @return void
      */
-    public function __construct($ArtID) {
+    public function __construct($ArtID, $ArtOrigin, $NumAccess) {
         $this->ArtID = $ArtID;
+        $this->ArtOrigin = $ArtOrigin;
+        $this->NumAccess = $NumAccess;
         $this->Folder = "edit_article_menu";
         $this->setNotes(true);
         $this->setAnnotate(true);
@@ -51,8 +55,15 @@ class EditArticleMenu {
      * @return void
      */
     public function write() {
-        $html = '<div class="bg-light overflow-auto" style="width: 25em; height: 100vh;">
-                    <div class="accordion accordion-flush bg-light" id="menu-article">';
+        $html = '
+        <script>
+            function articleGet(value) {
+                return document.getElementById(\'ArticleMenu\').dataset[value];
+            }
+        </script>
+        <div class="resizer bg-info" id="dragArticleMenu"></div>
+                 <div class="flex bg-light overflow-auto" id="ArticleMenu" style="width: 25em; height: 100vh;" data-art-I-D="'.$this->ArtID.'" data-numaccess="'.$this->NumAccess.'" data-origin="'.$this->ArtOrigin.'">
+                    <div class="accordion accordion-flush bg-light" id="menu-article" >';
 
         if($this->Notes) {
             $html = $this->writeOne($html, 'Notes');
@@ -95,8 +106,7 @@ class EditArticleMenu {
         $name = str_replace('_', ' ', $value);
         $file = str_replace('_', '', $value);
         $data = file_get_contents('./modules/'.$this->Folder.'/'.$file.'/'.$file.'.php');
-        $data = str_replace('[ID]', $this->ArtID, $data);
-        $html = $html . '<div class="accordion-item">
+        $html = $html . '<div class="accordion-item" >
                             <h2 class="accordion-header">
                             <button id="'.$file.'Btn" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#article-'.$file.'">'.$name.'</button>
                             </h2>

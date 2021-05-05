@@ -8,7 +8,7 @@ Formulaire pour l'inscription d'un utilisateur
       <title>Page de recherche d'article</title>
   </head>
   <body>
-    <form method="get" action="enregistrement.php" enctype="multipart/form-data">
+    <form method="get" action="register.php" enctype="multipart/form-data">
         <p>
           <input type="text" name="name_user" id="name_user">
           <label for="name_user">Pseudo</label>

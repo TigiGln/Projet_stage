@@ -1,6 +1,6 @@
 /*
  * Created on Web Apr 28 2021
- * Latest update on Tue May 4 2021
+ * Latest update on Wed May 5 2021
  * Info - JS for grade module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -45,10 +45,9 @@ function initGradeInteractions() {
  * @fires XMLHttpRequest
  */
  function getUsergrade() {
+  let id = articleGet("artID");
   let stars = document.querySelectorAll(".rat-star");
   /* Prepare request */
-  let header = document.getElementById('notes');
-  let id = header.dataset.article;
   let url = "./modules/edit_article_menu/Grade/getUserGrade.php";
   let params = "ID="+encodeURIComponent(id);
   console.log(logHeaderGradeInteractions+" Request user grade for article: "+params);
@@ -61,7 +60,7 @@ function initGradeInteractions() {
   http.onreadystatechange = function() {
     if (http.readyState === 4) {
         if (http.status === 200) {
-          let value = JSON.parse(this.response)[0]['notes'] - 1;
+          let value = JSON.parse(this.response)[0]['note'] - 1;
           gradeResetShapes(stars);
           gradeUpdateShapes(stars, value);
           console.log(logHeaderSendInteractions+' Request user grade successfully with status code: '+this.status);
@@ -81,8 +80,7 @@ function initGradeInteractions() {
 function gradeUpdateDB(grade) {
   /* Prepare request */
   grade++;
-  let header = document.getElementById('notes');
-  let id = header.dataset.article;
+  let id = articleGet("artID");
   let url = "./modules/edit_article_menu/Grade/validate.php";
   let params = "ID="+encodeURIComponent(id)+"&GRADE="+encodeURIComponent(grade);
   console.log(logHeaderGradeInteractions+" Validate send with parameters: "+params);
@@ -94,6 +92,7 @@ function gradeUpdateDB(grade) {
   /* Handle request results */
   http.onreadystatechange = function() {
     if (http.readyState === 4) {
+      console.log("debug: "+this.response);
         if (http.status === 200) {
           console.log(logHeaderGradeInteractions+' Validate successfully with status code: '+this.status);
         } else {
@@ -140,7 +139,7 @@ function gradeUpdateShapes(stars, index) {
  */
 function gradeResetColors(stars) {
   for (let i = 0; i < stars.length; i++) {
-    stars[i].style.color = "#56b9c7";
+    stars[i].style.color = "#31D2F2";
 	}
 }
 

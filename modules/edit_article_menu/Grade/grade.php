@@ -1,5 +1,5 @@
 <link href="./modules/edit_article_menu/grade/grade.css" rel="stylesheet"/>
-<div id="grade" class="d-flex flex-column" data-article="[ID]">
+<div id="grade" class="d-flex flex-column">
 	<div class="container d-flex justify-content-center">
 		<fieldset>
     		<span class="rating-group">

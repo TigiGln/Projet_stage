@@ -16,7 +16,6 @@ body
   justify-content: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
 }
 
 .form-signin 
@@ -28,12 +27,12 @@ body
 /* bootstrap */
 .btn-outline-primary 
 {
-  border-color: #56b9c7 !important;
-  color: #56b9c7 !important;
+  border-color: #31D2F2 !important;
+  color: #31D2F2 !important;
 }
 .btn-outline-primary:hover 
 {
   transition: background-color 0.25s;
-  background-color: #56b9c7 !important;
+  background-color: #31D2F2 !important;
   color: white !important;
 }

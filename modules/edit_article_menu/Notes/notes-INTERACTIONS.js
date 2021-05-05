@@ -1,6 +1,6 @@
 /*
  * Created on Tue Apr 21 2021
-	* Latest update on Mon May 3 2021
+	* Latest update on Wed May 5 2021
  * Info - JS for notes module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -17,9 +17,7 @@ notesInteractionsLoadNotes();
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
 function notesInteractionsLoadNotes() {
-  let header = document.getElementById('notes');
-  let id = header.dataset.article;
-  notesLoad(id);
+  notesLoad();
 }
 
 /**
@@ -29,14 +27,14 @@ function notesInteractionsLoadNotes() {
  *            The article ID in the database.
  * @fires XMLHttpRequest
  */
- function notesSave(id) {
+ function notesSave() {
   /* Prepare request */
   document.querySelector('#notesCode').click();
   let url = "./modules/edit_article_menu/notes/save-notes.php";
   let notes = document.querySelector("#notesHtmlView").textContent;
   let date = (new Date()).getTime(); //Until I find a way to get date from the php
   document.querySelector('#notesCode').click();
-  let params = "ID="+encodeURIComponent(id)+"&date="+encodeURIComponent(date)+"&notes="+encodeURIComponent(notes);
+  let params = "ORIGIN="+encodeURIComponent(articleGet("origin"))+"&ID="+encodeURIComponent(articleGet("numaccess"))+"&date="+encodeURIComponent(date)+"&notes="+encodeURIComponent(notes);
   console.log(logHeaderNotesInteractions+" Notes save send request with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();
@@ -64,10 +62,10 @@ function notesInteractionsLoadNotes() {
  * @param {*} id 
  * @fires XMLHttpRequest
  */
-function notesLoad(id) {
+function notesLoad() {
   /* Prepare request */
   let url = "./modules/edit_article_menu/notes/load-notes.php";
-  let params = "ID="+encodeURIComponent(id);
+  let params = "ORIGIN="+encodeURIComponent(articleGet("origin"))+"&ID="+encodeURIComponent(articleGet("numaccess"));
   console.log(logHeaderNotesInteractions+" Notes Load with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();

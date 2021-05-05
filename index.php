@@ -8,7 +8,7 @@
  */
 include('./views/header.php');
 
-if(isset($_SESSION['connexion'])) {
+if(isset($_SESSION['username']) && isset($_SESSION['userName'])) {
 	header('Location: ./trie_table_statut/page_table.php?status=2');
 } else {
 	$connectErr = "";

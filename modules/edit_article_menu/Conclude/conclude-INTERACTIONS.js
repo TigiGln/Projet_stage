@@ -18,10 +18,12 @@ const logHeaderConcludeInteractions = "[edit article menu : conclude module]";
  *            The ID of the article in the database.
  * @fires XMLHttpRequest
  */
-function validateConcludeInteraction(id, status) {
+function validateConcludeInteraction(status) {
+  let id = articleGet("numaccess");
+  let origin = articleGet("origin");
   /* Prepare request */
   let url = "./modules/edit_article_menu/Conclude/validate.php";
-  let params = "ID="+encodeURIComponent(id)+"&status="+status;
+  let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&status="+status;
   console.log(logHeaderConcludeInteractions+" Validate send with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();

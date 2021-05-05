@@ -7,7 +7,6 @@
 ?>
 <?php
     include('../views/header.php');
-    $_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu('Insertion');
     $menu->write();
 ?>

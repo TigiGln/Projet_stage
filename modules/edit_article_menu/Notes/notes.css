@@ -8,16 +8,6 @@
   resize: vertical;
 }
 
-.notesToolbar {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0);
-}
-
-.line {
-  max-width: 20em;
-  border-bottom: 1px solid #e2e2e2;
-  border-top: 1px solid #e2e2e2;
-}
-
 /* Action Buttons */
 
 .notesAction {
@@ -35,8 +25,6 @@
 #notesArea {
   padding: 15px 12px;
   line-height: 1.5;
-  max-height: 10vh;
-  min-height: 10vh;
   height: 10vh;
   overflow-y: auto;
 }
@@ -44,6 +32,7 @@
 #notesVisualView {
   outline: none;
   background: transparent;
+  width: 100%;
 }
 
 #notesHtmlView {

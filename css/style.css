@@ -13,12 +13,22 @@ body {
 }
 
 .menu .active{
-    background-color: #56b9c7 !important;
+    background-color: #31D2F2 !important;
 }
 
 .menu .nav-link:hover {
     transition: background-color 0.25s;
-    background-color: #56b9c7;
+    background-color: #31D2F2;
+}
+
+.resizer {
+  width: 0.5em;
+  min-width: 0.5em;
+  max-width: 0.5em;
+}
+
+.resizer:hover {
+  cursor: col-resize;
 }
 
 
@@ -29,17 +39,8 @@ body {
 }
 
 legend {
-  text-decoration: underline #56b9c7;
+  text-decoration: underline #31D2F2;
 }
-
-/*
-fieldset {
-  border: 0.25em solid #56b9c7 !important;
-  padding: 4em !important;
-  margin: 0 0 4em 0 !important;
-  width: 100% !important;
-}
-*/
 
 /* insertion reuslt temp */
     #insertion
@@ -81,10 +82,25 @@ fieldset {
 }
 
 .article-notes-title {
-  color: #56b9c7 !important;
+  color: #31D2F2 !important;
 }
 
 /* insertion */
 h1, h2, h3, h4, h5 {
-  color: #56b9c7 !important;
+  color: #31D2F2 !important;
 }
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+ }
+ ::-webkit-scrollbar-thumb {
+  background: #7D74B6;
+ }
+ ::-webkit-scrollbar-thumb:hover{
+  background: #968bdb
+ }
+ ::-webkit-scrollbar-track{
+  background: rgba(0, 0, 0, 0.03);
+ }

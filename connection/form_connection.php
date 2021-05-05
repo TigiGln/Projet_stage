@@ -23,16 +23,17 @@ if(isset($_GET['email']) && isset($_GET['password'])) {
     } 
     /* else we can check if user is correct */
     else {
-        $cols = array(); array_push($cols, "id_user", "email", "username");
-        $conditions = array(); array_push($conditions, array("email", $_GET['email']), array("password", $_GET['password']));
+        $cols = array(); array_push($cols, "id_user", "email", "name_user", "password");
+        $conditions = array(); array_push($conditions, array("email", $_GET['email']));
         $res = $saveload->loadAsDB("user", $cols, $conditions, null);
-        if(empty($res)) {
-            $GLOBALS['connectionError'] = "Wrong password, please retry.";
+        if(empty($res) || !password_verify($_GET['password'], $res[0]['password'])) {
+            $GLOBALS['connectionError'] = "Wrong password, please retry: ".password_verify($_GET['password'], $res[0]['password']);
         } 
         else {
             $_SESSION['connexiondb'] = $saveload->connexiondb();
-            $_SESSION['connexion'] = $res[0]['username'];
-            $_SESSION['userName'] = $res[0]['username'];
+            $_SESSION['connexion'] = $res[0]['name_user'];
+            $_SESSION['username'] = $res[0]['name_user'];
+            $_SESSION['userName'] = $res[0]['name_user'];
             $_SESSION['userID'] = $res[0]['id_user'];
             header('Location: ../');
         }
@@ -54,7 +55,7 @@ if(isset($GLOBALS['connectionError'])) {
         </p>
         <button class="w-100 btn btn-lg btn-outline-primary" type="submit">Connexion</button>
         <p class="checkbox_mb-3 text-center">
-            <input type="checkbox" value="remember-me"> Connect me Automatically
+            <input type="checkbox" value="rememberMe" name="rememberMe"> Connect me Automatically
         </p>
     </form>
 </main>

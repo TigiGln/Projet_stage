@@ -6,11 +6,11 @@
 ?>
 <?php
     include('../views/header.php');//j'inclus le header
-    $menu = new mainMenu('My_Tasks');//création du de l'objet menu
+    $menu = new mainMenu('My Tasks');//création du de l'objet menu
     $menu->write();//écriture des différents éléments du menu
 ?>
 <?php
-    $manager = new Manager($_SESSION["connexionbd"]->pdo);#création de l'objet permettant d'agir sur la base de données
+    $manager = new Manager($_SESSION["connexiondb"]->pdo);#création de l'objet permettant d'agir sur la base de données
     //echo "<pre>";
     //var_dump($_GET);
     //echo "</pre>";
@@ -24,5 +24,4 @@
 ?>
 <?php      
     include('../views/footer.html');//j'inclus le footer
-    session_destroy();
 ?>

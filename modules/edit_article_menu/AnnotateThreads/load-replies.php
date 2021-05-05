@@ -1,7 +1,7 @@
 <?php
 	/*
 	* Created on Mon May 3 2021
-	* Latest update on Mon May 3 2021
+	* Latest update on Wed May 5 2021
 	* Info - JS for annotate threads module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/
@@ -10,8 +10,8 @@
 	require("../../../POO/class_saveload_strategies.php");
 	/* Parse Request Parameters */
 	$file = "./replies.xml";
-	$ID = "ID".$_GET['ID'];
-	$user = $_SESSION['connexion'];
+	$ID = $_GET['ORIGIN'].'_'.$_GET['ID'];
+	$user = $_SESSION['username'];
 	$tag = "author";
 	/* Prepare Header */
 	header("Content-type: text/plain");

@@ -1,7 +1,7 @@
 <?php
 	/*
 	* Created on Tue Apr 27 2021
-	* Latest update on Tue May 4 2021
+	* Latest update on Wed May 5 2021
 	* Info - PHP for send module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/
@@ -11,7 +11,7 @@
 
 	$saveload = new SaveLoadStrategies("../../../POO");
 	$cols = array();
-	array_push($cols, "id_user", "username", "email");
+	array_push($cols, "id_user", "name_user", "email");
 	$conditions = array();
 	
 	$res = $saveload->loadAsDB("user", $cols, $conditions, null);

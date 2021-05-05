@@ -31,7 +31,7 @@ class ConnexionDB
         }
         catch (PDOException $e) // On attrape les exceptions PDOException.
         {
-        echo 'La connexion a échoué.<br />';
+            echo '<div class="alert alert-danger" role="alert">Couldn`\'t connect to database. Please refer this issue to your administrator or your team.<br>[ERROR CODE: 500]</div>';
         //echo 'Informations : [', $e->getCode(), '] ', $e->getMessage(); // On affiche le n° de l'erreur ainsi que le message.
         }
     }

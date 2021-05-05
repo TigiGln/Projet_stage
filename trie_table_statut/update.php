@@ -6,7 +6,7 @@
 ?>
 <?php
     include('../views/header.php');
-    $menu = new mainMenu('My_Tasks');
+    $menu = new mainMenu('My Tasks');
     $menu->write();
 ?>
 <?php

@@ -9,11 +9,11 @@
 	  </div>
 	  <div id="annotateEditor" class="annotateToolbar" style="pointer-events: none; user-select: none;">
 	  	<div id="annotateInteraction" class="alert alert-secondary mt-0 mb-0 p-1">
-	  		<button id="annotateSave" type="button" onclick="annotateSend([ID])" class="btn btn-success">S</button>
+	  		<button id="annotateSave" type="button" onclick="annotateSend()" class="btn btn-success">S</button>
     		<button id="annotateAbort" type="button" onclick="annotateClose()" class="btn btn-danger">X</button>
 	  		Write an annotation:
 	  	</div>
-	    <div class="line bg-light">
+	    <div class="annotateLine bg-light w-100">
 	      <!-- Actions -->
 	    <div class="annotateBox row text-center">
 	        <span class="annotateAction col-md-auto" data-action="bold" title="Bold">
@@ -46,10 +46,6 @@
 	    <textarea id="annotateHtmlView"></textarea>
 	  </div>
 	</div>
-	<div class="alert alert-secondary mt-0 mb-0 p-1">Annotation Thread:</div>
-	<div id="annotates" class="thread overflow-auto alert alert-light mt-0 mb-0">
-		<!---->
-  	</div>
 	<script src="./modules/edit_article_menu/Annotate/annotate-INTERACTIONS.js"></script>
 	<script src="./modules/edit_article_menu/Annotate/annotate-WYSIWYG.js"></script>
 </div>

@@ -10,7 +10,6 @@
 /*******************************************************************************/
 
 const logHeaderAnnotateThreadsInteractions = "[edit article menu : annotate Threads module]";
-const annotateThreadsArtID = new URLSearchParams(window.location.search).get("NUMACCESS");
 
 /**
  * annotateShow is a function that will show the selected annotation, allowing to reply to this.
@@ -20,12 +19,14 @@ const annotateThreadsArtID = new URLSearchParams(window.location.search).get("NU
 function annotateShow(id) {
   let annotation = document.getElementById("link_"+id);
   let tag = annotation.dataset.bsOriginalTitle;
-  let content  = annotation.dataset.bsContent;
+  let content  = annotation.dataset.bsContent.match(/.*?(<hr class='sep'>)/mg)[0];
   let selection = document.getElementById("selectedAnnotation");
-  selection.innerHTML = content+"<br>-----<br>"+tag+"<br>at: "+annotation.innerHTML;
+  selection.innerHTML = content+tag+"<br>at: "+annotation.innerHTML;
   selection.style.pointerEvents = "all";
   selection.style.userSelect = "all";
-  annotateRepliesLoad(annotateThreadsArtID , id);
+  let numaccess = articleGet("numaccess");
+  let origin = articleGet("origin");
+  annotateRepliesLoad(origin, numaccess, id);
   if(!document.querySelector('#article-AnnotateThreads').classList.contains("show")) { document.querySelector('#AnnotateThreadsBtn').click(); }
 }
 
@@ -36,11 +37,13 @@ function annotateShow(id) {
  * @param {*} commentId 
  * @fires XMLHttpRequest
  */
-function annotateReplySend(artID, commentId) {
-  let id = artID+"_"+commentId;
+function annotateReplySend(commentId) {
+  let numaccess = articleGet("numaccess");
+  let origin = articleGet("origin");
+  let id = numaccess+"_"+commentId;
   let text = document.getElementById("annotatesReply").value;
   let url = "./modules/edit_article_menu/AnnotateThreads/save-reply.php";
-  let params = "ID="+id+"&text="+text;
+  let params = "ORIGIN="+origin+"&ID="+id+"&text="+text;
   /* Fires request */
   var http = new XMLHttpRequest();
   http.open("POST", url, true);
@@ -52,7 +55,7 @@ function annotateReplySend(artID, commentId) {
         if (http.status === 200) {
           console.log(logHeaderAnnotateThreadsInteractions+" annotate reply sent successfully with status code: "+this.status);
           text = "";
-          annotateRepliesLoad(artID , commentId);
+          annotateRepliesLoad(origin, numaccess, commentId);
         } else {
           console.log(logHeaderAnnotateThreadsInteractions+" annotate reply failed with status code: "+this.status);
           return false;
@@ -68,10 +71,10 @@ function annotateReplySend(artID, commentId) {
  * @param {*} commentId 
  * @fires XMLHttpRequest
  */
- function annotateRepliesLoad(artID, commentId) {
-  let id = artID+"_"+commentId;
+ function annotateRepliesLoad(origin, numaccess, commentId) {
+  let id = numaccess+"_"+commentId;
   let url = "./modules/edit_article_menu/AnnotateThreads/load-replies.php";
-  let params = "ID="+id;
+  let params = "ORIGIN="+origin+"&ID="+id;
   /* Fires request */
   var http = new XMLHttpRequest();
   http.open("GET", url+"?"+params, true);
@@ -83,6 +86,7 @@ function annotateReplySend(artID, commentId) {
         if (http.status === 200) {
           let replies = JSON.parse(http.response);
           annotateFillReplies(commentId, replies);
+          updateAnnotatePopOver(replies.length-1, commentId);
           console.log(logHeaderAnnotateThreadsInteractions+" annotate replies receive successfully with status code: "+this.status);
         } else {
           annotateFillReplies(commentId, []);
@@ -90,6 +94,18 @@ function annotateReplySend(artID, commentId) {
         }
     }
   }
+}
+
+/**
+ * will update the article in the database with the reply count update.
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ * @param {*} size 
+ * @param {*} commentId 
+ */
+function updateAnnotatePopOver(size, commentId) {
+  let annotation = document.getElementById("link_"+commentId).dataset.bsContent.match(/.*?(<hr class='sep'>)/mg)[0]+size+" Replies";
+  document.getElementById("link_"+commentId).setAttribute('data-bs-content',annotation);
+  simpleUpdateArticle();
 }
 
 /**
@@ -106,5 +122,42 @@ function annotateFillReplies(id, replies) {
               +'</div><div class="card-body m-0 p-1">'+decodeURIComponent(reply["content"])+'</div></div>' + thread;
   }
   document.getElementById("AnnotationRepliesThread").innerHTML = '<div class="card"><div class="card-body"><textarea id="annotatesReply" rows="1"></textarea>'
-  +'<button id="annotateReplySend" type="button" class="btn btn-outline-success btn-sm w-100" style="pointer-events: all; user-select: all;" onclick="annotateReplySend(\''+annotateThreadsArtID+'\', \''+id+'\')" >Send reply</button></div></div>'+thread;
+  +'<button id="annotateReplySend" type="button" class="btn btn-outline-success btn-sm w-100" style="pointer-events: all; user-select: all;" onclick="annotateReplySend(\''+id+'\')" >Send reply</button></div></div>'+thread;
+}
+
+/**
+ * simpleUpdateArticle is the specific function to update and save the html content of the article in the database.
+ * This version is used when we remove or just save the article div, without adding any annotations. This is a copy of annotate module to allows them to work alone
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ * @param {*} id 
+ *            The ID of the article
+ * @returns 
+ *            Boolean to notify of the success of the save.
+ * @fires XMLHttpRequest
+ */
+ function simpleUpdateArticle() {
+  /* Prepare request */
+  let id = articleGet("numaccess");
+  let origin = articleGet("origin");
+  let article = document.getElementById("article").innerHTML;
+  let url = "./modules/edit_article_menu/Annotate/save-article.php";
+  let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id)+"&ORIGIN="+encodeURIComponent(origin);
+  console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
+  /* Fires request */
+  var http = new XMLHttpRequest();
+  http.open("POST", url, true);
+  http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  http.send(params);
+  /* Handle request results */
+  http.onreadystatechange = function() {
+    if (http.readyState === 4) {
+        if (http.status === 200) {
+          console.log(logHeaderAnnotateThreadsInteractions+" article sent successfully with status code: "+this.status);
+        } else {
+          console.log(logHeaderAnnotateThreadsInteractions+" annotate sent failed with status code: "+this.status);
+          return false;
+        }
+    }
+  }
+  return true;
 }

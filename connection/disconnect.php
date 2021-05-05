@@ -11,5 +11,5 @@ session_start() ;
 header('Location:./form_connection.php');
 
 session_destroy();
-setcookie('connexion', "", time()-60);
+setcookie('session', "", time()-60);
 ?>

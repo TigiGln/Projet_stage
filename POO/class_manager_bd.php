@@ -119,7 +119,6 @@
             // Assignation des valeurs à la requête.
             // Exécution de la requête.
             $requete = $this->db->prepare("UPDATE $table1 SET $table1.$fields = (SELECT id_$table2 FROM $table2  WHERE $table2.name_$table2 = '$modif') WHERE $table1.num_access = $num_access");
-            var_dump($requete);
             $requete->bindValue(":status", $modif);
             $requete->execute();
 
@@ -158,17 +157,6 @@
         {
             $this->setDb($db);
         }
-        
-        /**
-         * getUsersList
-	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-         * @return void
-         */
-        public function getUsers() {
-            $req = $this->db->prepare("SELECT id_user, username, email FROM user");
-            $req->execute();
-            return $req->fetchAll(PDO::FETCH_ASSOC);
-        } 
         
         /**
          * getSpecific is a method to request more specifics data where we select the columns, the conditions and the table.
@@ -271,6 +259,13 @@
 
         }
 
+        /**
+         * addHTMLXMLByPMCID is a special request to fetch the article xml from PMC and store it to the database
+	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+         * @param  mixed $num_access
+         * @param  mixed $pmcid
+         * @return void
+         */
         public function addHTMLXMLByPMCID($num_access, $pmcid) {
             $pmcid = str_replace("PMC", "", $pmcid);
             $_GET['PMCID'] = $pmcid;
@@ -279,7 +274,7 @@
             $cols = array();
             array_push($cols, array("html_xml", $data));
             $conditions = array();
-            array_push($conditions, array("num_access", $num_access));
+            array_push($conditions, array("num_access", $num_access), array("pmcid", "PMC".$pmcid));
             $this->updateSpecific($cols, $conditions, "article");
         }
     }

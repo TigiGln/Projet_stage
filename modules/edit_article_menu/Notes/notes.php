@@ -1,13 +1,13 @@
 <link href="./modules/edit_article_menu/notes/notes.css" rel="stylesheet"/>
-<div id="notes" class="notesEditor d-flex flex-column" data-article="[ID]">
+<div id="notes" class="notesEditor d-flex flex-column">
 
-<div id="notesEditor" class="notesEditor d-flex flex-column" onload="notesLoad([ID])">
+<div id="notesEditor" class="notesEditor d-flex flex-column" onload="notesLoad()">
 	<div class="notesToolbar">
 	<div class="alert alert-secondary mt-0 mb-0 p-1">
-		<button id="notesSave" type="button" onclick="notesSave([ID])" class="btn btn-success">S</button>
+		<button id="notesSave" type="button" onclick="notesSave()" class="btn btn-success">S</button>
 		Your Notes:
   	</div>
-	<div class="line bg-light">
+	<div class="notesLine bg-light w-100">
 	<div class="notesBox row text-center">
 		<span class="notesAction col-md-auto" data-action="bold" title="Bold">
 			<img src="https://image.flaticon.com/icons/svg/25/25432.svg">

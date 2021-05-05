@@ -1,6 +1,6 @@
 /*
  * Created on Fri Apr 23 2021
-	* Latest update on Thu Apr 29 2021
+	* Latest update on Wed May 5 2021
  * Info - JS for conclude module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -21,7 +21,7 @@ function sendInteractionsLoadUsersList() {
   let usersList = document.getElementById('usersList');
   /* Prepare request */
   let url = "./modules/edit_article_menu/Send/getUsersList.php";
-  console.log(logHeaderSendInteractions+" Request users List: ");
+  console.log(logHeaderSendInteractions+" Request users List");
   /* Fires request */
   var http = new XMLHttpRequest();
   http.open("GET", url, true);
@@ -50,7 +50,7 @@ function sendInteractionsLoadUsersList() {
 function sendInteractionsFillUsersList(usersJSON, usersListDOM) {
   for (let i = 0; i < usersJSON.length; i++){
     let user = usersJSON[i];
-    usersListDOM.innerHTML += '<option value="'+user['email']+'" data-id="'+user['id_user']+'">'+user['username']+'</option>';
+    usersListDOM.innerHTML += '<option value="'+user['email']+'" data-id="'+user['id_user']+'">'+user['name_user']+'</option>';
   }
 }
 
@@ -61,12 +61,14 @@ function sendInteractionsFillUsersList(usersJSON, usersListDOM) {
  *            The num_access of the article in the database.
  * @fires XMLHttpRequest
  */
-function validateSendInteraction(id) {
+function validateSendInteraction() {
+  let id = articleGet("numaccess");
+  let origin = articleGet("origin");
   /* Prepare request */
   let newUser = document.getElementById("sendTo").value;
   newUser = document.querySelector('option[value="' + newUser + '"]').dataset.id;
   let url = "./modules/edit_article_menu/Send/validate.php";
-  let params = "ID="+encodeURIComponent(id)+"&newUser="+encodeURIComponent(newUser);
+  let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&newUser="+encodeURIComponent(newUser);
   console.log(logHeaderSendInteractions+" Send send with parameters: "+params);
   /* Fires request */
   var http = new XMLHttpRequest();
