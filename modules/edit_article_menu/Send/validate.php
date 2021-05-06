@@ -16,7 +16,7 @@
 
 	$saveload = new SaveLoadStrategies("../../../POO");
 	if(!$saveload->checkAsDB("article", array("num_access"), array(array("origin", $ORIGIN), array("num_access", $ID), array("user", $userID)))) { http_response_code(404); }
-	else if(!$saveload->checkAsDB("user", array("id_user"), array(array("id_user", $newUserID)))) { http_response_code(404); }
+	else if($newUserID != "null" && !$saveload->checkAsDB("user", array("id_user"), array(array("id_user", $newUserID)))) { http_response_code(404); }
 	else {
 		$cols = array();
 		array_push($cols, array("user", $newUserID));

@@ -66,7 +66,8 @@ function validateSendInteraction() {
   let origin = articleGet("origin");
   /* Prepare request */
   let newUser = document.getElementById("sendTo").value;
-  newUser = document.querySelector('option[value="' + newUser + '"]').dataset.id;
+  if(document.querySelector('option[value="' + newUser + '"]') === null) { newUser = null; } 
+  else { newUser = document.querySelector('option[value="' + newUser + '"]').dataset.id; }
   let url = "./modules/edit_article_menu/Send/validate.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&newUser="+encodeURIComponent(newUser);
   console.log(logHeaderSendInteractions+" Send send with parameters: "+params);
