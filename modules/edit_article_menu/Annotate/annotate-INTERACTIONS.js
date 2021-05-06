@@ -132,7 +132,7 @@ function updateArticle(date, author, color, text, comment) {
   /* Update article's html */
   let article = document.getElementById("article").innerHTML;
   let highlight = '<mark id=mark_'+date+' style="background-color: '+color+';"><a id=link_'+date+' class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
-  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'<hr class=\'sep\'>0 Replies" onClick="annotateShow(\''+date.toString()+'\')">'+text.toString()+'</a></mark>';
+  '['+date+'] '+author+'"'+' data-bs-content="'+comment+'<hr class=\'sep d-none\'>" onClick="annotateShow(\''+date.toString()+'\')">'+text.toString()+'</a></mark>';
   document.getElementById("temp").outerHTML = highlight;
   article = document.getElementById("article").innerHTML;
   /* Prepare request */

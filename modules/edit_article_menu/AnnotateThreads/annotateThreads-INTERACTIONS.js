@@ -19,7 +19,7 @@ const logHeaderAnnotateThreadsInteractions = "[edit article menu : annotate Thre
 function annotateShow(id) {
   let annotation = document.getElementById("link_"+id);
   let tag = annotation.dataset.bsOriginalTitle;
-  let content  = annotation.dataset.bsContent.match(/.*?(<hr class='sep'>)/mg)[0];
+  let content  = annotation.dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0];
   let selection = document.getElementById("selectedAnnotation");
   selection.innerHTML = content+tag+"<br>at: "+annotation.innerHTML;
   selection.style.pointerEvents = "all";
@@ -103,7 +103,7 @@ function annotateReplySend(commentId) {
  * @param {*} commentId 
  */
 function updateAnnotatePopOver(size, commentId) {
-  let annotation = document.getElementById("link_"+commentId).dataset.bsContent.match(/.*?(<hr class='sep'>)/mg)[0]+size+" Replies";
+  let annotation = document.getElementById("link_"+commentId).dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0]+"'>"+size+" Replies";
   document.getElementById("link_"+commentId).setAttribute('data-bs-content',annotation);
   simpleUpdateArticle();
 }
