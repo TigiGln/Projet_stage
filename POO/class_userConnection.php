@@ -60,6 +60,10 @@ class UserConnection {
     
     /**
      * generateCookie will generate and set a cookie for the user's datas, lasting $time.
+     * If you host on a HTTPS website, you can set the before last parameter of setcookie to true (HTTPS-ONLY) to improve security of the cookie
+     * The last parameter of setcookie dissalow front-end to interact with cookie data. Since we mainly rely on php page or AJAX request, we can
+     * set it to true to avoid XSS Attack. If you need to access this cookie datas through front-end, you can turn it to false but you should be
+     * careful of the risk depending of your usages. 
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      * @param  mixed $datas
      * @param  mixed $time
@@ -67,6 +71,6 @@ class UserConnection {
      */
     public function generateCookie($datas) {
         array_unshift($datas, $this->hashSecret());
-        setcookie('cookie-session', json_encode($datas), $this->time, "/"); 
+        setcookie('cookie-session', json_encode($datas), $this->time, "/", '', false, true); 
     }
 }
