@@ -1,9 +1,8 @@
 <?php
-  session_start();
   $path = "/Projet_stage";
-  if(!isset($_SESSION['connexion']) && false) {
-    header('Location: '.$_SERVER["DOCUMENT_ROOT"].$path.'/connection/form_connection.php');
-  }
+  require($_SERVER["DOCUMENT_ROOT"].$path."/POO/class_userConnection.php");
+  $userConnection = new UserConnection($path, true);
+  $userConnection->isValid();
 ?>
 
 <!DOCTYPE html>

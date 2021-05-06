@@ -35,6 +35,9 @@ if(isset($_GET['email']) && isset($_GET['password'])) {
             $_SESSION['username'] = $res[0]['name_user'];
             $_SESSION['userName'] = $res[0]['name_user'];
             $_SESSION['userID'] = $res[0]['id_user'];
+            if(isset($_GET['rememberMe'])) {
+                $userConnection->generateCookie(array($res[0]['id_user'], $res[0]['name_user']));
+            }
             header('Location: ../');
         }
     }
