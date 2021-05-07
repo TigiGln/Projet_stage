@@ -8,8 +8,12 @@
 
 session_start() ;
 
-header('Location:./form_connexion.php');
+header('Location:../index.php');
 
 session_destroy();
 setcookie('connexion', "", time()-60);
+if ($_COOKIE['connexion'] == "")
+{
+    header('Location:../index.php');
+}
 ?>

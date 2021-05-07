@@ -36,5 +36,5 @@
         <script src="../insertion/gestion_form.js"></script><!-- import du script javascript pour la gestion des arguments donnée par l'utilisateur selon le critère choisi -->
 <?php
           
-    include('../views/footer.html');
+    include('../views/footer.php');
 ?>

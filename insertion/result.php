@@ -15,26 +15,25 @@
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
             //connexion base de donnée
-            $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
-            $_SESSION["connexionbd"] = $connexionbd;
+            $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");//connexion à la bse de donnée
+            $_SESSION["connexionbd"] = $connexionbd;//stockage de cette connexion dans une variable de session pour le transit entre les pages
             
             $manager = new Manager($_SESSION["connexionbd"]->pdo);//création de l'objet de requete
-            $list_num_access_bd = $manager->get_test('num_access', 'article');//requete sur la base pour récupérer pour récupérer les num_access présent
-            #include("../POO/start_session.php");
+            $list_num_access_bd = $manager->get_test('num_access', 'article');//requete sur la base pour récupérer les num_access présent
             $pmid = "";
             $listpmid = [];
             $list_objects = [];
             if (isset($_GET["textarea"]) AND $_GET["textarea"] != "")#test l'existence d'un élément dans le textarea
             {
-                if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "ELocationID")#condition selon le choix de la liste déroulante
+                if ($_GET["list_query"] == "PMID" OR $_GET["list_query"] == "ELocationID")#condition selon le choix de la liste déroulante PMID et DOI
                 {
                     $pmid = trim($_GET["textarea"]);
                     $listpmid = explode("\n", str_replace("\r\n", "\n", $pmid));//création de la liste de PMID ou DOI pour la requête
-                    $listpmid = array_values(array_unique($listpmid));
+                    $listpmid = array_values(array_unique($listpmid));//vérification qu'il n'y ait pas de doublons
                     //var_dump($listpmid);
                        
                 }
-                elseif ($_GET["list_query"] == "Author" OR $_GET["list_query"] == "Title")#condition selon le choix de la liste déroulante
+                elseif ($_GET["list_query"] == "Author" OR $_GET["list_query"] == "Title")#condition selon le choix de la liste déroulante Author
                 {
                     $nb = strval(10); //nb d'articles à récupérer
                     $base = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&retmax=' . $nb .'&usehistory=y&term=';//variable contenant la requête pour récupérer la liste de PMID selon les crières de requête
@@ -75,7 +74,7 @@
             {
                 echo "<h1>Table of our research</h1>";
                 $global_check = "<input type='checkbox' name = 'global_check' onclick = 'check(this)'>";
-                echo "<table>\n<tr><th>PMID</th><th>Title</th><th>" . $global_check . "</th></tr>\n";
+                echo "<table>\n<tr><th>PMID</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
                 $i = 0;
                 while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
                 {
@@ -84,20 +83,35 @@
                     $list_info = recovery($output);
                     if (!empty($list_info))
                     {
+                        $origin = "";
                         $num_access = $list_info[0];
                         $doi = $list_info[1];
                         $pmcid = $list_info[2];
                         $title = $list_info[3];
+                        $title = str_replace('"', "'", $title);
                         $year = $list_info[4];
                         $abstract = $list_info[5];
+                        $abstract = str_replace('"', "'", $abstract);
                         $authors = $list_info[6];
+                        //$authors = rtrim($authors);
                         $journal = $list_info[7];
                         $listauthors = $list_info[8];
-                        $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid, $listauthors);
+                        $listauthor = implode(', ', $listauthors);
+                        if ($num_access != "")
+                        {
+                            $origin = 'pubmed';
+                        }
+                        else
+                        {
+                            $origin = 'doi';
+                        }
+                        $object_article = new Article($origin, $num_access, $title, $abstract, $year, $journal, $pmcid, '1', $listauthors, '6');
+                        //var_dump($object_article);
                         $list_objects[$num_access] = $object_article;
-                        $check = "<input type='checkbox' class = check name='check[]' id = $num_access value= '" . $object_article . "'>\n";
-                        $survol = '<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $object_article->abstract() . "\">\n";
-                        echo "<tr><td>" .  $object_article->num_access() . "</td>\n<td>" . $survol . trim($object_article->title()) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
+                        $check = "<input type='checkbox' class = check name='check[]' id = $num_access value= '" . $object_article->getnum_access($num_access) . "'>\n";
+                        $survol = '<a style="border-style: double;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $abstract . "\">" ;
+                        $survolauthor = '<a style="border-style: double;" class="note1" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $listauthor . "\">" ;
+                        echo "<tr><td>" .  $num_access . "</td>\n<td>" . $survol . trim($title) . "</a></td>\n<td>" . $survolauthor . $authors[0] . ", ... , " . end($authors) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
                     }
                     $i++;
                 }
@@ -112,7 +126,7 @@
                 
             }
             $_SESSION["list_articles"] = $list_objects;
-            #var_dump($_SESSION["liste"]);
+            //var_dump($_SESSION["list_articles"]);
 
         ?>
         <script>
@@ -121,5 +135,5 @@
     <script src="./modif_table_requete.js"></script> 
 <?php
          
-    include('../views/footer.html');
+    include('../views/footer.php');
 ?>

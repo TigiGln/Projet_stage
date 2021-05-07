@@ -98,7 +98,7 @@ class MainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION['connexiondb']->user.'</strong>
+                                <strong>'. ucfirst($_SESSION['connexiondb']->user) . '</strong>
                               </div>
                             </div>
                           </div>

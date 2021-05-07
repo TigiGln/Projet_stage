@@ -8,11 +8,19 @@ function changeColorLigne()
     var checks = document.getElementsByClassName('check');
     var listNumAccess = [];
     var title = document.getElementsByClassName('note');
+    var authors = document.getElementsByClassName('note1');
     for(var i=1; i<tableRowLength; i++)
     {
+
         tableCells = tableRow[i].cells;
         listNumAccess.push(tableCells[0].innerHTML);
-        title[i-1].style.color = 'black';
+        console.log(title[i]);
+        title[i-1].style.color = '#000';
+        title[i-1].style.fontWeight = 'bold';
+        title[i-1].style.border = 'none';
+        authors[i-1].style.color = '#000';
+        authors[i-1].style.fontWeight = 'bold';
+        authors[i-1].style.border = 'none';
 
     }
     listAccessDb = Object.values(listNumAccessDb);

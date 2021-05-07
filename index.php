@@ -6,16 +6,16 @@ Formulaire pour la connexion
 <html lang="en">
     <head>
         <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
-        <link rel="icon" href="/Projet_stage/pictures/ico.ico" />
-        <link href="../css/signIn.css" rel="stylesheet">
+        <link rel="icon" href="/pictures/ico.ico" />
+        <link href="./css/signIn.css" rel="stylesheet">
         <!--<link href="../css/style.css" rel="stylesheet">-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <link href="../css/redefinebootstrap.css" rel="stylesheet">
+        <link href="./css/redefinebootstrap.css" rel="stylesheet">
         <meta charset="utf-8" />
         <title>Page de connexion</title>
     </head>
     <body>
-        <form method="get" action="form_connexion.php">
+        <form method="get" action="index.php">
 
             <p class="form-floating">
                 <input class="form-control" type="text" name="name_user" id="name_user"> 
@@ -33,8 +33,8 @@ Formulaire pour la connexion
         <?php
         /*Script pour la vérification de la connexion à une session. démarre une session et crée les variable d'environnement.
         */
-            require "../../Projet_stage/POO/class_connexion.php";
-            require "../../Projet_stage/POO/class_manager_bd.php";
+            require "./POO/class_connexion.php";
+            require "./POO/class_manager_bd.php";
             if(isset($_GET['name_user']) AND isset($_GET['password']))
             {
                 $connexion = new ConnexionDB('localhost', 'biblio', $_GET['name_user'], $_GET['password']);
@@ -42,11 +42,11 @@ Formulaire pour la connexion
                 {
                     session_start();
                     $_SESSION['connexiondb'] = $connexion;
-                    header('Location:../../Projet_stage/trie_table_statut/page_table.php?status=undefined&user=' . $_GET['name_user']);
+                    header('Location:./trie_table_statut/page_table.php?status=undefined&user=' . $_GET['name_user']);
                 }
                 else
                 {
-                    header('Location:./form_connexion.php');
+                    header('Location:./index.php');
                 }
             }
 
