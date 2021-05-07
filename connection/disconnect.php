@@ -9,5 +9,5 @@
 session_start() ;
 session_destroy();
 setcookie('cookie-session', null, -1, '/'); 
-header('Location:./form_connection.php');
+header('Location:../'.$path);
 ?>
