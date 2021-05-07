@@ -14,9 +14,7 @@
 
 class EditArticleMenu {
 
-    protected $ArtID;
-    protected $NumAccess;
-    protected $ArtOrigin;
+    protected $article;
     protected $Folder;
     //boolean to activate some menu parts
     protected $Notes;
@@ -35,10 +33,8 @@ class EditArticleMenu {
      *            The ID of the article in the database.
      * @return void
      */
-    public function __construct($ArtID, $ArtOrigin, $NumAccess) {
-        $this->ArtID = $ArtID;
-        $this->ArtOrigin = $ArtOrigin;
-        $this->NumAccess = $NumAccess;
+    public function __construct($article) {
+        $this->article = $article;
         $this->Folder = "edit_article_menu";
         $this->setNotes(true);
         $this->setAnnotate(true);
@@ -62,7 +58,7 @@ class EditArticleMenu {
             }
         </script>
         <div class="resizer bg-info" id="dragArticleMenu"></div>
-                 <div class="flex bg-light overflow-auto" id="ArticleMenu" style="width: 25em; height: 100vh;" data-art-I-D="'.$this->ArtID.'" data-numaccess="'.$this->NumAccess.'" data-origin="'.$this->ArtOrigin.'">
+                 <div class="flex bg-light overflow-auto" id="ArticleMenu" style="width: 25em; height: 100vh;" data-art-I-D="'.$this->article['id_article'].'" data-numaccess="'.$this->article['num_access'].'" data-origin="'.$this->article['origin'].'">
                     <div class="accordion accordion-flush bg-light" id="menu-article" >';
 
         if($this->Notes) {

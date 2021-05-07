@@ -49,7 +49,7 @@ if(isset($GLOBALS['connectionError'])) {
 ?>
     <form method="get" action="form_connection.php">
         <p class="form-floating">
-            <input class="form-control" type="text" name="email" id="email"> 
+            <input class="form-control" type="text" name="email" id="email" required="required"> 
             <label for="name_user">Email</label>
         </p>
         <p class="form-floating">

@@ -33,7 +33,7 @@ function search_table_status($status,$user)
     $list_pmid_selon_status = [];#création d'une liste artificiel des statut initial de chaque ligne.
     
     //$enum_user = ['Nicolas', 'Elodie', 'Vincent', 'Marie-Line', 'Pedro'];//utilisateur artificiel pour l'instant
-    $list_user = gestion_select('user_article', "Elodie", 'user',$enum_user);// création du menu déroulant des utilisateurs
+    $list_user = gestion_select('user_article', $user, 'user',$enum_user);// création du menu déroulant des utilisateurs
     echo "<h1>Table " . str_replace("_", " ",$status)."</h1>";
     echo "<table><tr><th>PMID</th><th>Title</th><th>Status</th><th>User</th></tr>";
     foreach($table_a_afficher as $line_table)#création du tableau à afficher ligne par ligne en fonction du statut demandés

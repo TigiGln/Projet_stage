@@ -27,7 +27,7 @@
             foreach ($_GET["check"] as $value)
             {
                 $manager->add($list_articles[$value]);
-                echo "<p>Article N°" . $value . " a bien été ajouté dans la base de données</p>";
+                echo '<div class="alert alert-info" role="alert">Article N°'. $value .' was successfully added to the database</div>';
                 /*if (array_key_exists($value, $list_articles))
                 {
                     if ($manager->get_exist("num_access" , $list_articles[$value]->num_access(), "article"))

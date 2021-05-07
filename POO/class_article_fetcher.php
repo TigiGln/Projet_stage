@@ -6,7 +6,7 @@ require("./POO/class_saveload_strategies.php");
  * ArticleFetcher
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Wed May 5 2021
+ * Latest update on Fri May 7 2021
  * Info - PHP Class to fetch the xml content of the articles.
  * Usage: refers to the readArticle.php file: Do the followings
  * Instantiate object, call doExist(NUMACCESS), is true call hasRights(), if true call fetch(), fetch() will return true if could fetch, false else with an error message.
@@ -105,7 +105,7 @@ class ArticleFetcher {
     public function fetchByPMCID() {
         if(empty($this->article['html_xml'])) { $this->fetchPMC(); }
         if(!empty($this->article['html_xml'])) {
-            echo $this->article['html_xml'];
+            //echo $this->article['html_xml'];
             return true;
         } else {
             $errorCode = 400;
@@ -130,6 +130,20 @@ class ArticleFetcher {
 
     public function printError($type, $content, $errorCode) {
         echo '<div class="alert alert-'.$type.'" role="alert">'.$content.'<br>[ERROR CODE: '.$errorCode.']</div>';
+    }
+
+     /**
+     * fetchPDF will, depending of the article characteristic, be able to link the corresponding pdf.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return true the fetch of pdf content was sucessfull, false if not or if an error occured
+     */
+    public function fetchPDF() {
+        if($this->article['origin'] == "pubmed") {
+            if(isset($this->article['pmcid'])) {                
+                return '<div id="pdf" class="switchDisplay" hidden><iframe class="w-100" style="height: 90vh;" src="'.'https://www.ncbi.nlm.nih.gov/pmc/articles/'.$this->article['pmcid'].'/pdf/'.'"></iframe></div>';
+            }
+        }
+        return false;
     }
     
 }

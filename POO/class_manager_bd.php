@@ -1,3 +1,4 @@
+  
 <?php
     class Manager
     {
@@ -8,7 +9,7 @@
             $this->setDb($db);
         }
 
-        public function add(Article $article)//insertion grâce à un objet
+        public function add(Article $article, $user = 6)//insertion grâce à un objet
         {
             // Préparation de la requête d'insertion.
             // Assignation des valeurs.
@@ -25,18 +26,18 @@
             $requete->bindValue(":pmcid", $article->pmcid());
             $requete->bindValue(":status", $article->status());
             $requete->bindValue(":status", $article->status());
-            $requete->bindValue(":user", 6);
+            $requete->bindValue(":user", $user);
             #$requete->bindValue(":pmid", strval($article->pmid()));
             #$requete->bindValue(":doi", $article->doi());
             #$requete->bindValue(":authors", $article->authors());
 
-            $requete->execute();
+            $res = $requete->execute();
             if (!$requete) 
             {
                 echo "\n PDO::errorInfo():\n";
                 print_r($db->errorInfo());
             }
-            
+            return $res;
         }
 
         public function add_form($protocol, $list, $table) //insertion grâce au information d'un formulaire
@@ -103,13 +104,13 @@
         }
         public function get_fields($table1, $table2, $table3, $champs_status ,$status, $champs_user, $user)//Récupération des lignes filtré par la valeur du champs
         {
+            //$manager->get_fields('article', 'status', 'user', 'name_status', $status, 'name_user', $user);
             //$requete = $this->db->prepare("SELECT * FROM article WHERE $fields = :valeur");
-            $requete = $this->db->prepare("SELECT * FROM $table1 INNER JOIN $table2 ON $table1.status = $table2.id_status INNER JOIN $table3 ON $table1.user = $table3.id_user WHERE $table2.$champs_status = :status AND $table3.$champs_user = :user");
+            $requete = $this->db->prepare("SELECT * FROM ($table1 INNER JOIN $table2 ON $table1.status = $table2.id_status) INNER JOIN $table3 ON $table1.user = $table3.id_user WHERE $table2.$champs_status = :status AND $table3.$champs_user = :user");
             $requete->bindValue(':status', $status);
             $requete->bindValue(':user', $user);
             $requete->execute();
             $article_list = $requete->fetchAll(PDO::FETCH_ASSOC);
-
             return $article_list;
         }
         //fonction de mise à jour des données par le num_access
@@ -119,6 +120,7 @@
             // Assignation des valeurs à la requête.
             // Exécution de la requête.
             $requete = $this->db->prepare("UPDATE $table1 SET $table1.$fields = (SELECT id_$table2 FROM $table2  WHERE $table2.name_$table2 = '$modif') WHERE $table1.num_access = $num_access");
+            var_dump($requete);
             $requete->bindValue(":status", $modif);
             $requete->execute();
 
@@ -141,22 +143,21 @@
             {
                 $list_statut_present[] = $requete_enum['name_' . $table1];
             }
-        
             return $list_statut_present;
         }
         //permet de récupérer la connexion à la base de données
-        public function setDb(PDO $db)
+        public function setDb($db)
         {
             $this->db = $db;
         }
-        public function __sleep()
+        /*public function __sleep()
         {
             return ['db'];
         }
-        public function __wakeup($db)
+        public function __wakeup()
         {
-            $this->setDb($db);
-        }
+            $this->setDb($this->db);
+        }*/
         
         /**
          * getSpecific is a method to request more specifics data where we select the columns, the conditions and the table.
@@ -269,7 +270,7 @@
         public function addHTMLXMLByPMCID($num_access, $pmcid) {
             $pmcid = str_replace("PMC", "", $pmcid);
             $_GET['PMCID'] = $pmcid;
-            $url = './utils/fromPMCID.php';
+            $url = './utils/fromPMCID/fromPMCID.php';
             $data = include($url);
             $cols = array();
             array_push($cols, array("html_xml", $data));

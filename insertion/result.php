@@ -15,7 +15,7 @@
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
             //connexion base de donnée
-            $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");
+            $connexionbd = new ConnexionDB("localhost", "biblio", "root", "");
             $_SESSION["connexionbd"] = $connexionbd;
             
             $manager = new Manager($_SESSION["connexionbd"]->pdo);//création de l'objet de requete

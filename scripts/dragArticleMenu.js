@@ -1,6 +1,13 @@
+/**
+ * Created on Thu May 6 2021
+ * Latest update on Fri May 7 2021
+ * Info - Allows drag menu on articleMenu
+ * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+ */
+
 const resizer = document.getElementById('dragArticleMenu');
 const articleMenuDiv = document.getElementById('ArticleMenu');
-const articleDiv = document.getElementById('article');
+const articleDiv = document.getElementById('display');
 //MINSIZE is effective on the articleDiv
 const MINSIZE = 300;
 

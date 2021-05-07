@@ -21,20 +21,35 @@ include('./views/header.php');
 $user = $_SESSION['username'];
 $userID = $_SESSION['userID'];
 ?>
-
-<div id="article" class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
-
+<div id="display" class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
 <?php
 /* CHECK IF THE QUERIED NUM ACCESS IS IN THE PARAMETERS */
 if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
-	$ORIGIN = $_GET['ORIGIN'];
-	$ID = $_GET['NUMACCESS'];
-	$articleFecther = new ArticleFetcher($ORIGIN, $ID);
+	$articleFecther = new ArticleFetcher($_GET['ORIGIN'], $_GET['NUMACCESS']);
 	if($articleFecther->doExist() && $articleFecther->hasRights($userID)) { 
+		/* contents */
+		$pdfData = $articleFecther->fetchPDF();
  		if($articleFecther->fetch()) {
+			/* dropdown */
+			echo '<span class="btn-group">
+			<button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+			Switch Display
+			</button>
+			<ul class="dropdown-menu">
+			<li><a class="dropdown-item" onClick="switchDisplay(\'article\')">HTML</a></li>';
+			if($pdfData) echo '<li><a class="dropdown-item" onClick="switchDisplay(\'pdf\')">PDF</a></li>';
+			echo '</ul></span><br>';
+			/* html */
+			echo '<div id="article" class="switchDisplay">';
+			echo ($articleFecther->getArticle())['html_xml'];
 			echo "</div>";
-			echo (new editArticleMenu($articleFecther->getArticle()['id_article'], $ORIGIN, $ID))->write();
+			//...
+			if($pdfData) { echo $pdfData; }
+			echo "</div>";
+			echo (new editArticleMenu($articleFecther->getArticle()))->write();
 			echo '<script src="./scripts/dragArticleMenu.js"></script>';
+			echo '<script src="./scripts/upgradePMCLinks.js"></script>';
+			echo '<script src="./scripts/switchContent.js"></script>';
 			http_response_code(200); 
 		}
 	}
