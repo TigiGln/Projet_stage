@@ -1,4 +1,3 @@
-<script src="../trie_table_statut/sort_status.js"></script>
 <script>
 	function refreshPopovers() {
 		  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));

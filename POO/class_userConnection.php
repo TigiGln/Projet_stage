@@ -4,7 +4,7 @@
  * UserConnection
  * 
  * Created on Thu May 6 2021
- * Latest update on Thu May 6 2021
+ * Latest update on Fri May 7 2021
  * Info - PHP class called in the header to check on each page if we are connected correctly or has rights.
  * If the session don't exist or is broken, check if the cookie yet exist and valid to load it in the session
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -24,7 +24,7 @@ class UserConnection {
     public function __construct($path, $start) {
         if($start) { session_start(); };
         $this->path = $path;
-        $this->time = time()+3600; //One month lasting
+        $this->time = time()+36000; //One month lasting
     }
     
     /**
@@ -34,17 +34,17 @@ class UserConnection {
      * @return void
      */
     public function isValid() {
-        $path = $this->path.'/connection/form_connection.php';
         /* If session username/userName isn't set, do the cookie check */
-        if(((!isset($_SESSION['username']) && !isset($_SESSION['userName'])) || !isset($_SESSION['userID'])) && !strpos($_SERVER['REQUEST_URI'], 'form_connection.php')) {
-            if(!isset($_COOKIE['cookie-session'])) { header('Location: '.$path); }
+        if(((!isset($_SESSION['username']) && !isset($_SESSION['userName'])) || !isset($_SESSION['userID'])) && !strpos($_SERVER["PHP_SELF"], "index.php")) {
+            if(!isset($_COOKIE['cookie-session'])) { header('Location: '.$this->path); }
             $cookieData = json_decode($_COOKIE['cookie-session'], true);
             /* Cookie secret check before allowing to load cookie data into session*/
-            if(!password_verify($this->secret, $cookieData[0])) { header('Location: '.$path); }
             $_SESSION['connexion'] = $cookieData[2];
             $_SESSION['username'] = $cookieData[2];
             $_SESSION['userName'] = $cookieData[2];
             $_SESSION['userID'] = $cookieData[1];
+        } else if(((isset($_SESSION['username']) && isset($_SESSION['userName'])) && isset($_SESSION['userID'])) && strpos($_SERVER["PHP_SELF"], "index.php")) {
+            header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
         }
     }
     

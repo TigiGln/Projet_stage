@@ -4,7 +4,7 @@
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Fri Apr 30 2021
+ * Latest update on Fri May 7 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -46,20 +46,20 @@ class MainMenu {
      */
     public function writeSubMenus($html) {
         if($this->My_Tasks) {
-            if ($this->position == "2") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=2");
+            if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
+            $html = $this->writeOne($html, 'My_Tasks', $this->path.'/tables/page_table.php', "?status=to_treat");
         }
         if($this->Open_Tasks) {
-            if ($this->position == "1") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=1");
+            if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
+            $html = $this->writeOne($html, 'Open_Tasks', $this->path.'/tables/page_table.php', "?status=undefined");
         }
         if($this->Processed_Tasks) {
-            if ($this->position == "3") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=3");
+            if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
+            $html = $this->writeOne($html, 'Processed_Tasks', $this->path.'/tables/page_table.php', "?status=treat");
         }
         if($this->Rejected_Tasks) {
-            if ($this->position == "4") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', $this->path.'/trie_table_statut/page_table.php', "?status=4");
+            if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
+            $html = $this->writeOne($html, 'Rejected_Tasks', $this->path.'/tables/page_table.php', "?status=reject");
         }
         if($this->Insertion) {
             $html = $this->writeOne($html, 'Insertion', $this->path.'/insertion/form.php', "");

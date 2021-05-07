@@ -1,7 +1,7 @@
 <?php
 /*
  * Created on Mon Apr 19 2021
- * Latest update on Wed May 5 2021
+ * Latest update on Fri May 7 2021
  * Info - readArticle is the common page to use article editing tools that features html/xml code.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -61,5 +61,5 @@ else {
 			This page need two arguments: ?NUMACCESS=NUM&ORIGIN=origin
 		</div>';
 }
-include('./views/footer.html');
+include('./views/footer.php');
 ?>

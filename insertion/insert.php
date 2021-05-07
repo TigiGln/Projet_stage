@@ -8,21 +8,18 @@
 ?>
 <?php
     include('../views/header.php');
-    #$_SESSION['connexion'] = 'John Doe';
     $menu = new mainMenu('Insertion');
     $menu->write();
 ?>
+<div class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
 <?php
     
-    if ($_SESSION != [])
+    if ($_SESSION != [])#Vérification que la session est en cours
     {
         $list_articles = $_SESSION["list_articles"];
         #var_dump($liste);
         if (isset($_GET["check"]) AND $_GET["check"] != [])
         {
-            #var_dump($_GET["check"]);
-            #echo "<p></p>";
-            
             $manager = new Manager($_SESSION["connexionbd"]->pdo);
             foreach ($_GET["check"] as $value)
             {
@@ -48,6 +45,7 @@
         
     }
 ?>
+</div>
 <?php      
-    include('../views/footer.html');
+    include('../views/footer.php');
 ?>

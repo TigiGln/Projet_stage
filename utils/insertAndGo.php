@@ -34,7 +34,7 @@ function insertAndGoPubmed() {
     if (!empty($list_info)) {
         $res = 1;
         $manager = new Manager($_SESSION["connexionbd"]->pdo);
-        if(!$manager->get_exist("article", "num_access", $num_access)) {
+        if(!$manager->get_exist("article", "num_access", $_GET['ID'])) {
             $num_access = $list_info[0];
             $doi = $list_info[1];
             $pmcid = $list_info[2];
@@ -44,8 +44,9 @@ function insertAndGoPubmed() {
             $authors = $list_info[6];
             $journal = $list_info[7];
             $listauthors = $list_info[8];
-            $object_article = new Article($num_access, $title, $abstract, $year, $journal, $pmcid, $listauthors);
-            $res = $manager->add($object_article, $_SESSION["userID"]);
+            $origin = 'pubmed';
+            $object_article = new Article($origin, $num_access, $title, $abstract, $year, $journal, $pmcid, '2', $listauthors, $_SESSION["userID"]);
+            $res = $manager->add($object_article);
         } else { header('Location: ../readArticle.php?NUMACCESS='.$num_access."&ORIGIN=pubmed"); }
         if($res) { header('Location: ../readArticle.php?NUMACCESS='.$num_access."&ORIGIN=pubmed"); }
         else { echo '<div class="alert alert-danger" role="alert">An error occured. Please retry.</div>'; }

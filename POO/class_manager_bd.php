@@ -9,7 +9,7 @@
             $this->setDb($db);
         }
 
-        public function add(Article $article, $user = 6)//insertion grâce à un objet
+        public function add(Article $article)
         {
             // Préparation de la requête d'insertion.
             // Assignation des valeurs.
@@ -17,16 +17,16 @@
             $requete = $this->db->prepare("INSERT INTO article(origin, num_access, title, abstract, year, journal, pmcid, status, user) VALUES(:origin, :num_access, :title, :abstract, :year, :journal, :pmcid, :status, :user)");
             
             #$requete = $this->db->prepare("INSERT INTO Articles(statut, pmid, doi, pmcid, title, years, abstract, authors, journal) VALUES(:statut, :pmid, :doi, :pmcid, :title, :years, :abstract, :authors, :journal)");
-            $requete->bindValue(":origin", $article->origin());
-            $requete->bindValue(":num_access", $article->num_access());
-            $requete->bindValue(":title", $article->title());
-            $requete->bindValue(":abstract", $article->abstract());
-            $requete->bindValue(":year", $article->year());
-            $requete->bindValue(":journal", $article->journal());
-            $requete->bindValue(":pmcid", $article->pmcid());
-            $requete->bindValue(":status", $article->status());
-            $requete->bindValue(":status", $article->status());
-            $requete->bindValue(":user", $user);
+            $requete->bindValue(":origin", $article->getorigin());
+            $requete->bindValue(":num_access", $article->getnum_access());
+            $requete->bindValue(":title", $article->gettitle());
+            $requete->bindValue(":abstract", $article->getabstract());
+            $requete->bindValue(":year", $article->getyear());
+            $requete->bindValue(":journal", $article->getjournal());
+            $requete->bindValue(":pmcid", $article->getpmcid());
+            $requete->bindValue(":status", $article->getstatus());
+            $requete->bindValue(":status", $article->getstatus());
+            $requete->bindValue(":user", $article->getuser());
             #$requete->bindValue(":pmid", strval($article->pmid()));
             #$requete->bindValue(":doi", $article->doi());
             #$requete->bindValue(":authors", $article->authors());
@@ -38,12 +38,13 @@
                 print_r($db->errorInfo());
             }
             return $res;
+            
         }
 
-        public function add_form($protocol, $list, $table) //insertion grâce au information d'un formulaire
+        //insertion pour le formulaire d'enregistrement des utilisateurs
+        public function add_form($protocol, $list, $table) 
         {
             $requete = $this->db->prepare("INSERT INTO " . $table ."(" . implode(', ', $list) . ") VALUES(:" . implode(', :', $list) . ")");
-
             for($i=0 ; $i < count($list) ; $i++)
             {
                 if ($list[$i] == 'password')
@@ -61,9 +62,9 @@
                 echo "\nPDO::errorInfo():\n";
                 print_r($db->errorInfo());
             }
-
         }
-        public function get_exist($table, $fields, $value)//Savoir si une valeur existe dans la table à un champ donnée
+        //Savoir si une valeur existe dans la table à un champ donnée
+        public function get_exist($table, $fields, $value)
         {
             // Exécute une requête de type SELECT avec une clause WHERE.
             $requete = $this->db->prepare("SELECT * FROM  $table  WHERE  $fields = ?");
@@ -72,16 +73,9 @@
             #$requete = $this->db->query("SELECT pmid, doi, pmcid, title, years, abstract, authors, journal, statut FROM Articles WHERE " .  $key . " = " . $id);
             $donnees = $requete->fetch();
             return !empty($donnees);
-            /*if (empty($donnees))
-            {
-                return False;
-            }
-            else
-            {
-                return True;
-            }*/
             
         }
+
         public function get_test($columns, $table)
         {
             $list_elements = [];
@@ -104,18 +98,30 @@
         }
         public function get_fields($table1, $table2, $table3, $champs_status ,$status, $champs_user, $user)//Récupération des lignes filtré par la valeur du champs
         {
-            //$manager->get_fields('article', 'status', 'user', 'name_status', $status, 'name_user', $user);
             //$requete = $this->db->prepare("SELECT * FROM article WHERE $fields = :valeur");
-            $requete = $this->db->prepare("SELECT * FROM ($table1 INNER JOIN $table2 ON $table1.status = $table2.id_status) INNER JOIN $table3 ON $table1.user = $table3.id_user WHERE $table2.$champs_status = :status AND $table3.$champs_user = :user");
+            $requete = $this->db->prepare("SELECT * FROM $table1 INNER JOIN $table2 ON $table1.status = $table2.id_status INNER JOIN $table3 ON $table1.user = $table3.id_user WHERE $table2.$champs_status = :status AND $table3.$champs_user = :user");
             $requete->bindValue(':status', $status);
             $requete->bindValue(':user', $user);
             $requete->execute();
             $article_list = $requete->fetchAll(PDO::FETCH_ASSOC);
+            //var_dump($article_list[0]["abstract"]);
+
+            return $article_list;
+            
+        }
+        public function get_fields_join($table1, $table2, $table3, $champs_status, $status)
+        {
+            $requete = $this->db->prepare("SELECT *, $table3.name_user FROM $table1 INNER JOIN $table2 ON $table1.status = $table2.id_status INNER JOIN $table3 ON $table1.user = $table3.id_user WHERE $table2.$champs_status = :status");
+            $requete->bindValue(':status', $status);
+            $requete->execute();
+            $article_list = $requete->fetchAll(PDO::FETCH_ASSOC);
+            
             return $article_list;
         }
         //fonction de mise à jour des données par le num_access
         public function update($num_access, $fields, $modif, $table1, $table2)
         {
+            
             // Prépare une requête de type UPDATE.
             // Assignation des valeurs à la requête.
             // Exécution de la requête.
@@ -128,6 +134,7 @@
         //fonction pour récupérer les différents statuts
         public function search_enum_fields($table1, $table2, $fields, $champs_statut)
         {
+            
             /*$requete1 = $this->db->prepare("SHOW COLUMNS FROM article LIKE 'status'");
             $requete1->execute();
             $donnees = $requete1->fetchAll();
@@ -143,6 +150,7 @@
             {
                 $list_statut_present[] = $requete_enum['name_' . $table1];
             }
+        
             return $list_statut_present;
         }
         //permet de récupérer la connexion à la base de données
@@ -150,14 +158,6 @@
         {
             $this->db = $db;
         }
-        /*public function __sleep()
-        {
-            return ['db'];
-        }
-        public function __wakeup()
-        {
-            $this->setDb($this->db);
-        }*/
         
         /**
          * getSpecific is a method to request more specifics data where we select the columns, the conditions and the table.
