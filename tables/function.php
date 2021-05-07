@@ -64,7 +64,8 @@ function search_table_status($status, $user, $manager)
         $abstract =  str_replace('"', "'", $line_table['abstract']);
         $title = str_replace('"', "'", $line_table['title']);
         $lien_pubmed  = "<a href ='https://pubmed.ncbi.nlm.nih.gov/$num_access/' target='_blank'>";
-        $survol_title = '<a target="_BLANK" href="../readArticle.php?NUMACCESS='.$num_access.'&ORIGIN='.$origin.'" style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
+        $toolLink = ($status == 'to_treat') ? 'target="_BLANK" href="../readArticle.php?NUMACCESS='.$num_access.'&ORIGIN='.$origin.'"' : '';
+        $survol_title = '<a '.$toolLink.' style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
         if ($status == 'to_treat')
         {
             echo "<tr id = 'line_$num_access'><td width=12.5%>" . $lien_pubmed .  $num_access . "</a></td><td width=30%>" . $survol_title . $title . "</a></td><td width= 20%>premier et dernier auteur</td><td width=12.5%>" . $list_status . "</td><td width=12.5%>" . $list_user . "</td><td width=12.5%>" . $notes . "</td></tr>" ;
