@@ -17,7 +17,7 @@
         <form method="get" action="result.php" enctype="multipart/form-data">
             <!-- Menu select pour sélectionner notre sujet de requête -->
             <div class="form-group pb-4">
-                <select name="list_query" id="list_query" class="form-control w-25" > 
+                <select name="list_query" id="list_query" class="form-select w-25" > 
                     <option value="">--Please choose an option--</option>
                     <option value="PMID">PMID</option>
                     <option value="ELocationID">DOI</option>
@@ -36,7 +36,7 @@
             </p>-->
             <div class="form-group pb-4">
                 <input class="btn btn-outline-success" type="submit" value="Start search" id="submit">
-            </div>
+            </div> 
             <br>
         </form>
     </div>

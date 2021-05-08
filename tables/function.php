@@ -3,7 +3,7 @@
 function gestion_select($name, $value_a_tester, $id, $list_value_listbox)
 {
     $listbox = "";
-    $listbox .= "<select name= '$name' id = '$id' onchange = changeStatus(this)>";
+    $listbox .= "<select class='form-select' name= '$name' id = '$id' onchange = changeStatus(this)>";
     foreach($list_value_listbox as $value)
     {
         if ($value == $value_a_tester)
