@@ -34,14 +34,12 @@ class UserConnection {
      * @return void
      */
     public function isValid() {
-        if(strpos('/'.$_SERVER["PHP_SELF"], $this->path.'/index.php')) {
-            if(!isset($_SESSION['username']) || !isset($_SESSION['userName']) || !isset($_SESSION['userID'])) {
-                if($this->loadCookieSession()) header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
-            } else { header('Location: '.$this->path.'/tables/page_table.php?status=to_treat'); }
-        } else if(!isset($_SESSION['username']) || !isset($_SESSION['userName']) || !isset($_SESSION['userID'])) {
-                if(!$this->loadCookieSession()) header('Location: '.$this->path.'/index.php');
-                else header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
+        if(strpos(strtolower('/'.$_SERVER["PHP_SELF"]), strtolower($this->path.'/index.php'))) {
+            if((isset($_SESSION['username']) && isset($_SESSION['userName']) && isset($_SESSION['userID'])) || $this->loadCookieSession()) header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
         } 
+        else if(!isset($_SESSION['username']) || !isset($_SESSION['userName']) || !isset($_SESSION['userID'])) {
+            if(!$this->loadCookieSession()) header('Location: '.$this->path.'/index.php');
+        }
     }
 
     /**
