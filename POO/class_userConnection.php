@@ -4,7 +4,7 @@
  * UserConnection
  * 
  * Created on Thu May 6 2021
- * Latest update on Fri May 7 2021
+ * Latest update on Sat May 8 2021
  * Info - PHP class called in the header to check on each page if we are connected correctly or has rights.
  * If the session don't exist or is broken, check if the cookie yet exist and valid to load it in the session
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -34,18 +34,31 @@ class UserConnection {
      * @return void
      */
     public function isValid() {
-        /* If session username/userName isn't set, do the cookie check */
-        if(((!isset($_SESSION['username']) && !isset($_SESSION['userName'])) || !isset($_SESSION['userID'])) && !strpos($_SERVER["PHP_SELF"], "index.php")) {
-            if(!isset($_COOKIE['cookie-session'])) { header('Location: '.$this->path); }
-            $cookieData = json_decode($_COOKIE['cookie-session'], true);
-            /* Cookie secret check before allowing to load cookie data into session*/
-            $_SESSION['connexion'] = $cookieData[2];
-            $_SESSION['username'] = $cookieData[2];
-            $_SESSION['userName'] = $cookieData[2];
-            $_SESSION['userID'] = $cookieData[1];
-        } else if(((isset($_SESSION['username']) && isset($_SESSION['userName'])) && isset($_SESSION['userID'])) && strpos($_SERVER["PHP_SELF"], "index.php")) {
-            header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
-        }
+        if(strpos('/'.$_SERVER["PHP_SELF"], $this->path.'/index.php')) {
+            if(!isset($_SESSION['username']) || !isset($_SESSION['userName']) || !isset($_SESSION['userID'])) {
+                if($this->loadCookieSession()) header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
+            } else { header('Location: '.$this->path.'/tables/page_table.php?status=to_treat'); }
+        } else if(!isset($_SESSION['username']) || !isset($_SESSION['userName']) || !isset($_SESSION['userID'])) {
+                if(!$this->loadCookieSession()) header('Location: '.$this->path.'/index.php');
+                else header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
+        } 
+    }
+
+    /**
+     * loadCookieSession will try to load the session stored in the cookie.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return true if could load cookie-session, false if not
+     */
+    public function loadCookieSession() {
+        if(!isset($_COOKIE['cookie-session'])) { return false; }
+        $cookieData = json_decode($_COOKIE['cookie-session'], true);
+        /* Cookie secret check before allowing to load cookie data into session*/
+        if(!password_verify($this->secret, $cookieData[0])) { return false; }
+        $_SESSION['connexion'] = $cookieData[2];
+        $_SESSION['username'] = $cookieData[2];
+        $_SESSION['userName'] = $cookieData[2];
+        $_SESSION['userID'] = $cookieData[1];
+        return true;
     }
     
     /**
