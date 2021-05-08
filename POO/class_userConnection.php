@@ -24,7 +24,7 @@ class UserConnection {
     public function __construct($path, $start) {
         if($start) { session_start(); };
         $this->path = $path;
-        $this->time = time()+36000; //One month lasting
+        $this->time = time()+2592000; //One month lasting
     }
     
     /**
