@@ -3,6 +3,7 @@ h1
     display: inline;
     text-align: center;
 }
+/*
 th
 {
     border: 1px black solid;
@@ -23,6 +24,7 @@ td
     border: 1px black solid;
     padding:0px 50px;
     text-align: center;
+    
 }
 table
 {
@@ -30,6 +32,7 @@ table
     border-spacing: 0px ;
     margin : auto;
 }
+*/
 .popover 
 {
     max-width: 50%;
@@ -39,5 +42,3 @@ table
 {
     word-wrap: break-word;
 }
-
-		

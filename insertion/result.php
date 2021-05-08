@@ -72,9 +72,9 @@
             }*/
             if (!empty($listpmid))
             {
-                echo "<h1>Table of our research</h1>";
+                echo "<div class='flex p-4 w-100 overflow-auto' style='height: 100vh;'><h1>Table of our research</h1>";
                 $global_check = "<input type='checkbox' name = 'global_check' onclick = 'check(this)'>";
-                echo "<table>\n<tr><th>PMID</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
+                echo "<table class='table table-responsive table-hover table-bordered'>\n<tr class='table-info'><th>PMID</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
                 $i = 0;
                 while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
                 {
@@ -105,7 +105,7 @@
                         {
                             $origin = 'doi';
                         }
-                        $object_article = new Article($origin, $num_access, $title, $abstract, $year, $journal, $pmcid, '2', $listauthors, $_SESSION['userID']);
+                        $object_article = new Article($origin, $num_access, $title, $abstract, $year, $journal, $pmcid, '1', $listauthors, $_SESSION['userID']);
                         //var_dump($object_article);
                         $list_objects[$num_access] = $object_article;
                         $check = "<input type='checkbox' class = check name='check[]' id = $num_access value= '" . $object_article->getnum_access($num_access) . "'>\n";
@@ -116,7 +116,7 @@
                     $i++;
                 }
                 echo "</table>";
-                echo "<p><input type='submit' value='Insert'></p>";
+                echo "<p><input class='btn btn-outline-success' type='submit' value='Insert'></p>";
 
             }
             else
@@ -129,6 +129,7 @@
             //var_dump($_SESSION["list_articles"]);
 
         ?>
+        </div>
         <script>
             var listNumAccessDb = <?php echo json_encode($list_num_access_bd); ?>;
         </script>

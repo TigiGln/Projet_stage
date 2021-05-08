@@ -11,34 +11,36 @@
     $menu->write();
 ?>
 <div class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
-        <h1>Insertion</h1>
+    <h1>Insertion</h1>
+    <div>
         <!-- Création du formulaire de requête sur Pubmed -->
         <form method="get" action="result.php" enctype="multipart/form-data">
             <!-- Menu select pour sélectionner notre sujet de requête -->
-            <select name="list_query" id="list_query">
-                <option value="">--Please choose an option--</option>
-                <option value="PMID">PMID</option>
-                <option value="ELocationID">DOI</option>
-                <option value="Author">Author</option>
-                <option value="Title">Title</option>
-                <option value="dp">Year</option>
-            </select>
-            <br><br>
-            <p>
+            <div class="form-group pb-4">
+                <select name="list_query" id="list_query" class="form-control w-25" > 
+                    <option value="">--Please choose an option--</option>
+                    <option value="PMID">PMID</option>
+                    <option value="ELocationID">DOI</option>
+                    <option value="Author">Author</option>
+                    <option value="Title">Title</option>
+                    <option value="dp">Year</option>
+                </select>
+            </div>
+            <div class="form-group pb-4">
                 <!-- zone de saisi des éléments de requête -->
-                <textarea name="textarea" id="textarea" cols="50" rows="4"></textarea>
-            </p>
-            <br>
+                <textarea name="textarea" id="textarea" rows="4" class="form-control w-25" ></textarea>
+            </div>
             <!--<p>
                 <label for="file">My file</label>
                 <input type="file" name="myfile" id="file" accept=".txt">
             </p>-->
-            <p>
-                <input type="submit" value="Start search" id="submit">
-            </p>
+            <div class="form-group pb-4">
+                <input class="btn btn-outline-success" type="submit" value="Start search" id="submit">
+            </div>
             <br>
         </form>
-        <script src="../insertion/gestion_form.js"></script><!-- import du script javascript pour la gestion des arguments donnée par l'utilisateur selon le critère choisi -->
+    </div>
+    <script src="../insertion/gestion_form.js"></script><!-- import du script javascript pour la gestion des arguments donnée par l'utilisateur selon le critère choisi -->
 </div>
 <?php
           

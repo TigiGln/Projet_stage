@@ -4,8 +4,6 @@ body {
 
 }
 
-/* Sign-In */
-
 /* Menu */
 .menu {
   height: 100vh;
@@ -39,10 +37,19 @@ body {
 }
 
 legend {
-  text-decoration: underline #31D2F2;
+  text-decoration: underline #56b9c7;
 }
 
-/* insertion reuslt temp */
+/*
+fieldset {
+  border: 0.25em solid #56b9c7 !important;
+  padding: 4em !important;
+  margin: 0 0 4em 0 !important;
+  width: 100% !important;
+}
+*/
+
+/* insertion result temp 
     #insertion
     {
       margin-right: 50px;
@@ -67,13 +74,15 @@ legend {
       border: 1px black solid;
       padding:0px 50px;
       text-align: center;
+      
     }
     table
     {
       border-collapse: separate;
       border-spacing: 0px ;
       margin : auto;
-    }
+    }*/
+
 
 /* articles */
 .article-notes {
