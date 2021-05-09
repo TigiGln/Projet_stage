@@ -1,17 +1,19 @@
 /**
  * Created on Fri May 7 2021
- * Latest update on Fri May 7 2021
+ * Latest update on Sun May 9 2021
  * Info - allow to change "free pmc article" links
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
 
-function upgradePMCLinks() {
-    let references = document.getElementById('reference-list').childNodes;
+function upgradePMCLinks(references) {
+    console.log(references);
     for (let i = 0; i<references.length; i++) {
         let links = references[i].getElementsByTagName("a");
         for (let j = 0; j<links.length; j++) {
             let link = links[j].outerHTML;
-            let PMC = link.match(/(PMC).*?(\/">)/g);
+            let PMC = link.match(/(PMC).*?(\/.>)/g);
+            console.log(link);
+            console.log(PMC);
             if (PMC !== null) {
                 PMC = PMC[0].substring(3, PMC[0].length-3);
                 let upgrade = 'data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-content="'+
@@ -26,6 +28,11 @@ function upgradePMCLinks() {
         }
     }
 } 
-if(new URLSearchParams(window.location.search).get('ORIGIN') == "pubmed") {
-    upgradePMCLinks();
+if((String(new URLSearchParams(window.location.search).get("ORIGIN")) === "pubmed")) {
+    let references = document.getElementsByClassName('ref-list-sec');
+    console.log(references);
+    for(let i = 0; i<references.length; i++) {
+        console.log(references[i]);
+        upgradePMCLinks(references[i].childNodes);
+    }
 }
