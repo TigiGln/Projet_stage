@@ -16,13 +16,13 @@ function upgradePMCLinks(references) {
             console.log(PMC);
             if (PMC !== null) {
                 PMC = PMC[0].substring(3, PMC[0].length-3);
-                let upgrade = 'data-bs-toggle="popover" data-bs-trigger="focus" data-bs-html="true" data-bs-content="'+
+                let upgrade = 'data-bs-toggle=\'popover\' data-bs-trigger=\'focus\' data-bs-html=\'true\' data-bs-content=\''+
                 '<div class=\'row justify-content-center text-center\'><div class=\'col\'>'+
                 '<a target=\'_BLANK\' href=\'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'+PMC+'\'> Read From<br>PubMedCentral </a>'+
                 '</div><div class=\'col\'>'+
                 '<a target=\'_BLANK\' href=\'./utils/insertAndGo.php?ORIGIN=pubmed&ID='+PMC+'\'> Read From<br>BiblioTool </a>'+
-                '</div></div>"';
-                link = '<a tabindex="0" class="int-reflink" '+upgrade+'>PMC free article</a>';
+                '</div></div>\'';
+                link = '<a tabindex=\'0\' class=\'int-reflink\' '+upgrade+'>PMC free article</a>';
                 links[j].outerHTML = link;
             }
         }
