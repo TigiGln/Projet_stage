@@ -249,7 +249,7 @@ document.getElementById("article").addEventListener("mouseup", function() {
       document.getElementById("annotates").innerHTML = "";
     }
     isOpen = true;
-    if(!document.querySelector('#article-Annotate').classList.contains("show")) { document.querySelector('#AnnotateBtn').click(); }
+    if(!document.querySelector('#article-annotate').classList.contains("show")) { document.querySelector('#annotateBtn').click(); }
   } 
 });
 

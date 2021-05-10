@@ -27,7 +27,7 @@ function annotateShow(id) {
   let numaccess = articleGet("numaccess");
   let origin = articleGet("origin");
   annotateRepliesLoad(origin, numaccess, id);
-  if(!document.querySelector('#article-Annotatethreads').classList.contains("show")) { document.querySelector('#AnnotateThreadsBtn').click(); }
+  if(!document.querySelector('#article-annotatethreads').classList.contains("show")) { document.querySelector('#annotatethreadsBtn').click(); }
 }
 
 /**
