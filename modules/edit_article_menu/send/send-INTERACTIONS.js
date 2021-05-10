@@ -20,7 +20,7 @@ sendInteractionsLoadUsersList();
 function sendInteractionsLoadUsersList() {
   let usersList = document.getElementById('usersList');
   /* Prepare request */
-  let url = "../modules/edit_article_menu/Send/getUsersList.php";
+  let url = "../modules/edit_article_menu/send/getUsersList.php";
   console.log(logHeaderSendInteractions+" Request users List");
   /* Fires request */
   var http = new XMLHttpRequest();
@@ -68,7 +68,7 @@ function validateSendInteraction() {
   let newUser = document.getElementById("sendTo").value;
   if(document.querySelector('option[value="' + newUser + '"]') === null) { newUser = null; } 
   else { newUser = document.querySelector('option[value="' + newUser + '"]').dataset.id; }
-  let url = "../modules/edit_article_menu/Send/validate.php";
+  let url = "../modules/edit_article_menu/send/validate.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&newUser="+encodeURIComponent(newUser);
   console.log(logHeaderSendInteractions+" Send send with parameters: "+params);
   /* Fires request */

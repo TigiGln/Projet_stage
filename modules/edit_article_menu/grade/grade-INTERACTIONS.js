@@ -48,7 +48,7 @@ function initGradeInteractions() {
   let id = articleGet("artID");
   let stars = document.querySelectorAll(".rat-star");
   /* Prepare request */
-  let url = "../modules/edit_article_menu/Grade/getUserGrade.php";
+  let url = "../modules/edit_article_menu/grade/getUserGrade.php";
   let params = "ID="+encodeURIComponent(id);
   console.log(logHeaderGradeInteractions+" Request user grade for article: "+params);
   /* Fires request */
@@ -81,7 +81,7 @@ function gradeUpdateDB(grade) {
   /* Prepare request */
   grade++;
   let id = articleGet("artID");
-  let url = "../modules/edit_article_menu/Grade/validate.php";
+  let url = "../modules/edit_article_menu/grade/validate.php";
   let params = "ID="+encodeURIComponent(id)+"&GRADE="+encodeURIComponent(grade);
   console.log(logHeaderGradeInteractions+" Validate send with parameters: "+params);
   /* Fires request */

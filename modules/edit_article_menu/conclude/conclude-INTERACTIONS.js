@@ -22,7 +22,7 @@ function validateConcludeInteraction(status) {
   let id = articleGet("numaccess");
   let origin = articleGet("origin");
   /* Prepare request */
-  let url = "../modules/edit_article_menu/Conclude/validate.php";
+  let url = "../modules/edit_article_menu/conclude/validate.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&status="+status;
   console.log(logHeaderConcludeInteractions+" Validate send with parameters: "+params);
   /* Fires request */

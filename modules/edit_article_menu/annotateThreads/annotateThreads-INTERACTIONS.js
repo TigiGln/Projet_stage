@@ -42,7 +42,7 @@ function annotateReplySend(commentId) {
   let origin = articleGet("origin");
   let id = numaccess+"_"+commentId;
   let text = document.getElementById("annotatesReply").value;
-  let url = "../modules/edit_article_menu/AnnotateThreads/save-reply.php";
+  let url = "../modules/edit_article_menu/annotatethreads/save-reply.php";
   let params = "ORIGIN="+origin+"&ID="+id+"&text="+text;
   /* Fires request */
   var http = new XMLHttpRequest();
@@ -73,7 +73,7 @@ function annotateReplySend(commentId) {
  */
  function annotateRepliesLoad(origin, numaccess, commentId) {
   let id = numaccess+"_"+commentId;
-  let url = "../modules/edit_article_menu/AnnotateThreads/load-replies.php";
+  let url = "../modules/edit_article_menu/annotatethreads/load-replies.php";
   let params = "ORIGIN="+origin+"&ID="+id;
   /* Fires request */
   var http = new XMLHttpRequest();
@@ -140,7 +140,7 @@ function annotateFillReplies(id, replies) {
   let id = articleGet("numaccess");
   let origin = articleGet("origin");
   let article = document.getElementById("article").innerHTML;
-  let url = "../modules/edit_article_menu/Annotate/save-article.php";
+  let url = "../modules/edit_article_menu/annotate/save-article.php";
   let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id)+"&ORIGIN="+encodeURIComponent(origin);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
   /* Fires request */
