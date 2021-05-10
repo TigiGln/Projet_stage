@@ -1,12 +1,12 @@
 <?php
 //Création du menu déroulant avec le selected au bon endroit et les options souhaités.
-function gestion_select($name, $selected_value, $id, $list_value_listbox)
+function gestion_select($name, $value_a_tester, $id, $list_value_listbox)
 {
     $listbox = "";
     $listbox .= "<select class='form-select' name= '$name' id = '$id' onchange = changeStatus(this)>";
     foreach($list_value_listbox as $value)
     {
-        if (strtolower($value) == strtolower($selected_value))
+        if (strtolower($value) == strtolower($value_a_tester))
         {
             $listbox .= "<option value=$value selected>" . ucfirst($value) . "</option>";
         }

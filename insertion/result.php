@@ -12,6 +12,7 @@
     $menu = new mainMenu('Insertion');
     $menu->write();
 ?>
+<div class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
             //connexion base de donnée
@@ -130,6 +131,8 @@
 
         ?>
         </div>
+    </form>
+    </div>
         <script>
             var listNumAccessDb = <?php echo json_encode($list_num_access_bd); ?>;
         </script>
