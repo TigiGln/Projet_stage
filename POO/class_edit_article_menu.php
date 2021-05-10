@@ -66,11 +66,11 @@ class EditArticleMenu {
      * @return void
      */
     private function writeOne($html, $value) {
-        $file = str_replace(' ', '', $value);
+        $file = str_replace(' ', '', strtolower($value));
         $data = file_get_contents('../modules/'.$this->Folder.'/'.$file.'/'.$file.'.php');
         $html = $html . '<div class="accordion-item" >
                             <h2 class="accordion-header">
-                            <button id="'.$file.'Btn" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#article-'.$file.'">'.$value.'</button>
+                            <button id="'.$file.'Btn" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#article-'.$file.'">'.ucfirst($value).'</button>
                             </h2>
                             <div id="article-'.$file.'" class="accordion-collapse collapse">
                                 <div class="accordion-body p-0 m-0">'.$data.'</div></div></div>';
