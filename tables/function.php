@@ -63,11 +63,6 @@ function search_table_status($status, $user, $manager)
         $name_id_status = 'status_' . $num_access;
         $name_id_user = 'user_'. $num_access;
         $user_name = $line_table['name_user'];
-        $notes = $line_table['general_note'];
-        if (empty($notes))
-        {
-            $notes = 'No notes available';
-        }
         $list_status = gestion_select($name_id_status, $status, $num_access, $enum_status);//création du menu déroulant des status
         $list_user = gestion_select($name_id_user, $user_name, $num_access, $enum_user);//création du menu déraoulant des users
         $abstract =  str_replace('"', "'", $line_table['abstract']);
@@ -76,7 +71,11 @@ function search_table_status($status, $user, $manager)
         $toolLink = ($status == 'tasks') ? 'target="_BLANK" href="../tools/readArticle.php?NUMACCESS='.$num_access.'&ORIGIN='.$origin.'"' : '';
         $survol_title = '<a '.$toolLink.' style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
         if ($status == 'tasks')
-        {
+        {   
+            if(!class_exists("SaveLoadStrategies")) { require('../POO/class_saveload_strategies.php'); }
+            $load = new SaveLoadStrategies("..");
+            $res = json_decode($load->loadAsXML("../modules/edit_article_menu/notes/notes.xml", $line_table["origin"]."_".$line_table["num_access"], "author", $_SESSION['username']), true);
+            $notes = ($res == 400) ? $notes = "" : urldecode($res[0]['content']);
             echo "<tr id = 'line_$num_access'><td width=12.5%>" . $lien_pubmed .  $num_access . "</a></td><td width=30%>" . $survol_title . $title . "</a></td><td width= 20%>premier et dernier auteur</td><td width=12.5%>" . $list_status . "</td><td width=12.5%>" . $list_user . "</td><td width=12.5%>" . $notes . "</td></tr>" ;
         }
         else
