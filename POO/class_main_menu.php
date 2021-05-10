@@ -13,7 +13,6 @@ class MainMenu {
 
     protected $title;
     protected $position; 
-    protected $path;
     //boolean to activate some menu parts
     protected $My_Tasks;
     protected $Open_Tasks;
@@ -30,7 +29,6 @@ class MainMenu {
      */
     public function __construct($position) {
         $this->title = "Outil Biblio";
-        $this->path = "/Projet_stage";
         $this->position = $position;
         $this->setMyTasks(true);
         $this->setOpenTasks(true);
@@ -46,19 +44,19 @@ class MainMenu {
      */
     public function writeSubMenus($html) {
         if($this->My_Tasks) {
-            $html = $this->writeOne($html, 'Tasks', $this->path.'/tables/articles.php', "?status=tasks");
+            $html = $this->writeOne($html, 'Tasks', '../tables/articles.php', "?status=tasks");
         }
         if($this->Open_Tasks) {
-            $html = $this->writeOne($html, 'Undefined', $this->path.'/tables/articles.php', "?status=undefined");
+            $html = $this->writeOne($html, 'Undefined', '../tables/articles.php', "?status=undefined");
         }
         if($this->Processed_Tasks) {
-            $html = $this->writeOne($html, 'Processed', $this->path.'/tables/articles.php', "?status=processed");
+            $html = $this->writeOne($html, 'Processed', '../tables/articles.php', "?status=processed");
         }
         if($this->Rejected_Tasks) {
-            $html = $this->writeOne($html, 'Rejected', $this->path.'/tables/articles.php', "?status=rejected");
+            $html = $this->writeOne($html, 'Rejected', '../tables/articles.php', "?status=rejected");
         }
         if($this->Insertion) {
-            $html = $this->writeOne($html, 'Insertion', $this->path.'/insertion/form.php', "");
+            $html = $this->writeOne($html, 'Insertion', '../insertion/form.php', "");
         }
         return $html;
     }
@@ -77,7 +75,7 @@ class MainMenu {
                 <div class="menu offcanvas offcanvas-start d-flex flex-column" tabindex="-1" id="mainMenu" data-bs-keyboard="false" data-bs-backdrop="false" width: 15em;>
                     <div class="offcanvas-header">
                         <div class="offcanvas-title col-md-auto">
-                            <img src="'.$this->path.'/pictures/logo_small-top.png" width="30">
+                            <img src="../pictures/logo_small-top.png" width="30">
                             <span class="fs-5">'.$this->title.'</span>
                         </div>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" data-bs-target="#mainMenu"></button>
@@ -89,12 +87,12 @@ class MainMenu {
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
                               <a href="http://www.afmb.univ-mrs.fr" target="_blank">
-                                <img src="'.$this->path.'/pictures/logo_afmb.png" width="50" height="50">
+                                <img src="../pictures/logo_afmb.png" width="50" height="50">
                               </a>
                             </div>
                             <div class="col col-md-auto">
                               <a href="https://www.cea.fr/Pages/le-cea/les-centres-cea/cadarache.aspx" target="_blank">
-                                <img src="'.$this->path.'/pictures/logo_cea.png" width="50" height="50">
+                                <img src="../pictures/logo_cea.png" width="50" height="50">
                               </a>
                             </div>
                           </div>
@@ -103,7 +101,7 @@ class MainMenu {
                             <div class="row justify-content-start m-1 p-1">
                               <div class="col-md-auto">
                                 <!-- Disconenct Button -->
-                                <form action="'.$this->path.'/connection/disconnect.php" method="post">
+                                <form action="../connection/disconnect.php" method="post">
                                   <button class="btn btn-outline-danger" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                                       <path d="M7.5 1v7h1V1h-1z"></path>
@@ -134,19 +132,19 @@ class MainMenu {
     public function writeLegacy() {
         $html = '<div class="menu d-flex flex-column bg-light p-3 sticky-top" style="width: 16em; height: 100vh;">
                     <div class="col-md-auto">
-                        <img src="'.$this->path.'/pictures/logo_small-top.png" width="30">
+                        <img src="../pictures/logo_small-top.png" width="30">
                         <span class="fs-5">'.$this->title.'</span></div><hr>
                         <ul id="subMenu" class="nav nav-pills flex-column mb-auto">';
         $html = $this->writeSubMenus($html) . '</ul>
                           <div class="row justify-content-center">
                             <div class="col col-md-auto">
                               <a href="http://www.afmb.univ-mrs.fr" target="_blank">
-                                <img src="'.$this->path.'/pictures/logo_afmb.png" width="50" height="50">
+                                <img src="../pictures/logo_afmb.png" width="50" height="50">
                               </a>
                             </div>
                             <div class="col col-md-auto">
                               <a href="https://www.cea.fr/Pages/le-cea/les-centres-cea/cadarache.aspx" target="_blank">
-                                <img src="'.$this->path.'/pictures/logo_cea.png" width="50" height="50">
+                                <img src="../pictures/logo_cea.png" width="50" height="50">
                               </a>
                             </div>
                           </div>
@@ -155,7 +153,7 @@ class MainMenu {
                             <div class="row justify-content-start">
                               <div class="col-md-auto">
                                 <!-- Disconenct Button -->
-                                <form action="'.$this->path.'/connection/disconnect.php" method="post">
+                                <form action="../connection/disconnect.php" method="post">
                                   <button class="btn btn-outline-danger" type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-power" viewBox="0 0 16 16">
                                       <path d="M7.5 1v7h1V1h-1z"></path>
