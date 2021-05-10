@@ -46,7 +46,7 @@ if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
 			//...
 			if($pdfData) { echo $pdfData; }
 			echo "</div>";
-			echo (new editArticleMenu($articleFecther->getArticle(), array("Notes", "Annotate", "Annotate Threads", "Send", "Grade", "Conclude")))->write();
+			echo (new editArticleMenu($articleFecther->getArticle(), array("notes", "annotate", "annotate threads", "send", "grade", "conclude")))->write();
 			echo '<script src="./scripts/dragArticleMenu.js"></script>';
 			echo '<script src="./scripts/upgradePMCLinks.js"></script>';
 			echo '<script src="./scripts/switchContent.js"></script>';
