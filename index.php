@@ -20,7 +20,7 @@ require('./views/header.php');
     <br>
 <?php
 require("./POO/class_saveload_strategies.php");
-$saveload = new SaveLoadStrategies("./POO");
+$saveload = new SaveLoadStrategies($position);
 if(isset($_GET['email']) && isset($_GET['password'])) {
     /* check if email exist */
     $cols = array(); array_push($cols, "email");
