@@ -30,6 +30,14 @@ function search_table_status($status, $user, $manager)
         #requête sur la table de la base de données en fonction du status et de l'utilisateur
         $table_a_afficher = $manager->get_fields('article', 'status', 'user', 'name_status', $status, 'name_user', $user);
     }
+    else if($status == 'members_tasks')
+    {
+        $table_a_afficher = $manager->get_fields_join('article', 'status', 'user', 'name_status', "tasks");
+    } 
+    else if($status == 'members_undefined')
+    {
+        $table_a_afficher = $manager->get_fields_join('article', 'status', 'user', 'name_status', "undefined");
+    } 
     else
     {
         #requête sur la table de la base de données en fonction du status
@@ -38,7 +46,7 @@ function search_table_status($status, $user, $manager)
     $list_pmid_selon_status = [];#création d'une liste artificiel des statut initial de chaque ligne.
     
     #création du tableau à afficher ligne par ligne en fonction du statut demandés et de l'utilisateur
-    echo "<h1>Table " . str_replace("_", " ",$status)."</h1>";
+    echo "<h1>" . str_replace("_", " ",$status)." articles</h1>";
     if ($status == 'tasks')
     {
         echo "<table class='table table-responsive table-hover table-bordered'><tr class='table-info'><th width=12.5%>PMID</th><th onclick = alphaSort(this)>Title</th><th width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th><th width=12.5%>Notes</th></tr>";
@@ -49,6 +57,7 @@ function search_table_status($status, $user, $manager)
     }
     foreach($table_a_afficher as $line_table)
     {
+        if(($status == "members_tasks" || $status == "members_undefined") && $line_table['name_user'] == $_SESSION['username']) continue;
         $origin = $line_table["origin"];
         $num_access = $line_table["num_access"];
         $name_id_status = 'status_' . $num_access;

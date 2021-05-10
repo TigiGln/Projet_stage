@@ -11,7 +11,7 @@
     $menu->write();//ecriture des éléments du menu
 ?>
 <!--<form method="get" action="update.php" enctype="multipart/form-data">-->
-    <div class='p-4 w-100'>
+    <div class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
         <?php
             #connexion à la base de données
             $connexionbd = new ConnexionDB("localhost", "biblio", "root", "");
