@@ -39,12 +39,12 @@ if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
 			<li><a class="dropdown-item" onClick="switchDisplay(\'article\')">HTML</a></li>';
 			if($pdfData) echo '<li><a class="dropdown-item" onClick="switchDisplay(\'pdf\')">PDF</a></li>';
 			echo '</ul></span><br>';
+			/* other categories - Wrote before html to avoid hierarchy issues caused by PMC html */
+			if($pdfData) { echo $pdfData; }
 			/* html */
 			echo '<div id="article" class="switchDisplay">';
 			echo ($articleFecther->getArticle())['html_xml'];
 			echo "</div>";
-			//...
-			if($pdfData) { echo $pdfData; }
 			echo "</div>";
 			echo (new editArticleMenu($articleFecther->getArticle(), array("notes", "annotate", "annotate threads", "send", "grade", "conclude")))->write();
 			echo '<script src="./scripts/dragArticleMenu.js"></script>';
