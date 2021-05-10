@@ -4,18 +4,20 @@
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Fri May 7 2021
+ * Latest update on Mon May 10 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
 
 class MainMenu {
-
+ 
     protected $title;
     protected $position; 
     //boolean to activate some menu parts
-    protected $My_Tasks;
-    protected $Open_Tasks;
+    protected $Tasks;
+    protected $Undefined;
+    protected $Members_Tasks;
+    protected $Members_Undefined;
     protected $Processed_Tasks;
     protected $Rejected_Tasks;
     protected $Insertion;
@@ -30,8 +32,10 @@ class MainMenu {
     public function __construct($position) {
         $this->title = "Outil Biblio";
         $this->position = $position;
-        $this->setMyTasks(true);
-        $this->setOpenTasks(true);
+        $this->setTasks(true);
+        $this->setUndefined(true);
+        $this->setMembersTasks(true);
+        $this->setMembersUndefined(true);
         $this->setProcessedTasks(true);
         $this->setRejectedTasks(true);
         $this->setInsertion(true);
@@ -43,22 +47,40 @@ class MainMenu {
      * @return $html
      */
     public function writeSubMenus($html) {
-        if($this->My_Tasks) {
-            $html = $this->writeOne($html, 'Tasks', '../tables/articles.php', "?status=tasks");
-        }
-        if($this->Open_Tasks) {
-            $html = $this->writeOne($html, 'Undefined', '../tables/articles.php', "?status=undefined");
-        }
-        if($this->Processed_Tasks) {
-            $html = $this->writeOne($html, 'Processed', '../tables/articles.php', "?status=processed");
-        }
-        if($this->Rejected_Tasks) {
-            $html = $this->writeOne($html, 'Rejected', '../tables/articles.php', "?status=rejected");
-        }
-        if($this->Insertion) {
-            $html = $this->writeOne($html, 'Insertion', '../insertion/form.php', "");
-        }
-        return $html;
+      /* section user tasks */
+      if($this->Tasks) {
+          $html = $this->writeOne($html, 'Tasks', '../tables/articles.php', "?status=tasks");
+      }
+      if($this->Undefined) {
+          $html = $this->writeOne($html, 'Undefined', '../tables/articles.php', "?status=undefined");
+      }
+      /* section members tasks */
+      if($this->Members_Tasks && $this->Members_Undefined) { $html = $this->writeSep($html); }
+      if($this->Members_Tasks) {
+        if(!$this->Members_Undefined) { $html = $this->writeSep($html); }
+        $html = $this->writeOne($html, 'Members_tasks', '../tables/articles.php', "?status=members_tasks");
+      }
+      if($this->Members_Undefined) {
+        if(!$this->Members_Tasks) { $html = $this->writeSep($html); }
+        $html = $this->writeOne($html, 'Members_undefined', '../tables/articles.php', "?status=members_undefined");
+      }
+      /* section conclued tasks */
+      if($this->Processed_Tasks && $this->Rejected_Tasks) { $html = $this->writeSep($html); }
+      if($this->Processed_Tasks) {
+        if(!$this->Rejected_Tasks) { $html = $this->writeSep($html); }
+          $html = $this->writeOne($html, 'Processed', '../tables/articles.php', "?status=processed");
+      }
+      if($this->Rejected_Tasks) {
+        if(!$this->Processed_Tasks) { $html = $this->writeSep($html); }
+          $html = $this->writeOne($html, 'Rejected', '../tables/articles.php', "?status=rejected");
+      }
+      /* section insertion*/
+      if($this->Insertion) {
+          $html = $this->writeSep($html);
+          $html = $this->writeOne($html, 'Insertion', '../insertion/form.php', "");
+      }
+
+      return $html;
     }
 
     
@@ -194,27 +216,53 @@ class MainMenu {
         return $html;
     }
 
+    private function writeSep($html) {
+      return $html . "<hr>";
+  }
+
         
     /**
-     * setMyTasks is the setter to activate or not the section of the same name.
+     * setTasks is the setter to activate or not the section of the same name.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      * @param  mixed $value
      *            boolean value.
      * @return void
      */
-    public function setMyTasks($value) {
-        if (is_bool($value)) { $this->My_Tasks = $value; }
+    public function setTasks($value) {
+        if (is_bool($value)) { $this->Tasks = $value; }
     }
 
     /**
-     * setOpenTasks is the setter to activate or not the section of the same name.
+     * setUndefined is the setter to activate or not the section of the same name.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      * @param  mixed $value
      *            boolean value.
      * @return void
      */
-    public function setOpenTasks($value) {
-        if (is_bool($value)) { $this->Open_Tasks = $value; }
+    public function setUndefined($value) {
+        if (is_bool($value)) { $this->Undefined = $value; }
+    }
+
+    /**
+     * setMembersTasks is the setter to activate or not the section of the same name.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $value
+     *            boolean value.
+     * @return void
+     */
+    public function setMembersTasks($value) {
+      if (is_bool($value)) { $this->Members_Tasks = $value; }
+    }
+
+    /**
+     * setMembersUndefined is the setter to activate or not the section of the same name.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $value
+     *            boolean value.
+     * @return void
+     */
+    public function setMembersUndefined($value) {
+      if (is_bool($value)) { $this->Members_Undefined = $value; }
     }
 
     /**
