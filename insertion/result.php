@@ -74,7 +74,7 @@
             if (!empty($listpmid))
             {
                 echo "<div class='flex p-4 w-100 overflow-auto' style='height: 100vh;'><h1>Table of our research</h1>";
-                $global_check = "<input type='checkbox' name = 'global_check' onclick = 'check(this)'>";
+                $global_check = "<input class='form-check-input' type='checkbox' name = 'global_check' onclick = 'check(this)'>";
                 echo "<table class='table table-responsive table-hover table-bordered'>\n<tr class='table-info'><th>PMID</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
                 $i = 0;
                 while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
@@ -109,7 +109,7 @@
                         $object_article = new Article($origin, $num_access, $title, $abstract, $year, $journal, $pmcid, '1', $listauthors, $_SESSION['userID']);
                         //var_dump($object_article);
                         $list_objects[$num_access] = $object_article;
-                        $check = "<input type='checkbox' class = check name='check[]' id = $num_access value= '" . $object_article->getnum_access($num_access) . "'>\n";
+                        $check = "<input class='form-check-input' type='checkbox' class = check name='check[]' id = $num_access value= '" . $object_article->getnum_access($num_access) . "'>\n";
                         $survol = '<a class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $abstract . "\">" ;
                         $survolauthor = '<a class="note1" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $listauthor . "\">" ;
                         echo "<tr><td>" .  $num_access . "</td>\n<td>" . $survol . trim($title) . "</a></td>\n<td>" . $survolauthor . $authors[0] . ", ... , " . end($authors) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
