@@ -21,7 +21,7 @@ class UserConnection {
      * @return void
      */
     public function __construct($start) {
-        if($start) { session_start(); };
+        if($start && session_status() == PHP_SESSION_NONE) { session_start(); };
         $this->time = time()+2592000; //One month lasting
     }
     

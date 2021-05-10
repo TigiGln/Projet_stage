@@ -8,8 +8,9 @@
 
 //CLASS IMPORT
 require('../POO/class_main_menu.php');
-require('../POO/class_edit_article_menu.php');
+require('../POO/class_edit_article_menu.php'); 
 require('../POO/class_article_fetcher.php');
+require("../POO/class_manager_bd.php");
 ?>
 
 <?php

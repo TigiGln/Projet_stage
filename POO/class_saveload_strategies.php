@@ -35,8 +35,8 @@ class SaveLoadStrategies {
                 break;
 
         }
-        require ($this->position."/POO/class_connexion.php");
-        require ($this->position."/POO/class_manager_bd.php");
+        if(!class_exists("ConnexionDB")) require($this->position."/POO/class_connexion.php");
+        if(!class_exists("Manager")) require($this->position."/POO/class_manager_bd.php");
         $this->dbSession = "connexionbd";
         $this->connect();
     }
