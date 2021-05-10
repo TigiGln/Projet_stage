@@ -46,20 +46,16 @@ class MainMenu {
      */
     public function writeSubMenus($html) {
         if($this->My_Tasks) {
-            if ($this->position == "to_treat") { $this->position = "My_Tasks"; }
-            $html = $this->writeOne($html, 'My_Tasks', $this->path.'/tables/page_table.php', "?status=to_treat");
+            $html = $this->writeOne($html, 'Tasks', $this->path.'/tables/articles.php', "?status=tasks");
         }
         if($this->Open_Tasks) {
-            if ($this->position == "undefined") { $this->position = "Open_Tasks"; }
-            $html = $this->writeOne($html, 'Open_Tasks', $this->path.'/tables/page_table.php', "?status=undefined");
+            $html = $this->writeOne($html, 'Undefined', $this->path.'/tables/articles.php', "?status=undefined");
         }
         if($this->Processed_Tasks) {
-            if ($this->position == "treat") { $this->position = "Processed_Tasks"; }
-            $html = $this->writeOne($html, 'Processed_Tasks', $this->path.'/tables/page_table.php', "?status=treat");
+            $html = $this->writeOne($html, 'Processed', $this->path.'/tables/articles.php', "?status=processed");
         }
         if($this->Rejected_Tasks) {
-            if ($this->position == "reject") { $this->position = "Rejected_Tasks"; }
-            $html = $this->writeOne($html, 'Rejected_Tasks', $this->path.'/tables/page_table.php', "?status=reject");
+            $html = $this->writeOne($html, 'Rejected', $this->path.'/tables/articles.php', "?status=rejected");
         }
         if($this->Insertion) {
             $html = $this->writeOne($html, 'Insertion', $this->path.'/insertion/form.php', "");
@@ -195,7 +191,7 @@ class MainMenu {
         $valueSpace = str_replace('_', ' ', $value);
         $html = $html . '<li class="nav-item">
                             <a href="'.$file.$parameters.'" class="nav-link link-dark ';
-        if($this->position == $value) { $html = $html . 'active text-dark'; }
+        if(strtolower($this->position) == strtolower($value)) { $html = $html . 'active text-dark'; }
         $html = $html . '">'.$valueSpace.'</a></li>';
         return $html;
     }

@@ -20,7 +20,7 @@
     echo '<link href="'.$path.'/css/style.css" rel="stylesheet">';
     echo '<link href="'.$path.'/css/redefinebootstrap.css" rel="stylesheet">';
     echo '<link href="'.$path.'/css/result.css" rel="stylesheet">';
-    echo '<script src="'.$path.'/trie_table_statut/sort_status.js"></script>';
+    echo '<script src="'.$path.'/tables/sort_status.js"></script>';
 ?>
   </head>
   <body>

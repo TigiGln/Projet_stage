@@ -45,7 +45,7 @@
             else
             {
                 disabledSubmit(true);
-                textarea.setAttribute("oninvalid=\"alert('saisir des chiffre');\"");
+                textarea.setAttribute("oninvalid=\"alert('Please only write numbers');\"");
             }
         }
         else if (changeSelect == 'ELocationID')

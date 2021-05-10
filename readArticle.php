@@ -15,7 +15,7 @@ require('./POO/class_article_fetcher.php');
 <?php
 include('./views/header.php');
 //Menu
-(new mainMenu('My_Tasks'))->write();
+(new mainMenu('Tasks'))->write();
 
 //Database
 $user = $_SESSION['username'];

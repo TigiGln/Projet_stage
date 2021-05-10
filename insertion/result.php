@@ -4,7 +4,7 @@
     require "../POO/class_connexion.php";
     require "../POO/class_manager_bd.php";
     require "../POO/class_article.php";
-    require "requete.php";
+    require "request.php";
 ?>
 <?php
     include('../views/header.php');
@@ -133,7 +133,7 @@
         <script>
             var listNumAccessDb = <?php echo json_encode($list_num_access_bd); ?>;
         </script>
-    <script src="./modif_table_requete.js"></script> 
+    <script src="./update_request_table.js"></script> 
 <?php
          
     include('../views/footer.php');

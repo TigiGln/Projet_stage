@@ -35,7 +35,7 @@ class UserConnection {
      */
     public function isValid() {
         if(strpos(strtolower('/'.$_SERVER["PHP_SELF"]), strtolower($this->path.'/index.php'))) {
-            if((isset($_SESSION['username']) && isset($_SESSION['userName']) && isset($_SESSION['userID'])) || $this->loadCookieSession()) header('Location: '.$this->path.'/tables/page_table.php?status=to_treat');
+            if((isset($_SESSION['username']) && isset($_SESSION['userName']) && isset($_SESSION['userID'])) || $this->loadCookieSession()) header('Location: '.$this->path.'/tables/articles.php?status=tasks');
         } 
         else if(!isset($_SESSION['username']) || !isset($_SESSION['userName']) || !isset($_SESSION['userID'])) {
             if(!$this->loadCookieSession()) header('Location: '.$this->path.'/index.php');
