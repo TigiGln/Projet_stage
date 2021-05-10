@@ -1,4 +1,4 @@
-<link href="./modules/edit_article_menu/grade/grade.css" rel="stylesheet"/>
+<link href="../modules/edit_article_menu/grade/grade.css" rel="stylesheet"/>
 <div id="grade" class="d-flex flex-column">
 	<div class="container d-flex justify-content-center">
 		<fieldset>
@@ -11,5 +11,5 @@
     		</span>
   		</fieldset>
 	</div>
-<script src="./modules/edit_article_menu/grade/grade-INTERACTIONS.js"></script>
+<script src="../modules/edit_article_menu/grade/grade-INTERACTIONS.js"></script>
 </div>

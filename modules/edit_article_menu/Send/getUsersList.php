@@ -9,7 +9,7 @@
 	//CLASS IMPORT
 	require ("../../../POO/class_saveload_strategies.php");
 
-	$saveload = new SaveLoadStrategies("../../../POO");
+	$saveload = new SaveLoadStrategies("../../../");
 	$cols = array();
 	array_push($cols, "id_user", "name_user", "email");
 	$conditions = array();

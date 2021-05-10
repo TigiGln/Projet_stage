@@ -4,14 +4,14 @@
  * SaveLoadStrategies
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Wed May 5 2021
+ * Latest update on Mon May 10 2021
  * Info - PHP Class for different saves strategies.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
 class SaveLoadStrategies {
 
     protected $file;
-    protected $path;
+    protected $position;
     protected $bdInfo;
     protected $connexionbd;
     protected $manager;
@@ -25,7 +25,7 @@ class SaveLoadStrategies {
      * @return void
      */
     public function __construct() {
-        $this->path = func_get_args()[0];
+        $this->position = func_get_args()[0];
         switch(func_num_args()) {
             case 1:
                 $this->bdInfo = array("localhost", "biblio", "root", "");
@@ -35,9 +35,8 @@ class SaveLoadStrategies {
                 break;
 
         }
-        $this->path = func_get_args()[0];
-        require ($this->path."/class_connexion.php");
-        require ($this->path."/class_manager_bd.php");
+        require ($this->position."/POO/class_connexion.php");
+        require ($this->position."/POO/class_manager_bd.php");
         $this->dbSession = "connexionbd";
         $this->connect();
     }

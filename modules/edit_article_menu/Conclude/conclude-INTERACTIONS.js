@@ -22,7 +22,7 @@ function validateConcludeInteraction(status) {
   let id = articleGet("numaccess");
   let origin = articleGet("origin");
   /* Prepare request */
-  let url = "./modules/edit_article_menu/Conclude/validate.php";
+  let url = "../modules/edit_article_menu/Conclude/validate.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&status="+status;
   console.log(logHeaderConcludeInteractions+" Validate send with parameters: "+params);
   /* Fires request */
@@ -36,7 +36,7 @@ function validateConcludeInteraction(status) {
         if (http.status === 200) {
           console.log(logHeaderConcludeInteractions+' Validate successfully with status code: '+this.status);
           alert("The article was successfully proccessed. Return to your tasks ");
-          document.location.href="./";
+          document.location.href="../index.php";
         } else {
           console.log(logHeaderConcludeInteractions+' Validate failed with status code: '+this.status);
           alert("An error occured. Please retry. "+this.response);

@@ -1,12 +1,12 @@
 <?php
 //IMPORT CLASSES
-require("./POO/class_saveload_strategies.php");
+require("../POO/class_saveload_strategies.php");
 
 /**
  * ArticleFetcher
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Fri May 7 2021
+ * Latest update on Mon May 10 2021
  * Info - PHP Class to fetch the xml content of the articles.
  * Usage: refers to the readArticle.php file: Do the followings
  * Instantiate object, call doExist(NUMACCESS), is true call hasRights(), if true call fetch(), fetch() will return true if could fetch, false else with an error message.
@@ -29,7 +29,7 @@ class ArticleFetcher {
     public function __construct($origin, $numaccess) {
         $this->origin = $origin;
         $this->numaccess = $numaccess;
-        $this->saveload = new SaveLoadStrategies("./POO");
+        $this->saveload = new SaveLoadStrategies("../");
     }
     
     /**

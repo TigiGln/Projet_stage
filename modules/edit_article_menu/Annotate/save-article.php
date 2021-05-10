@@ -13,10 +13,10 @@
 	/* Parse Request Parameters */
 	$XML = $_POST["ARTICLE"];
 	$ORIGIN = $_POST["ORIGIN"];
-	$ID = $_POST["ID"];
+	$ID = $_POST["ID"]; 
 
 
-	$saveload = new SaveLoadStrategies("../../../POO");
+	$saveload = new SaveLoadStrategies("../../../");
 	if(!$saveload->checkAsDB("article", array("num_access"), array(array("num_access", $ID), array("origin", $ORIGIN)))) { http_response_code(404); }
 	else {
 		$cols = array();

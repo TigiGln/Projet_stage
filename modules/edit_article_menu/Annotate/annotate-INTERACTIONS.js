@@ -71,7 +71,7 @@ function annotateSend() {
   if(isOpen) {
     /* Prepare request */
     document.querySelector('#annotateCode').click();
-    let url = "./modules/edit_article_menu/Annotate/save-annotation.php";
+    let url = "../modules/edit_article_menu/Annotate/save-annotation.php";
     let color = document.getElementById("annotateColorPicker").value;
     let text = document.getElementById("temp").innerHTML;
     let comment = document.querySelector("#annotateHtmlView").textContent;
@@ -136,7 +136,7 @@ function updateArticle(date, author, color, text, comment) {
   document.getElementById("temp").outerHTML = highlight;
   article = document.getElementById("article").innerHTML;
   /* Prepare request */
-  let url = "./modules/edit_article_menu/Annotate/save-article.php";
+  let url = "../modules/edit_article_menu/Annotate/save-article.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&ARTICLE="+encodeURIComponent(article);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
   /* Fires request */
@@ -174,7 +174,7 @@ function updateArticle(date, author, color, text, comment) {
   let id = articleGet("numaccess");
   let origin = articleGet("origin");
   let article = document.getElementById("article").innerHTML;
-  let url = "./modules/edit_article_menu/Annotate/save-article.php";
+  let url = "../modules/edit_article_menu/Annotate/save-article.php";
   let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id)+"&ORIGIN="+encodeURIComponent(origin);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
   /* Fires request */

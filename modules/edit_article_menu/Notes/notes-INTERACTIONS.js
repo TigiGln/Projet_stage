@@ -30,7 +30,7 @@ function notesInteractionsLoadNotes() {
  function notesSave() {
   /* Prepare request */
   document.querySelector('#notesCode').click();
-  let url = "./modules/edit_article_menu/notes/save-notes.php";
+  let url = "../modules/edit_article_menu/notes/save-notes.php";
   let notes = document.querySelector("#notesHtmlView").textContent;
   let date = (new Date()).getTime(); //Until I find a way to get date from the php
   document.querySelector('#notesCode').click();
@@ -64,7 +64,7 @@ function notesInteractionsLoadNotes() {
  */
 function notesLoad() {
   /* Prepare request */
-  let url = "./modules/edit_article_menu/notes/load-notes.php";
+  let url = "../modules/edit_article_menu/notes/load-notes.php";
   let params = "ORIGIN="+encodeURIComponent(articleGet("origin"))+"&ID="+encodeURIComponent(articleGet("numaccess"));
   console.log(logHeaderNotesInteractions+" Notes Load with parameters: "+params);
   /* Fires request */

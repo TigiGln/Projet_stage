@@ -18,7 +18,7 @@
                 '<div class=\'row justify-content-center text-center\'><div class=\'col\'>'+
                 '<a target=\'_BLANK\' href=\'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC'+PMC+'\'> Read From<br>PubMedCentral </a>'+
                 '</div><div class=\'col\'>'+
-                '<a target=\'_BLANK\' href=\'./utils/insertAndGo.php?ORIGIN=pubmed&ID='+PMC+'\'> Read From<br>BiblioTool </a>'+
+                '<a target=\'_BLANK\' href=\'../utils/insertAndGo.php?ORIGIN=pubmed&ID='+PMC+'\'> Read From<br>BiblioTool </a>'+
                 '</div></div>"';
                 link = '<a tabindex="0" class="int-reflink" '+upgrade+'>PMC free article</a>';
                 links[j].outerHTML = link;

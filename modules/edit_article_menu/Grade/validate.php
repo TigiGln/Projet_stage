@@ -12,7 +12,7 @@
 	$ID = $_POST['ID'];
 	$GRADE = $_POST['GRADE'];
 
-	$saveload = new SaveLoadStrategies("../../../POO");
+	$saveload = new SaveLoadStrategies("../../../");
 	$cols = array();
 	array_push($cols, "*");
 	$conditions = array();

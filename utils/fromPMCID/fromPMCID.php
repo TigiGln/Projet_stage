@@ -4,7 +4,7 @@
      * fromPMCID 
      * 
      * Created on Fri Apr 16 2021
-     * Latest update on Fri May 7 2021
+     * Latest update on Mon May 10 2021
      * Info - PHP script to retrieve and echo using articles from PMCID using CURL
      * Usage example specific: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307&title&authors&content&references
      * Usage example return whole content: http://localhost/projet_stage/utils/fromPMCID?PMCID=6439307
@@ -61,14 +61,13 @@
     //Close Curl request
     curl_close($req); 
     //Fix Links Issues and Homogenize Data
-    $handle = fopen("./utils/fromPMCID/parser.config", "r");
+    $handle = (file_exists("../utils/fromPMCID/parser.config")) ? fopen("../utils/fromPMCID/parser.config", "r") : fopen("../../utils/fromPMCID/parser.config", "r");
     if ($handle) {
         while (($line = fgets($handle)) !== false) {
             if(substr($line, 0, 2) === '/*') continue;
             $line = explode("<_>", $line);
             $res = str_replace($line[0], $line[1], $res);
         }
-
         fclose($handle);
     }
     //Find content

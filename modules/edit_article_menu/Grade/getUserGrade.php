@@ -11,7 +11,7 @@
 
 	$ID = $_GET['ID'];
 
-	$saveload = new SaveLoadStrategies("../../../POO");
+	$saveload = new SaveLoadStrategies("../../../");
 	$cols = array();
 	array_push($cols, "note");
 	$conditions = array();

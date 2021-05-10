@@ -1,4 +1,4 @@
-<link href="./modules/edit_article_menu/Annotate/annotate.css" rel="stylesheet"/>
+<link href="../modules/edit_article_menu/Annotate/annotate.css" rel="stylesheet"/>
 <div id="subMenu">
 	<div class="annotateEditor d-flex flex-column">
 	  <div id="annotateSelection">
@@ -46,7 +46,7 @@
 	    <textarea id="annotateHtmlView"></textarea>
 	  </div>
 	</div>
-	<script src="./modules/edit_article_menu/Annotate/annotate-INTERACTIONS.js"></script>
-	<script src="./modules/edit_article_menu/Annotate/annotate-WYSIWYG.js"></script>
+	<script src="../modules/edit_article_menu/Annotate/annotate-INTERACTIONS.js"></script>
+	<script src="../modules/edit_article_menu/Annotate/annotate-WYSIWYG.js"></script>
 </div>
 </div>

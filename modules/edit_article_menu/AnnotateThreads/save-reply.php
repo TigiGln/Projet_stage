@@ -18,6 +18,6 @@
 
 	/* Handle Reply Saving */
 	$datas = array($ID, array(array($tag, "name", $user), array(array("date", $date), array("content", rawurlencode($text)))));
-	$save = new SaveLoadStrategies("../../../POO/");
+	$save = new SaveLoadStrategies("../../../");
 	http_response_code($save->saveAsXML($file, $datas, false));
 ?>

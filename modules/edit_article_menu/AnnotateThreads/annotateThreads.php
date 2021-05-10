@@ -1,4 +1,4 @@
-<link href="./modules/edit_article_menu/AnnotateThreads/annotateThreads.css" rel="stylesheet"/>
+<link href="../modules/edit_article_menu/AnnotateThreads/annotateThreads.css" rel="stylesheet"/>
 <div class="alert alert-secondary mt-0 mb-0">Annotation:</div>
 <div class="selected overflow-auto alert-light mt-0 mb-0">
 	<div id="selectedAnnotation"></div>
@@ -7,4 +7,4 @@
 <div id="AnnotationRepliesThread" class="thread overflow-auto alert alert-light mt-0 mb-0">
 	<!---->
 </div>
-<script src="./modules/edit_article_menu/AnnotateThreads/annotateThreads-INTERACTIONS.js"></script>
+<script src="../modules/edit_article_menu/AnnotateThreads/annotateThreads-INTERACTIONS.js"></script>

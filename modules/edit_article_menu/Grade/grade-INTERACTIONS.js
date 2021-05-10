@@ -1,6 +1,6 @@
 /*
  * Created on Web Apr 28 2021
- * Latest update on Wed May 5 2021
+ * Latest update on Mon May 10 2021
  * Info - JS for grade module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -48,7 +48,7 @@ function initGradeInteractions() {
   let id = articleGet("artID");
   let stars = document.querySelectorAll(".rat-star");
   /* Prepare request */
-  let url = "./modules/edit_article_menu/Grade/getUserGrade.php";
+  let url = "../modules/edit_article_menu/Grade/getUserGrade.php";
   let params = "ID="+encodeURIComponent(id);
   console.log(logHeaderGradeInteractions+" Request user grade for article: "+params);
   /* Fires request */
@@ -63,9 +63,9 @@ function initGradeInteractions() {
           let value = JSON.parse(this.response)[0]['note'] - 1;
           gradeResetShapes(stars);
           gradeUpdateShapes(stars, value);
-          console.log(logHeaderSendInteractions+' Request user grade successfully with status code: '+this.status);
+          console.log(logHeaderGradeInteractions+' Request user grade successfully with status code: '+this.status);
         } else {
-          console.log(logHeaderSendInteractions+' Request user grade failed with status code: '+this.status);
+          console.log(logHeaderGradeInteractions+' Request user grade failed with status code: '+this.status);
         }
     }
   }
@@ -81,7 +81,7 @@ function gradeUpdateDB(grade) {
   /* Prepare request */
   grade++;
   let id = articleGet("artID");
-  let url = "./modules/edit_article_menu/Grade/validate.php";
+  let url = "../modules/edit_article_menu/Grade/validate.php";
   let params = "ID="+encodeURIComponent(id)+"&GRADE="+encodeURIComponent(grade);
   console.log(logHeaderGradeInteractions+" Validate send with parameters: "+params);
   /* Fires request */

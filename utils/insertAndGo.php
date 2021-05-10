@@ -10,7 +10,7 @@
 require('../POO/class_connexion.php');
 require('../POO/class_manager_bd.php');
 require('../POO/class_article.php');
-require('../insertion/requete.php');
+require('../insertion/request.php');
 ?>
 
 <?php
@@ -47,8 +47,8 @@ function insertAndGoPubmed() {
             $origin = 'pubmed';
             $object_article = new Article($origin, $num_access, $title, $abstract, $year, $journal, $pmcid, '2', $listauthors, $_SESSION["userID"]);
             $res = $manager->add($object_article);
-        } else { header('Location: ../readArticle.php?NUMACCESS='.$num_access."&ORIGIN=pubmed"); }
-        if($res) { header('Location: ../readArticle.php?NUMACCESS='.$num_access."&ORIGIN=pubmed"); }
+        } else { header('Location: ../tools/readArticle.php?NUMACCESS='.$num_access."&ORIGIN=pubmed"); }
+        if($res) { header('Location: ../tools/readArticle.php?NUMACCESS='.$num_access."&ORIGIN=pubmed"); }
         else { echo '<div class="alert alert-danger" role="alert">An error occured. Please retry.</div>'; }
     }
 }

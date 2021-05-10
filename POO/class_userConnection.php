@@ -4,7 +4,7 @@
  * UserConnection
  * 
  * Created on Thu May 6 2021
- * Latest update on Sat May 8 2021
+ * Latest update on Mon May 10 2021
  * Info - PHP class called in the header to check on each page if we are connected correctly or has rights.
  * If the session don't exist or is broken, check if the cookie yet exist and valid to load it in the session
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
@@ -12,7 +12,6 @@
 
 class UserConnection {
 
-    protected $path;
     protected $secret = "thinker-forge-drive-orchestra";
     protected $time;
 
@@ -21,9 +20,8 @@ class UserConnection {
      * Will register the correct path and will start the session if $start is true and init the cookie-session time.
      * @return void
      */
-    public function __construct($path, $start) {
+    public function __construct($start) {
         if($start) { session_start(); };
-        $this->path = $path;
         $this->time = time()+2592000; //One month lasting
     }
     
@@ -34,11 +32,11 @@ class UserConnection {
      * @return void
      */
     public function isValid() {
-        if(strpos(strtolower('/'.$_SERVER["PHP_SELF"]), strtolower($this->path.'/index.php'))) {
-            if((isset($_SESSION['username']) && isset($_SESSION['userName']) && isset($_SESSION['userID'])) || $this->loadCookieSession()) header('Location: '.$this->path.'/tables/articles.php?status=tasks');
+        if(strpos(strtolower('/'.$_SERVER["PHP_SELF"]), strtolower('/index.php'))) {
+            if((isset($_SESSION['username']) && isset($_SESSION['userName']) && isset($_SESSION['userID'])) || $this->loadCookieSession()) header('Location: '.'./tables/articles.php?status=tasks');
         } 
         else if(!isset($_SESSION['username']) || !isset($_SESSION['userName']) || !isset($_SESSION['userID'])) {
-            if(!$this->loadCookieSession()) header('Location: '.$this->path.'/index.php');
+            if(!$this->loadCookieSession()) header('Location: '.'../index.php');
         }
     }
 

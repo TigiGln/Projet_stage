@@ -1,19 +1,19 @@
 <?php
 /*
  * Created on Mon Apr 19 2021
- * Latest update on Fri May 7 2021
+ * Latest update on Mon May 10 2021
  * Info - readArticle is the common page to use article editing tools that features html/xml code.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
 
 //CLASS IMPORT
-require('./POO/class_main_menu.php');
-require('./POO/class_edit_article_menu.php');
-require('./POO/class_article_fetcher.php');
+require('../POO/class_main_menu.php');
+require('../POO/class_edit_article_menu.php');
+require('../POO/class_article_fetcher.php');
 ?>
 
 <?php
-include('./views/header.php');
+include('../views/header.php');
 //Menu
 (new mainMenu('Tasks'))->write();
 
@@ -46,7 +46,7 @@ if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
 			//...
 			if($pdfData) { echo $pdfData; }
 			echo "</div>";
-			echo (new editArticleMenu($articleFecther->getArticle()))->write();
+			echo (new editArticleMenu($articleFecther->getArticle(), array("Notes", "Annotate", "Annotate Threads", "Send", "Grade", "Conclude")))->write();
 			echo '<script src="./scripts/dragArticleMenu.js"></script>';
 			echo '<script src="./scripts/upgradePMCLinks.js"></script>';
 			echo '<script src="./scripts/switchContent.js"></script>';
@@ -61,5 +61,5 @@ else {
 			This page need two arguments: ?NUMACCESS=NUM&ORIGIN=origin
 		</div>';
 }
-include('./views/footer.php');
+include('../views/footer.php');
 ?>

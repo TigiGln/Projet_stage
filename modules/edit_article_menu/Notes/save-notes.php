@@ -19,7 +19,7 @@
 	
 	/* Handle Notes Saving */
 	$datas = array($ID, array(array("author", "name", $user), array(array("date", $date), array("content", rawurlencode($content)))));
-	$save = new SaveLoadStrategies("../../../POO/");
+	$save = new SaveLoadStrategies("../../../");
 	http_response_code($save->saveAsXML("./notes.xml", $datas, true));
 ?>
 

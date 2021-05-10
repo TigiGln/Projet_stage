@@ -19,7 +19,7 @@
 	header("Content-type: text/plain");
 
 	/* Handle Notes Loadings */
-	$load = new SaveLoadStrategies("../../../POO/");
+	$load = new SaveLoadStrategies("../../../");
 	$res = $load->loadAsXML($file, $ID, $tag, $user);
 	if($res == 404) { http_response_code(404); }
 	else {

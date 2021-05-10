@@ -14,7 +14,7 @@
 	$ORIGIN = $_POST["ORIGIN"];
 	$ID = $_POST["ID"];
 
-	$saveload = new SaveLoadStrategies("../../../POO");
+	$saveload = new SaveLoadStrategies("../../../");
 	if(!$saveload->checkAsDB("article", array("num_access"), array(array("origin", $ORIGIN), array("num_access", $ID), array("user", $userID)))) { http_response_code(404); }
 	else if($newUserID != "null" && !$saveload->checkAsDB("user", array("id_user"), array(array("id_user", $newUserID)))) { http_response_code(404); }
 	else {

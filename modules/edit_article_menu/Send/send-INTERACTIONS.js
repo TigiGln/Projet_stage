@@ -20,7 +20,7 @@ sendInteractionsLoadUsersList();
 function sendInteractionsLoadUsersList() {
   let usersList = document.getElementById('usersList');
   /* Prepare request */
-  let url = "./modules/edit_article_menu/Send/getUsersList.php";
+  let url = "../modules/edit_article_menu/Send/getUsersList.php";
   console.log(logHeaderSendInteractions+" Request users List");
   /* Fires request */
   var http = new XMLHttpRequest();
@@ -68,7 +68,7 @@ function validateSendInteraction() {
   let newUser = document.getElementById("sendTo").value;
   if(document.querySelector('option[value="' + newUser + '"]') === null) { newUser = null; } 
   else { newUser = document.querySelector('option[value="' + newUser + '"]').dataset.id; }
-  let url = "./modules/edit_article_menu/Send/validate.php";
+  let url = "../modules/edit_article_menu/Send/validate.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&newUser="+encodeURIComponent(newUser);
   console.log(logHeaderSendInteractions+" Send send with parameters: "+params);
   /* Fires request */
@@ -82,7 +82,7 @@ function validateSendInteraction() {
         if (http.status === 200) {
           console.log(logHeaderSendInteractions+' Send successfully with status code: '+this.status);
           alert("The article was successfully Sent. Return to your tasks");
-          document.location.href="./";
+          document.location.href="../index.php";
         } else {
           console.log(logHeaderSendInteractions+' Send failed with status code: '+this.status);
           alert("An error occured. Please retry.");
