@@ -40,7 +40,7 @@
             <br>
         </form>
     </div>
-    <script src="../insertion/gestion_form.js"></script><!-- import du script javascript pour la gestion des arguments donnée par l'utilisateur selon le critère choisi -->
+    <script src="./gestion_form.js"></script><!-- import du script javascript pour la gestion des arguments donnée par l'utilisateur selon le critère choisi -->
 </div>
 <?php
           

@@ -65,7 +65,7 @@ function search_table_status($status, $user, $manager)
         $title = str_replace('"', "'", $line_table['title']);
         $lien_pubmed  = "<a href ='https://pubmed.ncbi.nlm.nih.gov/$num_access/' target='_blank'>";
         $toolLink = ($status == 'tasks') ? 'target="_BLANK" href="../tools/readArticle.php?NUMACCESS='.$num_access.'&ORIGIN='.$origin.'"' : '';
-        $survol_title = '<a '.$toolLink.' style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
+        $survol_title = '<a '.$toolLink.' style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
         if ($status == 'tasks')
         {
             echo "<tr id = 'line_$num_access'><td width=12.5%>" . $lien_pubmed .  $num_access . "</a></td><td width=30%>" . $survol_title . $title . "</a></td><td width= 20%>premier et dernier auteur</td><td width=12.5%>" . $list_status . "</td><td width=12.5%>" . $list_user . "</td><td width=12.5%>" . $notes . "</td></tr>" ;
