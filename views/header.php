@@ -1,5 +1,6 @@
 <?php
 session_start();
+$manager = new Manager($_SESSION["connexiondb"]->pdo);#création de l'objet permettant d'agir sur la base de données
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -15,10 +15,10 @@
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
             //connexion base de donnée
-            $connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");//connexion à la bse de donnée
-            $_SESSION["connexionbd"] = $connexionbd;//stockage de cette connexion dans une variable de session pour le transit entre les pages
+            //$connexionbd = new ConnexionDB("localhost", "biblio", "thierry", "Th1erryG@llian0");//connexion à la bse de donnée
+            //$_SESSION["connexionbd"] = $connexionbd;//stockage de cette connexion dans une variable de session pour le transit entre les pages
             
-            $manager = new Manager($_SESSION["connexionbd"]->pdo);//création de l'objet de requete
+            //$manager = new Manager($_SESSION["connexionbd"]->pdo);//création de l'objet de requete
             $list_num_access_bd = $manager->get_test('num_access', 'article');//requete sur la base pour récupérer les num_access présent
             $pmid = "";
             $listpmid = [];

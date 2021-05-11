@@ -9,7 +9,7 @@
 ?>
 <?php
     #création de l'objet permettant d'agir sur la base de données
-    $manager = new Manager($_SESSION["connexiondb"]->pdo);//création de l'objet de gestion des requête sql
+    //$manager = new Manager($_SESSION["connexiondb"]->pdo);//création de l'objet de gestion des requête sql
     $manager->update($_GET['num_acces'], $_GET['fields'], $_GET[$_GET['fields']], 'article', $_GET['fields']);#mise à jour dans la base de données du champs (status ou user) modifié
     if ($_GET['fields'] == 'user')//vérifie que le menu déroulant changer correspond aux user
     {

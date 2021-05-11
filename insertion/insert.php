@@ -23,7 +23,7 @@
             var_dump($_GET["check"]);
             echo "<p></p>";
             
-            $manager = new Manager($_SESSION["connexionbd"]->pdo);
+            //$manager = new Manager($_SESSION["connexionbd"]->pdo);
             foreach ($_GET["check"] as $value)
             {
                 $manager->add($list_articles[$value]);
