@@ -20,7 +20,6 @@
         #var_dump($liste);
         if (isset($_GET["check"]) AND $_GET["check"] != [])
         {
-            $manager = new Manager($_SESSION["connexionbd"]->pdo);
             foreach ($_GET["check"] as $value)
             {
                 $manager->add($list_articles[$value]);

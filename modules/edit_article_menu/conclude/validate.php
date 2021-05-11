@@ -1,20 +1,21 @@
 <?php
 	/*
 	* Created on Fri Apr 23 2021
-	* Latest update on Wed May 5 2021
+	* Latest update on Tue May 11 2021
 	* Info - PHP for conclude module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/
-	session_start();
-	//CLASS IMPORT
-	require ("../../../POO/class_saveload_strategies.php");
+
+	$position = "../../..";
+	require($position.'/views/dbLoader.php');
+	require($position."/POO/class_saveload_strategies.php");
 
 	$userID = $_SESSION['userID'];
 	$ID = $_POST["ID"];
 	$ORIGIN = $_POST["ORIGIN"];
 	$status = $_POST["status"];
 
-	$saveload = new SaveLoadStrategies("../../../");
+	$saveload = new SaveLoadStrategies("../../../", $manager);
 	if(!$saveload->checkAsDB("article", array("num_access"), array(array("origin", $ORIGIN), array("num_access", $ID), array("user", $userID)))) { http_response_code(404); }
 	else {
 		$cols = array();

@@ -12,14 +12,9 @@
     $menu = new mainMenu('Insertion');
     $menu->write();
 ?>
-<div class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
+<div class='flex p-4 w-100 overflow-auto' style='height: 100vh;'>
     <form method="get" action="insert.php" enctype="multipart/form-data">
         <?php
-            //connexion base de donnée
-            $connexionbd = new ConnexionDB("localhost", "biblio", "root", '');//connexion à la bse de donnée
-            $_SESSION["connexionbd"] = $connexionbd;//stockage de cette connexion dans une variable de session pour le transit entre les pages
-            
-            $manager = new Manager($_SESSION["connexionbd"]->pdo);//création de l'objet de requete
             $list_num_access_bd = $manager->get_test('num_access', 'article');//requete sur la base pour récupérer les num_access présent
             $pmid = "";
             $listpmid = [];
@@ -73,7 +68,7 @@
             }*/
             if (!empty($listpmid))
             {
-                echo "<div class='flex p-4 w-100 overflow-auto' style='height: 100vh;'><h1>Table of our research</h1>";
+                echo "<h1 class='pb-4'>Results</h1>";
                 $global_check = "<input class='form-check-input check' type='checkbox' name = 'global_check' onclick = 'check(this)'>";
                 echo "<table class='table table-responsive table-hover table-bordered'>\n<tr class='table-info'><th>PMID</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
                 $i = 0;

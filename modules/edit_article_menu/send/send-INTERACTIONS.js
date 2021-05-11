@@ -1,6 +1,6 @@
 /*
  * Created on Fri Apr 23 2021
-	* Latest update on Wed May 5 2021
+	* Latest update on Tue May 11 2021
  * Info - JS for conclude module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -66,7 +66,7 @@ function validateSendInteraction() {
   let origin = articleGet("origin");
   /* Prepare request */
   let newUser = document.getElementById("sendTo").value;
-  if(document.querySelector('option[value="' + newUser + '"]') === null) { newUser = null; } 
+  if(document.querySelector('option[value="' + newUser + '"]') === null) { newUser = -1; } 
   else { newUser = document.querySelector('option[value="' + newUser + '"]').dataset.id; }
   let url = "../modules/edit_article_menu/send/validate.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&newUser="+encodeURIComponent(newUser);

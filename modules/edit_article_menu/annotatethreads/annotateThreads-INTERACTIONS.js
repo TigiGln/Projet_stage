@@ -1,6 +1,6 @@
 /*
  * Created on Mon May 3 2021
- * Latest update on Mon May 3 2021
+ * Latest update on Tue May 11 2021
  * Info - JS for annotate threads module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -17,17 +17,17 @@ const logHeaderAnnotateThreadsInteractions = "[edit article menu : annotate Thre
  * @param {*} id 
  */
 function annotateShow(id) {
-  let annotation = document.getElementById("link_"+id);
-  let tag = annotation.dataset.bsOriginalTitle;
-  let content  = annotation.dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0];
-  let selection = document.getElementById("selectedAnnotation");
-  selection.innerHTML = content+tag+"<br>at: "+annotation.innerHTML;
-  selection.style.pointerEvents = "all";
-  selection.style.userSelect = "all";
-  let numaccess = articleGet("numaccess");
-  let origin = articleGet("origin");
-  annotateRepliesLoad(origin, numaccess, id);
-  if(!document.querySelector('#article-annotatethreads').classList.contains("show")) { document.querySelector('#annotatethreadsBtn').click(); }
+    let annotation = document.getElementById("link_"+id);
+    let tag = annotation.dataset.bsOriginalTitle;
+    let content  = annotation.dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0];
+    let selection = document.getElementById("selectedAnnotation");
+    selection.innerHTML = content+tag+"<br>at: "+annotation.innerHTML;
+    selection.style.pointerEvents = "all";
+    selection.style.userSelect = "all";
+    let numaccess = articleGet("numaccess");
+    let origin = articleGet("origin");
+    annotateRepliesLoad(origin, numaccess, id);
+    if(!document.querySelector('#article-annotatethreads').classList.contains("show")) { document.querySelector('#annotatethreadsBtn').click(); }
 }
 
 /**
@@ -103,8 +103,10 @@ function annotateReplySend(commentId) {
  * @param {*} commentId 
  */
 function updateAnnotatePopOver(size, commentId) {
-  let annotation = document.getElementById("link_"+commentId).dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0]+"'>"+size+" Replies";
-  document.getElementById("link_"+commentId).setAttribute('data-bs-content',annotation);
+  if(size > 0) {
+    let annotation = document.getElementById("link_"+commentId).dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0]+"'>"+size+" Replies";
+    document.getElementById("link_"+commentId).setAttribute('data-bs-content',annotation);
+  }
   simpleUpdateArticle();
 }
 

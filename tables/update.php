@@ -40,5 +40,4 @@
 ?>
 <?php      
     include('../views/footer.html');
-    session_destroy();
 ?>

@@ -4,7 +4,7 @@
  * SaveLoadStrategies
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Mon May 10 2021
+ * Latest update on Tue May 11 2021
  * Info - PHP Class for different saves strategies.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -24,21 +24,10 @@ class SaveLoadStrategies {
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      * @return void
      */
-    public function __construct() {
-        $this->position = func_get_args()[0];
-        switch(func_num_args()) {
-            case 1:
-                $this->bdInfo = array("localhost", "biblio", "root", "");
-                break;
-            case 5:
-                $this->bdInfo = array(func_get_args()[1], func_get_args()[2], func_get_args()[3], func_get_args()[4]);
-                break;
-
-        }
-        if(!class_exists("ConnexionDB")) require($this->position."/POO/class_connexion.php");
-        if(!class_exists("Manager")) require($this->position."/POO/class_manager_bd.php");
-        $this->dbSession = "connexionbd";
-        $this->connect();
+    public function __construct($position, $manager) {
+        $this->position = $position;
+        $this->manager = $manager;
+        //$this->connect();
     }
 
     /************************************************************************/
@@ -49,6 +38,7 @@ class SaveLoadStrategies {
     /**
      * connect will do a connection to the database PDO.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @deprecated
      * @return void
      */
     protected function connect() {

@@ -10,11 +10,10 @@
 require('../POO/class_main_menu.php');
 require('../POO/class_edit_article_menu.php'); 
 require('../POO/class_article_fetcher.php');
-require("../POO/class_manager_bd.php");
 ?>
 
 <?php
-include('../views/header.php');
+require('../views/header.php');
 //Menu
 (new mainMenu('Tasks'))->write();
 ?>
@@ -23,7 +22,7 @@ include('../views/header.php');
 
 <?php
 if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
-	$articleFecther = new ArticleFetcher($_GET['ORIGIN'], $_GET['NUMACCESS']);
+	$articleFecther = new ArticleFetcher($_GET['ORIGIN'], $_GET['NUMACCESS'], $manager);
 	if($articleFecther->doExist() && $articleFecther->hasRights($_SESSION['userID'])) { 
 
 		/* contents building */

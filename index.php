@@ -20,18 +20,27 @@ require('./views/header.php');
     <br>
 <?php
 require("./POO/class_saveload_strategies.php");
-$saveload = new SaveLoadStrategies($position);
-if(isset($_GET['email']) && isset($_GET['password'])) {
-    /* check if email exist */
-    $cols = array(); array_push($cols, "email");
-    $conditions = array(); array_push($conditions, array("email", $_GET['email']));
+$saveload = new SaveLoadStrategies($position, $manager);
+if(isset($_GET['loginValue']) && isset($_GET['password'])) {
+    /* check if loginValue exist */
+    if(filter_var($_GET['loginValue'], FILTER_VALIDATE_EMAIL)) {
+        $cols = array(); array_push($cols, "email");
+        $conditions = array(); array_push($conditions, array("email", $_GET['loginValue']));
+    } else {
+        $cols = array(); array_push($cols, "name_user");
+        $conditions = array(); array_push($conditions, array("name_user", $_GET['loginValue']));
+    }
     if(empty($saveload->loadAsDB("user", $cols, $conditions, null))) {
-        $GLOBALS['connectionError'] = "Unknown email, please retry.";
+        $GLOBALS['connectionError'] = "Unknown email or username, please retry.";
     } 
     /* else we can check if user is correct */
     else {
         $cols = array(); array_push($cols, "id_user", "email", "name_user", "password");
-        $conditions = array(); array_push($conditions, array("email", $_GET['email']));
+        if(filter_var($_GET['loginValue'], FILTER_VALIDATE_EMAIL)) {
+            $conditions = array(); array_push($conditions, array("email", $_GET['loginValue']));
+        } else {
+            $conditions = array(); array_push($conditions, array("name_user", $_GET['loginValue']));
+        }
         $res = $saveload->loadAsDB("user", $cols, $conditions, null);
         if(empty($res) || !password_verify($_GET['password'], $res[0]['password'])) {
             $GLOBALS['connectionError'] = "Wrong password, please retry: ".password_verify($_GET['password'], $res[0]['password']);
@@ -56,8 +65,8 @@ if(isset($GLOBALS['connectionError'])) {
 ?>
     <form method="get" action="form_connection.php">
         <p class="form-floating">
-            <input class="form-control" type="text" name="email" id="email" required="required"> 
-            <label for="name_user">Email</label>
+            <input class="form-control" type="text" name="loginValue" id="email" required="required"> 
+            <label for="name_user">Email or Username</label>
         </p>
         <p class="form-floating">
             <input class="form-control" type="password" name="password" id="password" required="required">

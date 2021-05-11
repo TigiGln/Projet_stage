@@ -1,9 +1,12 @@
 <?php
 //Création du menu déroulant avec le selected au bon endroit et les options souhaités.
-function gestion_select($name, $value_a_tester, $id, $list_value_listbox)
+function gestion_select($name, $value_a_tester, $id, $list_value_listbox, $tags)
 {
+    if(strpos(".".$value_a_tester, "members_tasks")) { $value_a_tester = "tasks"; } 
+    else if(strpos(".".$value_a_tester, "members_undefined")) {$value_a_tester = "undefined"; } 
+    
     $listbox = "";
-    $listbox .= "<select class='form-select' name= '$name' id = '$id' onchange = changeStatus(this)>";
+    $listbox .= "<select class='form-select' name= '$name' id = '$id' onchange='changeStatus(this)' ".$tags.">";
     foreach($list_value_listbox as $value)
     {
         if (strtolower($value) == strtolower($value_a_tester))
@@ -63,8 +66,12 @@ function search_table_status($status, $user, $manager)
         $name_id_status = 'status_' . $num_access;
         $name_id_user = 'user_'. $num_access;
         $user_name = $line_table['name_user'];
-        $list_status = gestion_select($name_id_status, $status, $num_access, $enum_status);//création du menu déroulant des status
-        $list_user = gestion_select($name_id_user, $user_name, $num_access, $enum_user);//création du menu déraoulant des users
+
+        $tagsStatut = (strpos(".".$status, "members_") || $line_table["name_user"] != $_SESSION["username"]) ? "disabled" : "";
+        $tagsUser = ((strpos(".".$status, "members_") || strpos(".".$status, "processed") || strpos(".".$status, "rejected")) && $line_table["name_user"] != $_SESSION["username"]) ? "disabled" : "";
+
+        $list_status = gestion_select($name_id_status, $status, $num_access, $enum_status, $tagsStatut);//création du menu déroulant des status
+        $list_user = gestion_select($name_id_user, $user_name, $num_access, $enum_user, $tagsUser);//création du menu déraoulant des users
         $abstract =  str_replace('"', "'", $line_table['abstract']);
         $title = str_replace('"', "'", $line_table['title']);
         $lien_pubmed  = "<a href ='https://pubmed.ncbi.nlm.nih.gov/$num_access/' target='_blank'>";
@@ -73,7 +80,7 @@ function search_table_status($status, $user, $manager)
         if ($status == 'tasks')
         {   
             if(!class_exists("SaveLoadStrategies")) { require('../POO/class_saveload_strategies.php'); }
-            $load = new SaveLoadStrategies("..");
+            $load = new SaveLoadStrategies("..", $manager);
             $res = json_decode($load->loadAsXML("../modules/edit_article_menu/notes/notes.xml", $line_table["origin"]."_".$line_table["num_access"], "author", $_SESSION['username']), true);
             $notes = ($res == 400) ? $notes = "" : urldecode($res[0]['content']);
             echo "<tr id = 'line_$num_access'><td width=12.5%>" . $lien_pubmed .  $num_access . "</a></td><td width=30%>" . $survol_title . $title . "</a></td><td width= 20%>premier et dernier auteur</td><td width=12.5%>" . $list_status . "</td><td width=12.5%>" . $list_user . "</td><td width=12.5%>" . $notes . "</td></tr>" ;

@@ -1,17 +1,18 @@
 <?php
 	/*
 	* Created on Wed Apr 28 2021
-	* Latest update on Wed May 5 2021
+	* Latest update on Tue May 11 2021
 	* Info - PHP for grade module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/
-	session_start();
-	//CLASS IMPORT
-	require ("../../../POO/class_saveload_strategies.php");
+	
+	$position = "../../..";
+	require($position.'/views/dbLoader.php');
+	require($position."/POO/class_saveload_strategies.php");
 
 	$ID = $_GET['ID'];
 
-	$saveload = new SaveLoadStrategies("../../../");
+	$saveload = new SaveLoadStrategies("../../../", $manager);
 	$cols = array();
 	array_push($cols, "note");
 	$conditions = array();
@@ -25,3 +26,4 @@
 		http_response_code(200);
 	}
 ?>
+

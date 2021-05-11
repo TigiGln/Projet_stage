@@ -1,14 +1,13 @@
 <?php
   $position;
-  if(file_exists("./POO/class_userConnection.php")) {
-    require("./POO/class_userConnection.php");
+  if(file_exists("./POO")) {   //Index and the like
     $position = ".";
-  } else {
-    require("../POO/class_userConnection.php");
+  } else if(file_exists("../POO")) { //pages and the like
     $position = "..";
+  } else if(file_exists("../../../POO")) { //modules and the like
+    $position = "../../..";
   }
-  $userConnection = new UserConnection(true);
-  $userConnection->isValid();
+  require($position."/views/dbLoader.php");
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +27,6 @@
     echo '<link href="'.$position.'/css/style.css" rel="stylesheet">';
     echo '<link href="'.$position.'/css/redefinebootstrap.css" rel="stylesheet">';
     echo '<link href="'.$position.'/css/result.css" rel="stylesheet">';
-    echo '<script src="'.$position.'/tables/sort_status.js"></script>';
 ?>
   </head>
   <body>

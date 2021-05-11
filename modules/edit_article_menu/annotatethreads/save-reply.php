@@ -1,12 +1,15 @@
 <?php
 	/*
 	* Created on Mon May 3 2021
-	* Latest update on Wed May 5 2021
+	* Latest update on Tue May 11 2021
 	* Info - JS for annotate threads module in edit article menu
 	* @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
 	*/
-	session_start();
-	require("../../../POO/class_saveload_strategies.php");
+
+	$position = "../../..";
+	require($position.'/views/dbLoader.php');
+	require($position."/POO/class_saveload_strategies.php");
+	
 	/* Parse Request Parameters */
 	$file = "./replies.xml";
 	$xml = simplexml_load_file($file);
@@ -18,6 +21,6 @@
 
 	/* Handle Reply Saving */
 	$datas = array($ID, array(array($tag, "name", $user), array(array("date", $date), array("content", rawurlencode($text)))));
-	$save = new SaveLoadStrategies("../../../");
+	$save = new SaveLoadStrategies("../../../", $manager);
 	http_response_code($save->saveAsXML($file, $datas, false));
 ?>

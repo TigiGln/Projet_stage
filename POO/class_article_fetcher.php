@@ -26,10 +26,10 @@ class ArticleFetcher {
      *            the NUM_ACCESS of the article to whom we will fetch the xml content in the database or download it.
      * @return void
      */
-    public function __construct($origin, $numaccess) {
+    public function __construct($origin, $numaccess, $manager) {
         $this->origin = $origin;
         $this->numaccess = $numaccess;
-        $this->saveload = new SaveLoadStrategies("../");
+        $this->saveload = new SaveLoadStrategies("../", $manager);
     }
     
     /**
