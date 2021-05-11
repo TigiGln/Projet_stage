@@ -7,7 +7,7 @@
 ?>
 <?php
     include('../views/header.php');//inclusion de l'entête
-    $menu = new mainMenu($_GET['status']);//creation du menu
+    $menu = new MainMenu($_GET['status'], $manager);//creation du menu
     $menu->write();//ecriture des éléments du menu
 ?>
 <!--<form method="get" action="update.php" enctype="multipart/form-data">-->

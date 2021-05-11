@@ -15,7 +15,7 @@ require('../POO/class_article_fetcher.php');
 <?php
 require('../views/header.php');
 //Menu
-(new mainMenu('Tasks'))->write();
+(new MainMenu('Tasks', $manager))->write();
 ?>
 
 <div id="display" class="flex p-4 w-100 overflow-auto" style="height: 100vh;">

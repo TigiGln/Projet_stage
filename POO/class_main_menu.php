@@ -4,7 +4,7 @@
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Mon May 10 2021
+ * Latest update on Tue May 11 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -21,7 +21,7 @@ class MainMenu {
     protected $Processed_Tasks;
     protected $Rejected_Tasks;
     protected $Insertion;
-    protected $AddMember;
+    protected $MembersManagement;
   
     /**
      * __construct
@@ -30,7 +30,7 @@ class MainMenu {
      *            position refers to which part of the menu is active, in which part of the menu we are actually.
      * @return void
      */
-    public function __construct($position) {
+    public function __construct($position, $manager) {
         $this->title = "Outil Biblio";
         $this->position = $position;
         $this->setTasks(true);
@@ -41,11 +41,8 @@ class MainMenu {
         $this->setRejectedTasks(true);
         $this->setInsertion(true);
         //todo later only for expert
-        if(!class_exists("ConnexionDB")) require('../POO/class_connexion.php');
-        if(!class_exists("Manager")) require('../POO/classmanager_bd.php');
-        $manager = new Manager((new ConnexionDB("localhost", "biblio", "root", ""))->pdo);
         $userProfile = $manager->getSpecific(array("profile"), array(array("id_user", $_SESSION['userID'])), "user")[0]['profile'];
-        $this->setAddMember($userProfile == "expert"); 
+        $this->setMembersManagement($userProfile == "expert"); 
     }
 
     /**
@@ -87,9 +84,9 @@ class MainMenu {
           $html = $this->writeOne($html, 'Insertion', '../insertion/form.php', "");
       }
       /* section expert */
-      if($this->AddMember) {
+      if($this->MembersManagement) {
         $html = $this->writeSep($html);
-        $html = $this->writeOne($html, 'Add_member', '../connection/signUp.php', "");
+        $html = $this->writeOne($html, 'Members_Management', '../connection/signUp.php', "");
     }
 
       return $html;
@@ -309,14 +306,14 @@ class MainMenu {
         if (is_bool($value)) { $this->Insertion = $value; }
     }
     /**
-     * setAddMember is the setter to activate or not the section of the same name.
+     * setMembersManagement is the setter to activate or not the section of the same name.
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      * @param  mixed $value
      *            boolean value.
      * @return void
      */
-    public function setAddMember($value) {
-      if (is_bool($value)) { $this->AddMember = $value; }
+    public function setMembersManagement($value) {
+      if (is_bool($value)) { $this->MembersManagement = $value; }
   }
 }
 ?>

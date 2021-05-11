@@ -7,7 +7,7 @@
 ?>
 <?php
     include('../views/header.php');
-    $menu = new mainMenu('Insertion');
+    $menu = new MainMenu('Insertion', $manager);
     $menu->write();
 ?>
 <div class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
