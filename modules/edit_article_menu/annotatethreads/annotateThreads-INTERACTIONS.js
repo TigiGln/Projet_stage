@@ -19,9 +19,9 @@ const logHeaderAnnotateThreadsInteractions = "[edit article menu : annotate Thre
 function annotateShow(id) {
     let annotation = document.getElementById("link_"+id);
     let tag = annotation.dataset.bsOriginalTitle;
-    let content  = annotation.dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0];
+    let content  = annotation.dataset.bsContent.match(/.*?(<hr class='sep)/mg)[0].replace("<hr class='sep", "");
     let selection = document.getElementById("selectedAnnotation");
-    selection.innerHTML = content+tag+"<br>at: "+annotation.innerHTML;
+    selection.innerHTML = tag+"<br>-----<br>"+content+"<br>-----<br>at: "+annotation.innerHTML;
     selection.style.pointerEvents = "all";
     selection.style.userSelect = "all";
     let numaccess = articleGet("numaccess");
