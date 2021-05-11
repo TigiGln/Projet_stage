@@ -43,7 +43,11 @@ if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
 			printDisplays(array_reverse($datas));
 			echo "</div>";
 
-			echo (new editArticleMenu($articleFecther->getArticle(), array("notes", "annotate", "annotate threads", "send", "grade", "conclude")))->write();
+			if($articleFecther->getArticle()['status'] == 3 || $articleFecther->getArticle()['status'] == 4) {
+				echo (new editArticleMenu($articleFecther->getArticle(), array("notes", "annotate threads", "grade")))->write();
+			} else {
+				echo (new editArticleMenu($articleFecther->getArticle(), array("notes", "annotate", "annotate threads", "send", "grade", "conclude")))->write();
+			}
 
 			echo '<script src="./scripts/dragArticleMenu.js"></script>';
 			echo '<script src="./scripts/upgradePMCLinks.js"></script>';

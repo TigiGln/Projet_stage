@@ -75,7 +75,7 @@ function search_table_status($status, $user, $manager)
         $abstract =  str_replace('"', "'", $line_table['abstract']);
         $title = str_replace('"', "'", $line_table['title']);
         $lien_pubmed  = "<a href ='https://pubmed.ncbi.nlm.nih.gov/$num_access/' target='_blank'>";
-        $toolLink = ($status == 'tasks') ? 'target="_BLANK" href="../tools/readArticle.php?NUMACCESS='.$num_access.'&ORIGIN='.$origin.'"' : '';
+        $toolLink = ($status == 'tasks' || $status == 'rejected' || $status == 'processed') ? 'target="_BLANK" href="../tools/readArticle.php?NUMACCESS='.$num_access.'&ORIGIN='.$origin.'"' : '';
         $survol_title = '<a '.$toolLink.' style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
         if ($status == 'tasks')
         {   
