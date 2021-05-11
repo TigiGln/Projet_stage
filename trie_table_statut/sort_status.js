@@ -13,7 +13,7 @@ function changeStatus(numSelect)
         if (line.id == lineTable.id)//si correspond à la ligne dont le statut est modifié alors
         {
             valueStatusInitial = line.cells[3].childNodes[0].value;//récupération du status initial de l'article
-            console.log(valueStatusInitial);
+            //console.log(valueStatusInitial);
             
             document.getElementsByTagName('table')[0].deleteRow(line.rowIndex);//tu supprime la ligne selon son index
             xhttp = new XMLHttpRequest(); //création de l'objet de requête pour accéder aux script php
@@ -34,12 +34,4 @@ function changeStatus(numSelect)
             
         }
     }
-}
-function alphaSort(thSelect)
-{
-    console.log(thSelect.cellIndex);
-    var linesTable = document.getElementsByTagName('table')[0].rows;
-    console.log(linesTable);
-    var cellsTable = linesTable.cells;
-    console.log(cellsTable);
 }

@@ -25,7 +25,7 @@ function search_table_status($status, $user, $manager)
     $enum_status = $manager->search_enum_fields('status', 'article', 'name_status', 'status');
     $enum_user = $manager->search_enum_fields('user', 'article', 'name_user', 'user');
     $table_a_afficher = "";
-    if($status == 'undefined' OR $status =='to_treat')
+    if($status == 'undefined' OR $status =='tasks')
     {
         #requête sur la table de la base de données en fonction du status et de l'utilisateur
         $table_a_afficher = $manager->get_fields('article', 'status', 'user', 'name_status', $status, 'name_user', $user);
@@ -39,16 +39,17 @@ function search_table_status($status, $user, $manager)
     
     #création du tableau à afficher ligne par ligne en fonction du statut demandés et de l'utilisateur
     echo "<h1>Table " . str_replace("_", " ",$status)."</h1>";
-    if ($status == 'to_treat')
+    if ($status == 'tasks')
     {
-        echo "<table><tr><th width=12.5%>PMID</th><th onclick = alphaSort(this)>Title</th><th width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th><th width=12.5%>Notes</th></tr>";
+        echo "<table><thead><tr><th>PMID</th><th class = 'sort_column'>Title</th><th class = 'sort_column'>Authors</th><th >Status</th><th >User</th><th>Notes</th></tr></thead>";
     }
     else
     {
-        echo "<table><tr><th width=12.5%>PMID</th><th width=30% onclick =alphaSort(this)>Title</th><th width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th></tr>";
+        echo "<table><thead><tr><th>PMID</th><th class = 'sort_column'>Title</th><th class = 'sort_column'>Authors</th><th>Status</th><th>User</th></tr></thead><tbody>";
     }
     foreach($table_a_afficher as $line_table)
     {
+        $origin = $line_table["origin"];
         $num_access = $line_table["num_access"];
         $name_id_status = 'status_' . $num_access;
         $name_id_user = 'user_'. $num_access;
@@ -63,22 +64,28 @@ function search_table_status($status, $user, $manager)
         $abstract =  str_replace('"', "'", $line_table['abstract']);
         $title = str_replace('"', "'", $line_table['title']);
         $lien_pubmed  = "<a href ='https://pubmed.ncbi.nlm.nih.gov/$num_access/' target='_blank'>";
-        $survol_title = '<a style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
-        if ($status == 'to_treat')
+        if ($status == 'tasks')
         {
+            $toolLink = "href ='../eddy/readArticle.php?NUMACCESS=" . $num_access . "&ORIGIN=" . $origin . "' target='_blank'";
+            $survol_title = '<a '. $toolLink . ' style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
             echo "<tr id = 'line_$num_access'><td width=12.5%>" . $lien_pubmed .  $num_access . "</a></td><td width=30%>" . $survol_title . $title . "</a></td><td width= 20%>premier et dernier auteur</td><td width=12.5%>" . $list_status . "</td><td width=12.5%>" . $list_user . "</td><td width=12.5%>" . $notes . "</td></tr>" ;
         }
         else
-        {
-            echo "<tr id = 'line_$num_access'><td width=12.5%>" . $lien_pubmed .  $num_access . "</a></td><td width=30%>" . $survol_title . $title . "</a></td><td width= 20%>premier et dernier auteur</td><td width=12.5%>" . $list_status . "</td><td width=12.5%>" . $list_user . "</td></tr>" ; 
+        { 
+            $survol_title = '<a style = "color: #000; font-weight: bold;" class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="' . $abstract . '">';
+            echo "<tr id = 'line_$num_access'><td width=12.5%>" . $lien_pubmed .  $num_access . "</a></td><td width=30%>" . $survol_title . $title . "</a></td><td width= 20%>premier et dernier auteur</td><td width=12.5%>" . $list_status . "</td><td width=12.5%>" . $list_user . "</td></tr>" ;
         }
-        $list_pmid_selon_status[$name_id_status] = $status;       
+        $list_pmid_selon_status[$name_id_status] = $status;
+        
+             
     }
-    echo "</table>";
+    //var_dump($list_titles);
+    //$titles = json_encode($titles);
+    //echo $titles;
+    //echo "<input type='hidden' id=hidden value= $titles>";
+    echo "</tbody></table>";
     //echo "<p><input type='submit' value='Enregistrer' id='submit'></p>";
     return $list_pmid_selon_status;
 }
-
-
 
 ?>

@@ -23,6 +23,7 @@
         ?>
     </div>
 <!--</form>-->
-<?php      
+<script src="table_sort.js"></script> 
+<?php     
     include('../views/footer.php');//inclusion du pied de page
 ?>

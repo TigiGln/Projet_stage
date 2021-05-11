@@ -74,7 +74,7 @@
             {
                 echo "<h1>Table of our research</h1>";
                 $global_check = "<input type='checkbox' name = 'global_check' onclick = 'check(this)'>";
-                echo "<table>\n<tr><th>PMID</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
+                echo "<table><thead><tr><th>PMID</th><th class = 'sort_column'>Title</th><th class = 'sort_column'>Authors</th><th>" . $global_check . "</th></tr></thead><tbody>";
                 $i = 0;
                 while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
                 {
@@ -115,7 +115,7 @@
                     }
                     $i++;
                 }
-                echo "</table>";
+                echo "</tbody></table>";
                 echo "<p><input type='submit' value='Insert'></p>";
 
             }
@@ -133,7 +133,7 @@
             var listNumAccessDb = <?php echo json_encode($list_num_access_bd); ?>;
         </script>
     <script src="./modif_table_requete.js"></script> 
-<?php
-         
+    <script src="../trie_table_statut/table_sort.js"></script> 
+<?php 
     include('../views/footer.php');
 ?>
