@@ -85,13 +85,17 @@ class ArticleFetcher {
      */
     public function fetch() {
         //todo fetch if a pmcid was added
-        if(!empty($this->article['pmcid'])) { return $this->fetchByPMCID(); }
-        else { 
-            $errorCode = 400;
-            $this->printError("warning", 'Couldn\'t fetch article with NUMACCESS='.$this->numaccess.' from '.$this->origin.'. It is either because an error occured, either because we can\'t yet download this kind of article 
-            (it depends of the database and/or the journal of this publication). Please refer this issue to your administrator or your team.', $errorCode);
-            http_response_code($errorCode); 
-            return false; 
+        switch($this->article['origin']) {
+            case "pubmed":
+                if(!empty($this->article['pmcid'])) { return $this->fetchByPMCID(); }
+                return true;
+                break;
+            case "default":
+                $errorCode = 400;
+                $this->printError("warning", 'Couldn\'t fetch article with NUMACCESS='.$this->numaccess.' from '.$this->origin.'. It is either because an error occured, either because we can\'t yet download this kind of article 
+                (it depends of the database and/or the journal of this publication). Please refer this issue to your administrator or your team.', $errorCode);
+                http_response_code($errorCode); 
+                return false; 
         }
     }
 
@@ -135,7 +139,7 @@ class ArticleFetcher {
      */
     public function fetchHTML($tags) {
         if($this->article['origin'] == "pubmed") {
-            if(isset($this->article['pmcid']) && !empty($this->getArticle()['html_xml'])) {                
+            if(!empty($this->article['pmcid']) && !empty($this->getArticle()['html_xml'])) {                
                 return '<div id="html" class="switchDisplay"'.$tags.'>'.$this->getArticle()['html_xml'].'</div>';
             }
         }
@@ -149,8 +153,13 @@ class ArticleFetcher {
      */
     public function fetchPDF($tags) {
         if($this->article['origin'] == "pubmed") {
-            if(isset($this->article['pmcid'])) {                
+            if(!empty($this->article['pmcid'])) {               
                 return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;" src="'.'https://www.ncbi.nlm.nih.gov/pmc/articles/'.$this->article['pmcid'].'/pdf/'.'"></iframe></div>';
+            }
+            else {
+                $search = new SimpleXMLElement(file_get_contents('https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids='.$this->article['num_access']));
+                $doi = array($search->record->attributes()->doi)[0]; 
+                return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;" src="'.'https://www.doi.org/'.$doi.'"></iframe></div>';
             }
         }
         return false;
@@ -163,7 +172,7 @@ class ArticleFetcher {
      */
     public function fetchXML($tags) {
         if($this->article['origin'] == "pubmed") {
-            if(isset($this->article['pmcid'])) {
+            if(!empty($this->article['pmcid'])) {
                 $_GET['PMCID'] = $this->article['pmcid'];
                 $_GET['xml'] = "";
                 $xml = include('../utils/fromPMCID/fromPMCID.php');    
