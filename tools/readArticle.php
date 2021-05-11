@@ -43,6 +43,7 @@ if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
 			printDisplays(array_reverse($datas));
 			echo "</div>";
 
+			//3, 4 are processed and rejected, we will show a special menu for them.
 			if($articleFecther->getArticle()['status'] == 3 || $articleFecther->getArticle()['status'] == 4) {
 				echo (new editArticleMenu($articleFecther->getArticle(), array("notes", "annotate threads", "grade")))->write();
 			} else {
@@ -72,16 +73,19 @@ include('../views/footer.php');
  * @return void
  */
 function showDisplays($datas) {
-	echo '<span class="btn-group">
+	$couldFetch = false;
+	$menus = '<span class="btn-group">
 	<button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 	Switch Display
 	</button>
 	<ul class="dropdown-menu">';
 	foreach ($datas as $data) {
 		if($data[1]) {
-			echo '<li><a class="dropdown-item" onClick="switchDisplay(\''.$data[0].'\')">'.strtoupper($data[0]).'</a></li>';
+			if($data[0]) $couldFetch = true;
+			$menus .= '<li><a class="dropdown-item" onClick="switchDisplay(\''.$data[0].'\')">'.strtoupper($data[0]).'</a></li>';
 		}
 	}
+	echo ($couldFetch) ? $menus : '<div class="alert alert-warning" role="alert">'."Couldn't fetch article with NUMACCESS=".$_GET['NUMACCESS'].' from '.$_GET['ORIGIN'].". Please refer this issue to your administrator or your team.".'<br>[ERROR CODE: 404 - Couldn\'t fetch any datas in each categories]</div>';
 }
 
 /**

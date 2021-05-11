@@ -157,8 +157,22 @@ class ArticleFetcher {
                 return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;" src="'.'https://www.ncbi.nlm.nih.gov/pmc/articles/'.$this->article['pmcid'].'/pdf/'.'"></iframe></div>';
             }
             else {
-                $search = new SimpleXMLElement(file_get_contents('https://www.ncbi.nlm.nih.gov/pmc/utils/idconv/v1.0/?ids='.$this->article['num_access']));
-                $doi = array($search->record->attributes()->doi)[0]; 
+                $doi = false;
+                $search = 'http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=Pubmed&usehistory=y&term='.$this->article['num_access'];
+                $search = file_get_contents($search);
+                $search = new SimpleXMLElement($search);
+                $web_env = $search->WebEnv;
+                $search = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?rettype=abstract&retmode=xml&db=Pubmed&query_key=1&WebEnv=".$web_env;
+                $search = file_get_contents($search);
+                $search = new SimpleXMLElement($search);
+                $IdList = $search->PubmedArticle->PubmedData->ArticleIdList;
+                foreach ($IdList->ArticleId as $articleId) {
+                    if($articleId->attributes()['IdType'] == "doi") {
+                        $doi = strval($articleId);
+                    }
+                }
+                if(!$doi) return false;
+                //todo find a way to print the pdf page directly
                 return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;" src="'.'https://www.doi.org/'.$doi.'"></iframe></div>';
             }
         }
