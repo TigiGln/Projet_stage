@@ -139,7 +139,7 @@ function annotateFillReplies(id, replies) {
   /* Prepare request */
   let id = articleGet("numaccess");
   let origin = articleGet("origin");
-  let article = document.getElementById("article").innerHTML;
+  let article = document.getElementById("html").innerHTML;
   let url = "../modules/edit_article_menu/annotate/save-article.php";
   let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id)+"&ORIGIN="+encodeURIComponent(origin);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);

@@ -270,7 +270,7 @@
         public function addHTMLXMLByPMCID($num_access, $pmcid) {
             $pmcid = str_replace("PMC", "", $pmcid);
             $_GET['PMCID'] = $pmcid;
-            $url = '../utils/fromPMCID/fromPMCID.php';
+            $url = '../utils/fromPMCID/fromPMCID.php'; 
             $data = include($url);
             $cols = array();
             array_push($cols, array("html_xml", $data));

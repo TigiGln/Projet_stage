@@ -23,9 +23,9 @@ function annotateClose() {
     document.querySelector("#annotateEditor").style.pointerEvents = "none";
     document.querySelector("#annotateEditor").style.userSelect = "none";
     if(!!document.getElementById("temp")) {
-      let article = document.getElementById("article").innerHTML;
+      let article = document.getElementById("html").innerHTML;
       let data = document.getElementById("temp").innerHTML;
-      document.getElementById("article").innerHTML = article.replace(/(<span id="temp">).*?(<\/span>)/s, data);
+      document.getElementById("html").innerHTML = article.replace(/(<span id="temp">).*?(<\/span>)/s, data);
     }
     isOpen = false;
     document.querySelector("#annotateArea").style.backgroundColor = "white";
@@ -130,11 +130,11 @@ function updateArticle(date, author, color, text, comment) {
   let id = articleGet("numaccess");
   let origin = articleGet("origin");
   /* Update article's html */
-  let article = document.getElementById("article").innerHTML;
+  let article = document.getElementById("html").innerHTML;
   let highlight = '<mark id=mark_'+date+' style="background-color: '+color+';"><a id=link_'+date+' class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-placement="bottom" data-bs-html="true" title="'+
   '['+date+'] '+author+'"'+' data-bs-content="'+comment+'<hr class=\'sep d-none\'>" onClick="annotateShow(\''+date.toString()+'\')">'+text.toString()+'</a></mark>';
   document.getElementById("temp").outerHTML = highlight;
-  article = document.getElementById("article").innerHTML;
+  article = document.getElementById("html").innerHTML;
   /* Prepare request */
   let url = "../modules/edit_article_menu/annotate/save-article.php";
   let params = "ORIGIN="+encodeURIComponent(origin)+"&ID="+encodeURIComponent(id)+"&ARTICLE="+encodeURIComponent(article);
@@ -173,7 +173,7 @@ function updateArticle(date, author, color, text, comment) {
   /* Prepare request */
   let id = articleGet("numaccess");
   let origin = articleGet("origin");
-  let article = document.getElementById("article").innerHTML;
+  let article = document.getElementById("html").innerHTML;
   let url = "../modules/edit_article_menu/annotate/save-article.php";
   let params = "ARTICLE="+encodeURIComponent(article)+"&ID="+encodeURIComponent(id)+"&ORIGIN="+encodeURIComponent(origin);
   console.log(logHeaderAnnotateInteractions+" article send request with parameters: "+params);
@@ -231,7 +231,7 @@ function addTempTag() {
  * will allows the selection of the selected text and go to annotating mode.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
-document.getElementById("article").addEventListener("mouseup", function() {
+document.getElementById("html").addEventListener("mouseup", function() {
   if(document.getSelection() && !isOpen && document.getSelection().toString().length > 0 && document.getSelection().toString().length < maxLengthAnnotateInteractions) {
     document.querySelector("#annotateEditor").style.pointerEvents = "all";
     document.querySelector("#annotateEditor").style.userSelect = "all";

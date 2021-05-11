@@ -6,7 +6,7 @@ require("../POO/class_saveload_strategies.php");
  * ArticleFetcher
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Mon May 10 2021
+ * Latest update on Tue May 11 2021
  * Info - PHP Class to fetch the xml content of the articles.
  * Usage: refers to the readArticle.php file: Do the followings
  * Instantiate object, call doExist(NUMACCESS), is true call hasRights(), if true call fetch(), fetch() will return true if could fetch, false else with an error message.
@@ -128,8 +128,18 @@ class ArticleFetcher {
         else { return false; }
     }
 
-    public function printError($type, $content, $errorCode) {
-        echo '<div class="alert alert-'.$type.'" role="alert">'.$content.'<br>[ERROR CODE: '.$errorCode.']</div>';
+    /**
+     * fetchHTML will, depending of the article characteristic, be able to link the corresponding pdf.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return true the fetch of html content was sucessfull, false if not or if an error occured
+     */
+    public function fetchHTML($tags) {
+        if($this->article['origin'] == "pubmed") {
+            if(isset($this->article['pmcid']) && !empty($this->getArticle()['html_xml'])) {                
+                return '<div id="html" class="switchDisplay"'.$tags.'>'.$this->getArticle()['html_xml'].'</div>';
+            }
+        }
+        return false;
     }
 
      /**
@@ -137,14 +147,34 @@ class ArticleFetcher {
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      * @return true the fetch of pdf content was sucessfull, false if not or if an error occured
      */
-    public function fetchPDF() {
+    public function fetchPDF($tags) {
         if($this->article['origin'] == "pubmed") {
             if(isset($this->article['pmcid'])) {                
-                return '<div id="pdf" class="switchDisplay" hidden><iframe class="w-100" style="height: 90vh;" src="'.'https://www.ncbi.nlm.nih.gov/pmc/articles/'.$this->article['pmcid'].'/pdf/'.'"></iframe></div>';
+                return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;" src="'.'https://www.ncbi.nlm.nih.gov/pmc/articles/'.$this->article['pmcid'].'/pdf/'.'"></iframe></div>';
             }
         }
         return false;
     }
-    
+
+    /**
+     * fetchXML will, depending of the article characteristic, be able to link the corresponding xml.
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @return true the fetch of xml content was sucessfull, false if not or if an error occured
+     */
+    public function fetchXML($tags) {
+        if($this->article['origin'] == "pubmed") {
+            if(isset($this->article['pmcid'])) {
+                $_GET['PMCID'] = $this->article['pmcid'];
+                $_GET['xml'] = "";
+                $xml = include('../utils/fromPMCID/fromPMCID.php');    
+                return '<div id="xml" class="switchDisplay w-100" '.$tags.'>'.$xml.'</div>';
+            }
+        }
+        return false;
+    }
+
+    public function printError($type, $content, $errorCode) {
+        echo '<div class="alert alert-'.$type.'" role="alert">'.$content.'<br>[ERROR CODE: '.$errorCode.']</div>';
+    }
 }
 ?>
