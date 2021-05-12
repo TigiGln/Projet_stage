@@ -173,10 +173,11 @@ class ArticleFetcher {
                 }
                 if($doi) {
                     /* use an xml file to save links, to avoid to fetch each time */
-                    $doi2link = $this->saveload->loadAsXML("../utils/doi2link.xml", "DOI", "doi", $doi);
+                    $doiString = "doi".str_replace("/", "_", $doi);
+                    $doi2link = $this->saveload->loadAsXML("../utils/doi2link.xml", "DOI", $doiString, null);
                     if($doi2link != '["empty"]') { 
                         $link = substr($doi2link, 1, -1);
-                        $link = json_decode($doi2link, true)[0]['link'];
+                        $link = json_decode($doi2link, true)[1]['link'];
                     }
                     else {
                         // if wasn't found, go fetch it */
@@ -184,7 +185,7 @@ class ArticleFetcher {
                         $xml_data = DOI_CrossRef($doi);
                         if(isset($xml_data->message->link->item0->URL[0])) {
                             $link = DOI_parse($doi, $xml_data->message->link->item0->URL[0], "PDF");
-                            $datas = array("DOI", array(array("doi", "value", $doi), array(array("link", $link))));
+                            $datas = array("DOI", array(array($doiString, "value", $doi), array(array("link", $link))));
                             $this->saveload->saveAsXML("../utils/doi2link.xml", $datas, true);
                         }
                     }
