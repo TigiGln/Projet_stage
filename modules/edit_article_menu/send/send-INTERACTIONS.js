@@ -50,7 +50,7 @@ function sendInteractionsLoadUsersList() {
 function sendInteractionsFillUsersList(usersJSON, usersListDOM) {
   for (let i = 0; i < usersJSON.length; i++){
     let user = usersJSON[i];
-    usersListDOM.innerHTML += '<option value="'+user['email']+'" data-id="'+user['id_user']+'">'+user['name_user']+'</option>';
+    usersListDOM.innerHTML += '<option value="'+user['name_user']+'" data-id="'+user['id_user']+'">'+user['email']+'</option>';
   }
 }
 
