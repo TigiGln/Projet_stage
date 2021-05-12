@@ -171,9 +171,13 @@ class ArticleFetcher {
                         $doi = strval($articleId);
                     }
                 }
-                if(!$doi) return false;
-                //todo find a way to print the pdf page directly
-                return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;" src="'.'https://www.doi.org/'.$doi.'"></iframe></div>';
+                if($doi) {
+                    include("../utils/fromDOI/fromDOI.php");
+                    $xml_data = DOI_CrossRef($doi);
+                    if(isset($xml_data->message->link->item0->URL[0])) {
+                        return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;"src="'.DOI_parse($doi, $xml_data->message->link->item0->URL[0], "PDF").'"></iframe></div>';
+                    }  
+                } 
             }
         }
         return false;
