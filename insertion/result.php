@@ -70,7 +70,7 @@
             {
                 echo "<h1 class='pb-4'>Results</h1>";
                 $global_check = "<input class='form-check-input check' type='checkbox' name = 'global_check' onclick = 'check(this)'>";
-                echo "<table class='table table-responsive table-hover table-bordered'>\n<tr class='table-info'><th>PMID</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
+                echo "<table class='table table-responsive table-hover table-bordered'>\n<tr class='table-info'><th>NUM ACCESS</th><th>Title</th><th>Authors</th><th>" . $global_check . "</th></tr>\n";
                 $i = 0;
                 while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
                 {

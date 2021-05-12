@@ -27,11 +27,11 @@ function changeColorLigne()
     for(numAccess of listAccessDb)
     {
         var indexNumAccess = listNumAccess.indexOf(numAccess) ;
+        console.log(listNumAccess);
         if (indexNumAccess !== -1)
         {
             tableRow[indexNumAccess + 1].style.background = "#A9A9A9";
-            checks[indexNumAccess].setAttribute('disabled', true);
-            //checks[indexNumAccess].style.display = 'none';
+            checks[indexNumAccess + 1].setAttribute('disabled', true);
         }
     }
 }

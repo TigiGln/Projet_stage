@@ -12,7 +12,7 @@
      if(isset($_GET['doi']) && isset($_GET['format'])) {
         $xml_data = DOI_CrossRef($_GET['doi']);
         if(isset($xml_data->message->link->item0->URL[0])) {
-            return DOI_parse($_GET['doi'], $xml_data->message->link->item0->URL[0], $_GET['format']);
+            echo DOI_parse($_GET['doi'], $xml_data->message->link->item0->URL[0], $_GET['format']);
         } 
         else { http_response_code(404); exit(10); }
      } 
