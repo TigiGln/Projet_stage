@@ -191,6 +191,16 @@ class ArticleFetcher {
                                 echo '<div class="alert alert-danger" role="alert">'.$link.'</div>';
                                 return false; 
                             }
+                            //Catch if we can't correctly ge tthe correct path to pdf yet
+                            else if(strpos('/'.$link, "[WARNING]")) { 
+                                echo '<div class="alert alert-warning" role="alert">'.$link.'
+                                <form class="form-group" method="post" action="add-pdf.php" enctype="multipart/form-data">
+                                <input class="form-control bg-warning" type="file" name="myfile" id="myfile" accept="application/pdf">
+                                <input class="btn btn-outline-success" type="submit" value="Add PDF File" id="submit">
+                             </form>
+                                </div>';
+                                return false; 
+                            }
                             $datas = array("DOI", array(array($doiString, "value", $doi), array(array("link", $link))));
                             $this->saveload->saveAsXML("../utils/doi2link.xml", $datas, true);
                         }

@@ -59,7 +59,7 @@
                 /* Available in ACS */
                 if(isset($_GET['verbose'])) echo "Article Available in ACS Publications<br>";
                 //todo overcome block with curl (?)
-                return "https://pubs.acs.org/doi/".$doi;
+                return "[WARNING] ACS use of embed local pdf files dissalow us to get the correct path to pdf from their website. PLease add it manually if required: ".$url;
                 break;
             default:
                 if(isset($_GET['verbose'])) echo "Need to implement parsing for: ".$url;
