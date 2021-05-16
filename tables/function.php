@@ -52,11 +52,11 @@ function search_table_status($status, $user, $manager)
     echo "<h1>" . str_replace("_", " ",$status)." articles</h1>";
     if ($status == 'tasks')
     {
-        echo "<table class='table table-responsive table-hover table-bordered'><tr class='table-info'><th class='sortable' width=12.5%>PMID</th><th onclick = alphaSort(this)>Title</th><th width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th><th width=12.5%>Notes</th></tr>";
+        echo "<table class='table table-responsive table-hover table-bordered'><thead><tr class='table-info'><th class='sortable' width=12.5%>PMID</th><th class='sort_column'>Title</th><th class='sort_column' width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th><th width=12.5%>Notes</th></tr></thead><tbody>";
     }
     else
     {
-        echo "<table class='table table-responsive table-hover table-bordered'><tr class='table-info'><th width=12.5%>PMID</th><th width=30% onclick =alphaSort(this)>Title</th><th width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th></tr>";
+        echo "<table class='table table-responsive table-hover table-bordered'><thead><tr class='table-info'><th class='sortable' width=12.5%>PMID</th><th class='sort_column'>Title</th><th class='sort_column' width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th></tr></thead><tbody>";
     }
     foreach($table_a_afficher as $line_table)
     {
@@ -91,7 +91,7 @@ function search_table_status($status, $user, $manager)
         }
         $list_pmid_selon_status[$name_id_status] = $status;       
     }
-    echo "</table>";
+    echo "</tbody></table>";
     //echo "<p><input type='submit' value='Enregistrer' id='submit'></p>";
     return $list_pmid_selon_status;
 }
