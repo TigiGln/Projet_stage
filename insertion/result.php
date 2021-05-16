@@ -70,7 +70,7 @@
             {
                 echo "<h1 class='pb-4'>Results</h1>";
                 $global_check = "<input class='form-check-input check' id='global_check' type='checkbox' onchange = 'checked_check(this)' name = 'global_check' onclick = 'check(this)'>";
-                echo "<table class='table table-responsive table-hover table-bordered'><thead><tr class='table-info'><th>NUM ACCESS</th><th class='sort_column'>Title</th><th class='sort_column'>Authors</th><th>" . $global_check . "</th></tr></thead><tbody>";
+                echo "<table class='table table-responsive table-hover table-bordered'><thead>\n<tr class='table-info'><th>NUM ACCESS</th><th class = 'sort_column'>Title</th><th class = 'sort_column'>Authors</th><th>" . $global_check . "</th></tr>\n</thead><tbody>";
                 $i = 0;
                 while($i < count($listpmid))//boucle sur la liste de pmid remplissant les conditions
                 {
@@ -104,7 +104,7 @@
                         $object_article = new Article($origin, $num_access, $title, $abstract, $year, $journal, $pmcid, '1', $listauthors, $_SESSION['userID']);
                         //var_dump($object_article);
                         $list_objects[$num_access] = $object_article;
-                        $check = "<input type='checkbox' class='form-check-input check' name='check[]' id = $num_access value= '" . $object_article->getnum_access($num_access) . "'>\n";
+                        $check = "<input type='checkbox' onchange = 'checked_check(this)' class='form-check-input check' name='check[]' id = $num_access value= '" . $object_article->getnum_access($num_access) . "'>\n";
                         $survol = '<a class="note" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $abstract . "\">" ;
                         $survolauthor = '<a class="note1" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content= "' . $listauthor . "\">" ;
                         echo "<tr><td>" .  $num_access . "</td>\n<td>" . $survol . trim($title) . "</a></td>\n<td>" . $survolauthor . $authors[0] . ", ... , " . end($authors) . "</a></td>\n<td>" . $check . "</td></tr>\n" ;
@@ -112,7 +112,7 @@
                     $i++;
                 }
                 echo "</tbody></table>";
-                echo "<p><input class='btn btn-outline-success' type='submit' value='Insert'></p>";
+                echo "<p><input class='btn btn-outline-success' id='insert' type='submit' value='Insert'></p>";
 
             }
             else
@@ -131,7 +131,8 @@
         <script>
             var listNumAccessDb = <?php echo json_encode($list_num_access_bd); ?>;
         </script>
-    <script src="./update_request_table.js"></script> 
+    <script src="./update_request_table.js"></script>
+    <script src="../tables/table_sort.js"></script> 
 <?php
          
     include('../views/footer.php');
