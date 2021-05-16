@@ -24,19 +24,18 @@ require('../views/header.php');
 if(isset($_GET['NUMACCESS']) && isset($_GET['ORIGIN'])) {
 	$articleFecther = new ArticleFetcher($_GET['ORIGIN'], $_GET['NUMACCESS'], $manager);
 	if($articleFecther->doExist() && $articleFecther->hasRights($_SESSION['userID'])) { 
-
-		/* contents building */
-		$hidden = "";
-		$htmlData = $articleFecther->fetchHTML($hidden); if($htmlData && empty($hidden)) { $hidden = "hidden"; }
-		$pdfData = $articleFecther->fetchPDF($hidden); if($pdfData && empty($hidden)) { $hidden = "hidden"; }
-		$xmlData = $articleFecther->fetchXML($hidden); if($xmlData && empty($hidden)) { $hidden = "hidden"; }
-		$datas = array(
-			array("html", $htmlData),
-			array("pdf", $pdfData),
-			array("xml", $xmlData)
-		); 
 		/* contents building end */
- 		if($articleFecther->fetch()) {
+		if($articleFecther->fetch()) {
+			/* contents building */
+			$hidden = "";
+			$htmlData = $articleFecther->fetchHTML($hidden); if($htmlData && empty($hidden)) { $hidden = "hidden"; }
+			$pdfData = $articleFecther->fetchPDF($hidden); if($pdfData && empty($hidden)) { $hidden = "hidden"; }
+			$xmlData = $articleFecther->fetchXML($hidden); if($xmlData && empty($hidden)) { $hidden = "hidden"; }
+			$datas = array(
+				array("html", $htmlData),
+				array("pdf", $pdfData),
+				array("xml", $xmlData)
+			); 
 			showDisplays($datas);
 			echo '</ul></span><br>';
 			//We reverse the array because we must have html content in the end to avoid hierarchy div issues

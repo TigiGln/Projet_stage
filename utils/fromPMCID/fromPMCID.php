@@ -26,6 +26,95 @@
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      */
 
+    /**
+     * getXML
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $res
+     * @param  mixed $isTitle
+     * @param  mixed $isAuthors
+     * @param  mixed $isContent
+     * @param  mixed $isReferences
+     * @param  mixed $isEcho
+     * @return xml data
+     */
+    if(!function_exists("getXML")) {
+        function getXML($res, $isTitle, $isAuthors, $isContent, $isReferences, $isEcho) {
+            $xml = "<pre lang='xml'>".htmlentities($res)."</pre>";
+            if (isset($_GET['print'])) { echo $xml; }
+            return $xml;
+        }
+    }
+
+    /**
+     * getHTML
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $res
+     * @param  mixed $isTitle
+     * @param  mixed $isAuthors
+     * @param  mixed $isContent
+     * @param  mixed $isReferences
+     * @param  mixed $isEcho
+     * @return html data
+     */
+    if(!function_exists("getHTML")) {
+        function getHTML($res, $isTitle, $isAuthors, $isContent, $isReferences, $isEcho) {
+            $res = parserHomogenizeHTML($res);
+            //Title
+            preg_match('/(<h1 class="content-title).*?(<\/h1>)/s', $res, $title, PREG_OFFSET_CAPTURE);
+            $title = $title[0][0];
+    
+            //Authors
+            preg_match('/(<div class="contrib-group).*?(<div class="togglers)/s', $res, $authors, PREG_OFFSET_CAPTURE); //Work when disclaimer is here. if not need to update
+            $authors = str_replace('<div class="togglers"', '', $authors);
+            $authors = $authors[0][0];
+    
+            //Content
+            preg_match('/(<div id="idm).*(<\/div><div id="idm)/s', $res, $content, PREG_OFFSET_CAPTURE);
+            $content = $content[0][0];
+            $content = substr($content, 0, strlen($content)-12);
+    
+            //References 
+            preg_match('/(<div class="ref-list-sec).*?(<\/div><\/div>)/s', $res, $references, PREG_OFFSET_CAPTURE);
+            $references = $references[0][0];
+    
+            //Remove all divs for flex
+            $title = str_replace('<div', '<span', $title); $title = str_replace('div>', 'span>', $title);
+            $authors = str_replace('<div', '<span', $authors); $authors = str_replace('div>', 'span>', $authors);
+            $content = str_replace('<div', '<span', $content); $content = str_replace('div>', 'span>', $content);
+    
+            //Echos content
+            $echo = "";
+            if($isTitle) { $echo = $echo . $title . '<br>'; }
+            if($isAuthors) { $echo = $echo . $authors . '<br>'; }
+            if($isContent) { $echo = $echo . $content . '<br>'; }
+            if($isReferences) { $echo = $echo . $references . '<br>'; }
+            if($isEcho) { echo $echo; }
+            return $echo;
+        }
+    }
+    
+    /**
+     * parserHomogenizeHTML
+     * USe an external file "parser.config" to parse the $res and edit content
+     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+     * @param  mixed $res
+     * @return void
+     */
+    if(!function_exists("parserHomogenizeHTML")) {
+        function parserHomogenizeHTML($res) {
+            $handle = (file_exists("../utils/fromPMCID/parser.config")) ? fopen("../utils/fromPMCID/parser.config", "r") : fopen("../../utils/fromPMCID/parser.config", "r");
+            if ($handle) {
+                while (($line = fgets($handle)) !== false) {
+                    if(substr($line, 0, 2) === '/*') continue;
+                    $line = explode("<_>", $line);
+                    $res = str_replace($line[0], $line[1], $res);
+                }
+                fclose($handle);
+            }
+            return $res;
+        }
+    }
+
     //Prepare Curl request
     if(!isset($_GET['PMCID'])) {
         echo '<div class="alert alert-danger" role="alert">
@@ -62,88 +151,4 @@
     curl_close($req); 
 
     return (isset($_GET['xml'])) ? getXML($res, $isTitle, $isAuthors, $isContent, $isReferences, $isEcho) : getHTML($res, $isTitle, $isAuthors, $isContent, $isReferences, $isEcho);
-
-    
-    /**
-     * getXML
-     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-     * @param  mixed $res
-     * @param  mixed $isTitle
-     * @param  mixed $isAuthors
-     * @param  mixed $isContent
-     * @param  mixed $isReferences
-     * @param  mixed $isEcho
-     * @return xml data
-     */
-    function getXML($res, $isTitle, $isAuthors, $isContent, $isReferences, $isEcho) {
-        $xml = "<pre lang='xml'>".htmlentities($res)."</pre>";
-        if (isset($_GET['print'])) { echo $xml; }
-        return $xml;
-    }
-
-    /**
-     * getHTML
-     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-     * @param  mixed $res
-     * @param  mixed $isTitle
-     * @param  mixed $isAuthors
-     * @param  mixed $isContent
-     * @param  mixed $isReferences
-     * @param  mixed $isEcho
-     * @return html data
-     */
-    function getHTML($res, $isTitle, $isAuthors, $isContent, $isReferences, $isEcho) {
-        $res = parserHomogenizeHTML($res);
-        //Title
-        preg_match('/(<h1 class="content-title).*?(<\/h1>)/s', $res, $title, PREG_OFFSET_CAPTURE);
-        $title = $title[0][0];
-
-        //Authors
-        preg_match('/(<div class="contrib-group).*?(<div class="togglers)/s', $res, $authors, PREG_OFFSET_CAPTURE); //Work when disclaimer is here. if not need to update
-        $authors = str_replace('<div class="togglers"', '', $authors);
-        $authors = $authors[0][0];
-
-        //Content
-        preg_match('/(<div id="idm).*(<\/div><div id="idm)/s', $res, $content, PREG_OFFSET_CAPTURE);
-        $content = $content[0][0];
-        $content = substr($content, 0, strlen($content)-12);
-
-        //References 
-        preg_match('/(<div class="ref-list-sec).*?(<\/div><\/div>)/s', $res, $references, PREG_OFFSET_CAPTURE);
-        $references = $references[0][0];
-
-        //Remove all divs for flex
-        $title = str_replace('<div', '<span', $title); $title = str_replace('div>', 'span>', $title);
-        $authors = str_replace('<div', '<span', $authors); $authors = str_replace('div>', 'span>', $authors);
-        $content = str_replace('<div', '<span', $content); $content = str_replace('div>', 'span>', $content);
-
-        //Echos content
-        $echo = "";
-        if($isTitle) { $echo = $echo . $title . '<br>'; }
-        if($isAuthors) { $echo = $echo . $authors . '<br>'; }
-        if($isContent) { $echo = $echo . $content . '<br>'; }
-        if($isReferences) { $echo = $echo . $references . '<br>'; }
-        if($isEcho) { echo $echo; }
-        return $echo;
-    }
-    
-    /**
-     * parserHomogenizeHTML
-     * USe an external file "parser.config" to parse the $res and edit content
-     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
-     * @param  mixed $res
-     * @return void
-     */
-    function parserHomogenizeHTML($res) {
-        $handle = (file_exists("../utils/fromPMCID/parser.config")) ? fopen("../utils/fromPMCID/parser.config", "r") : fopen("../../utils/fromPMCID/parser.config", "r");
-        if ($handle) {
-            while (($line = fgets($handle)) !== false) {
-                if(substr($line, 0, 2) === '/*') continue;
-                $line = explode("<_>", $line);
-                $res = str_replace($line[0], $line[1], $res);
-            }
-            fclose($handle);
-        }
-        return $res;
-    }
 ?>
