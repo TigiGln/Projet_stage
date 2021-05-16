@@ -4,8 +4,9 @@
      * fromDOI
      * 
      * Created on Wed May 12 2021
-     * Latest update on Wed May 12 2021
+     * Latest update on Sun May 16 2021
      * Info - PHP script to retrieve and echo using articles from DOI.
+     * Us   age debug example http://localhost/test/projet_stage/utils/fromDOI/fromDOI.php?doi=10.1021/bi00696a003&format=PDF&verbose
      * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
      */
 
@@ -46,17 +47,23 @@
         switch($url) {
             case (preg_match('/\.pdf$/', $url)? true : false):
                 /* Available links features .pdf directly */
-                //echo "Article Available directly in pdf from: ".$url."<br>";
+                if(isset($_GET['verbose'])) echo "Article Available directly in pdf from: ".$url."<br>";
                 return DOI_parse_pdf($url, $format);
                 break;
             case (preg_match('/api.elsevier.com.*?/', $url)? true : false):
                 /* Available in Elsevier's Api. Elsevier's Api crossref's links DO NOT features .pdf directly, additionnal parsing is required */
-                //echo "Article Available in Elsevier API<br>";
+                if(isset($_GET['verbose'])) echo "Article Available in Elsevier API<br>";
                 return DOI_parse_elsevierAPI($doi, $format);
                 break;
+            case (preg_match('/pubs.acs.org\/doi\/.*?/', $url)? true : false):
+                /* Available in ACS */
+                if(isset($_GET['verbose'])) echo "Article Available in ACS Publications<br>";
+                //todo overcome block with curl (?)
+                return "https://pubs.acs.org/doi/".$doi;
+                break;
             default:
-                //echo "Need to implement parsing for: ".$url;
-                return false;
+                if(isset($_GET['verbose'])) echo "Need to implement parsing for: ".$url;
+                return "[ERROR] Need to implement parsing for: ".$url;
         }
     }
     /*----------------------------------------------------
@@ -72,6 +79,7 @@
         //Close Curl request
         curl_close($req); 
         $xml_data = new SimpleXMLElement($res);
+        if(isset($_GET['verbose'])) var_dump($xml_data->coredata->link[1]);
         //link 0 is the api link, link1 is the link of the article. Hence the new link is stored in position 1.
         $url = $xml_data->coredata->link[1]->attributes()->href;
         return DOI_parse_scienceDirect($url, $format);

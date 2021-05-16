@@ -52,7 +52,7 @@ function search_table_status($status, $user, $manager)
     echo "<h1>" . str_replace("_", " ",$status)." articles</h1>";
     if ($status == 'tasks')
     {
-        echo "<table class='table table-responsive table-hover table-bordered'><thead><tr class='table-info'><th class='sortable' width=12.5%>PMID</th><th class='sort_column'>Title</th><th class='sort_column' width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th><th width=12.5%>Notes</th></tr></thead><tbody>";
+        echo "<table class='table table-responsive table-hover table-bordered'><thead><tr class='table-info'><th class='sortable' width=12.5%>PMID</th><th class='sort_column'>Title <i class='bi bi-archive'></i></th><th class='sort_column' width=20%>Authors</th><th width=12.5%>Status</th><th width=12.5%>User</th><th width=12.5%>Notes</th></tr></thead><tbody>";
     }
     else
     {

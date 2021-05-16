@@ -6,7 +6,7 @@ require("../POO/class_saveload_strategies.php");
  * ArticleFetcher
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Tue May 11 2021
+ * Latest update on Sun May 16 2021
  * Info - PHP Class to fetch the xml content of the articles.
  * Usage: refers to the readArticle.php file: Do the followings
  * Instantiate object, call doExist(NUMACCESS), is true call hasRights(), if true call fetch(), fetch() will return true if could fetch, false else with an error message.
@@ -183,15 +183,21 @@ class ArticleFetcher {
                         // if wasn't found, go fetch it */
                         include("../utils/fromDOI/fromDOI.php");
                         $xml_data = DOI_CrossRef($doi);
+                        
                         if(isset($xml_data->message->link->item0->URL[0])) {
                             $link = DOI_parse($doi, $xml_data->message->link->item0->URL[0], "PDF");
+                            //Catch if an error message was returned from DOI parser, if so print it
+                            if(strpos('/'.$link, "[ERROR]")) { 
+                                echo '<div class="alert alert-danger" role="alert">'.$link.'</div>';
+                                return false; 
+                            }
                             $datas = array("DOI", array(array($doiString, "value", $doi), array(array("link", $link))));
                             $this->saveload->saveAsXML("../utils/doi2link.xml", $datas, true);
                         }
                     }
                     if(isset($link) && !empty($link)) {
                         return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;"src="'.$link.'"></iframe></div>';
-                    }  
+                    } 
                 } 
             }
         }
