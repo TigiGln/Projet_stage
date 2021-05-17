@@ -9,7 +9,6 @@
   }
   require($position."/views/dbLoader.php");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
