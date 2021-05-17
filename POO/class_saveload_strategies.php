@@ -4,7 +4,7 @@
  * SaveLoadStrategies
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Tue May 11 2021
+ * Latest update on Mon May 17 2021
  * Info - PHP Class for different saves strategies.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -150,8 +150,8 @@ class SaveLoadStrategies {
             $didExist = false;
             if($overwrite) {
                 foreach ($xml->$ID->{$PRIMARYTAGDATA} as $primaryTag) {
-                    $atr = $primaryTag->attributes();
-                    if($atr == $PRIMARYTAGVALUE) {
+                    $atr = (string) $primaryTag->attributes()[0];
+                    if($atr == $PRIMARYTAGNAME) {
                         $didExist = true;
                         for ($i = 0; $i < sizeof($values); $i++) {
                             $tag = strval($values[$i][0]);
