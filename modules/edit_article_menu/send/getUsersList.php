@@ -12,7 +12,7 @@
 
 	$saveload = new SaveLoadStrategies("../../../", $manager);
 	$cols = array();
-	array_push($cols, "id_user", "name_user", "email");
+	array_push($cols, "id_user", "name_user", "email", "profile");
 	$conditions = array();
 	
 	$res = $saveload->loadAsDB("user", $cols, $conditions, null);

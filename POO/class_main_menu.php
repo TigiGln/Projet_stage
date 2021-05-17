@@ -4,7 +4,7 @@
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Tue May 11 2021
+ * Latest update on Mon May 17 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -86,7 +86,7 @@ class MainMenu {
       /* section expert */
       if($this->MembersManagement) {
         $html = $this->writeSep($html);
-        $html = $this->writeOne($html, 'Members_Management', '../connection/signUp.php', "");
+        $html = $this->writeOne($html, 'Members_Management', '../connection/members_management.php', "");
     }
 
       return $html;

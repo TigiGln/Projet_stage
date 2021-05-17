@@ -10,14 +10,16 @@ class ConnexionDB
     public $user;
     public $mdp;
     public $db;
+    public $port;
     
-    public function __construct($serveur,$db, $user, $mdp)
+    public function __construct($serveur,$db, $port, $user, $mdp)
     {
     
         $this->serveur = $serveur;
         $this->user = $user;
         $this->mdp = $mdp;
         $this->db = $db;
+        $this->port = $port;
 
         $this->connexionBDD();
     }
@@ -26,7 +28,8 @@ class ConnexionDB
     {
         try
         {
-            $this->pdo = new PDO("mysql:host=" . $this->serveur . ";dbname=" . $this->db, $this->user , $this->mdp, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            //Change your port
+            $this->pdo = new PDO("mysql:host=" . $this->serveur . ";port=".$this->port." ;dbname=" . $this->db, $this->user , $this->mdp, array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
             //echo "Connexion réussi !";
         }
         catch (PDOException $e) // On attrape les exceptions PDOException.
@@ -43,7 +46,7 @@ class ConnexionDB
     {
         // Ici sont à placer des instructions à exécuter juste avant la linéarisation.
         // On retourne ensuite la liste des attributs qu'on veut sauver.
-        return ['serveur', 'user', 'mdp', 'db'];
+        return ['serveur', 'user', 'mdp', 'db', 'port'];
     }
     public function __wakeup()
     {

@@ -7,7 +7,7 @@
   $userConnection->isValid();
   if(isset($_SESSION['connexiondb'])) { $manager = new Manager($_SESSION["connexiondb"]->pdo); }   
   else {
-    $_SESSION['connexiondb'] = new ConnexionDB("localhost", "biblio", "root", "");
+    $_SESSION['connexiondb'] = new ConnexionDB("localhost", "biblio", 3306, "root", "");
     $manager = new Manager($_SESSION['connexiondb']->pdo);
   }
 ?>
