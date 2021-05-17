@@ -1,6 +1,6 @@
 /*
  * Created on Fri Apr 23 2021
-	* Latest update on Tue May 11 2021
+	* Latest update on Mon May 17 2021
  * Info - JS for conclude module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -82,7 +82,7 @@ function validateSendInteraction() {
         if (http.status === 200) {
           console.log(logHeaderSendInteractions+' Send successfully with status code: '+this.status);
           alert("The article was successfully Sent. Return to your tasks");
-          document.location.href="../index.php";
+          window.close();
         } else {
           console.log(logHeaderSendInteractions+' Send failed with status code: '+this.status);
           alert("An error occured. Please retry.");

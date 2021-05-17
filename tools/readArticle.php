@@ -1,7 +1,7 @@
 <?php
 /*
  * Created on Mon Apr 19 2021
- * Latest update on Tue May 11 2021
+ * Latest update on Mon May 17 2021
  * Info - readArticle is the common page to use article editing tools that features html/xml code.
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -14,8 +14,8 @@ require('../POO/class_article_fetcher.php');
 
 <?php
 require('../views/header.php');
-//Menu
-(new MainMenu('Tasks', $manager))->write();
+//Main menu, uncomment to draw it
+//(new MainMenu('Tasks', $manager))->write();
 ?>
 
 <div id="display" class="flex p-4 w-100 overflow-auto" style="height: 100vh;">

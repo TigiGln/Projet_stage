@@ -1,6 +1,6 @@
 /*
  * Created on Fri Apr 23 2021
- * Latest update on Thu Apr 29 2021
+ * Latest update on Mon May 17 2021
  * Info - JS for conclude module in edit article menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -36,7 +36,7 @@ function validateConcludeInteraction(status) {
         if (http.status === 200) {
           console.log(logHeaderConcludeInteractions+' Validate successfully with status code: '+this.status);
           alert("The article was successfully proccessed. Return to your tasks ");
-          document.location.href="../index.php";
+          window.close();
         } else {
           console.log(logHeaderConcludeInteractions+' Validate failed with status code: '+this.status);
           alert("An error occured. Please retry. "+this.response);
