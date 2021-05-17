@@ -6,7 +6,7 @@ require("../POO/class_saveload_strategies.php");
  * ArticleFetcher
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Sun May 16 2021
+ * Latest update on Mon May 17 2021
  * Info - PHP Class to fetch the xml content of the articles.
  * Usage: refers to the readArticle.php file: Do the followings
  * Instantiate object, call doExist(NUMACCESS), is true call hasRights(), if true call fetch(), fetch() will return true if could fetch, false else with an error message.
@@ -67,7 +67,7 @@ class ArticleFetcher {
      * @return true if the given userID do have the right to work on this article of num_access, false if not (with an error message).
      */
     public function hasRights($userID) {
-        if(($this->article['user'] == $userID) || $this->article['status'] > 2) {
+        if(($this->article['user'] == $userID) || $this->article['status'] == 3 || $this->article['status'] == 4) {
             return true;
         } else {
             $errorCode = 403;
