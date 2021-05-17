@@ -67,7 +67,7 @@ class ArticleFetcher {
      * @return true if the given userID do have the right to work on this article of num_access, false if not (with an error message).
      */
     public function hasRights($userID) {
-        if($this->article['user'] == $userID) {
+        if(($this->article['user'] == $userID) || $this->article['status'] > 2) {
             return true;
         } else {
             $errorCode = 403;
