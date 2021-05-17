@@ -9,8 +9,14 @@ include('../views/header.php');
         $res = $manager->getSpecific(array("id_user"), array(array("id_user", $_GET['id'])), "user");
         if(!$res) http_response_code(403);
         else {
-            $res = $manager->deleteSpecific($cols, "user");
-            ($res) ? http_response_code(200) : http_response_code(500);
+            //give articles to actual user
+            $res = $manager->updateSpecific(array(array("user", $_SESSION['userID'])), array(array("user", $_GET['id'])),"article");
+            if(!$res) { http_response_code(500); }
+            else {
+                //if could give, then delete user
+                $res = $manager->deleteSpecific($cols, "user");
+                ($res) ? http_response_code(200) : http_response_code(500);
+            }
         }
     } else {
         http_response_code(400);

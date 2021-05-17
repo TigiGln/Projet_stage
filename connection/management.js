@@ -102,6 +102,7 @@ function deleteMember() {
             if (http.status === 200) {
                 document.getElementById("info").innerHTML = '<div class="alert alert-info" role="alert">Successfully Deleted '+username+'.</div>';
                 cleanForm();
+                loadUsersList();
             } else if (http.status === 403) {
             document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">'+username+' Don\'t exists.</div>';
             } else {
