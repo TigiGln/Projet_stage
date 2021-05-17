@@ -188,16 +188,19 @@ class ArticleFetcher {
                             $link = DOI_parse($doi, $xml_data->message->link->item0->URL[0], "PDF");
                             //Catch if an error message was returned from DOI parser, if so print it
                             if(strpos('/'.$link, "[ERROR]")) { 
-                                echo '<div class="alert alert-danger" role="alert">'.$link.'</div>';
-                                return false; 
-                            }
-                            //Catch if we can't correctly ge tthe correct path to pdf yet
-                            else if(strpos('/'.$link, "[WARNING]")) { 
-                                echo '<div class="alert alert-warning" role="alert">'.$link.'
-                                <form class="form-group" method="post" action="add-pdf.php" enctype="multipart/form-data">
-                                <input class="form-control bg-warning" type="file" name="myfile" id="myfile" accept="application/pdf">
-                                <input class="btn btn-outline-success" type="submit" value="Add PDF File" id="submit">
-                             </form>
+                                echo '<div class="alert alert-danger" role="alert">'.$link.'
+                                <form class="form-group" method="post" action="../utils/addPDF.php" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-auto">
+                                        <input class="btn btn-danger" type="submit" value="Manually Add File" id="submit">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control btn-danger bg-danger" type="file" name="file" id="file" accept="application/pdf" required>
+                                        <input type="hidden" name="doiString" value="'.$doiString.'" />
+                                        <input type="hidden" name="doi" value="'.$doi.'" />
+                                    </div>
+                                </div>
+                                </form>
                                 </div>';
                                 return false; 
                             }
@@ -206,7 +209,21 @@ class ArticleFetcher {
                         }
                     }
                     if(isset($link) && !empty($link)) {
-                        return '<div id="pdf" class="switchDisplay"'.$tags.'><iframe class="w-100" style="height: 90vh;"src="'.$link.'"></iframe></div>';
+                        return '<div id="pdf" class="switchDisplay"'.$tags.'>
+                            <iframe class="w-100" style="height: 90vh;"src="'.$link.'"></iframe>
+                            <form class="form-group" method="post" action="../utils/addPDF.php" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-auto">
+                                    <input class="btn btn-light" type="submit" value="Manually Add File" id="submit">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control btn-light bg-light" type="file" name="file" id="file" accept="application/pdf" required>
+                                    <input type="hidden" name="doiString" value="'.$doiString.'" />
+                                    <input type="hidden" name="doi" value="'.$doi.'" />
+                                </div>
+                            </div>
+                            </form>
+                        </div>';
                     } 
                 } 
             }

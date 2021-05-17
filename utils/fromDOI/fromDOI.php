@@ -55,12 +55,12 @@
                 if(isset($_GET['verbose'])) echo "Article Available in Elsevier API<br>";
                 return DOI_parse_elsevierAPI($doi, $format);
                 break;
-            case (preg_match('/pubs.acs.org\/doi\/.*?/', $url)? true : false):
-                /* Available in ACS */
+            /*case (preg_match('/pubs.acs.org\/doi\/.*?/', $url)? true : false):
+                /* Available in ACS 
                 if(isset($_GET['verbose'])) echo "Article Available in ACS Publications<br>";
                 //todo overcome block with curl (?)
                 return "[WARNING] ACS use of embed local pdf files dissalow us to get the correct path to pdf from their website. PLease add it manually if required: ".$url;
-                break;
+                break;*/
             default:
                 if(isset($_GET['verbose'])) echo "Need to implement parsing for: ".$url;
                 return "[ERROR] Need to implement parsing for: ".$url;
