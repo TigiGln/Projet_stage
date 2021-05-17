@@ -1,4 +1,3 @@
-  
 <?php
     class Manager
     {
@@ -253,6 +252,34 @@
                 array_push($values, $col[1]);
             }
             $prepReq = substr_replace($prepReq ,"",-1) . ")"; //remove last coma and add contents
+
+            $req = $this->db->prepare($prepReq);
+            $res = $req->execute($values);
+            return $res;
+
+        }
+
+        /**
+         * deleteSpecific is a method to delete specifics data where we select the conditions and the table.
+         * return the array of fetched elements.
+	     * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
+         * @param  mixed $cols
+         *            Array of arrays to get the conditions WHERE. in each subArrays position 0 is the left member, position 1 is the right member.    
+         * @param  mixed $table
+         *            Table where we perform the request.
+         * @return void
+         */
+        public function deleteSpecific($cols, $table) {
+            $values = array();
+            $prepReq = "DELETE FROM ".$table;
+            if(sizeof($cols) != 0) {
+                $prepReq = $prepReq . " WHERE";
+                foreach ($cols as $col) { 
+                    $prepReq = $prepReq." ".$col[0]." = ? and"; 
+                    array_push($values, $col[1]);
+                }
+                $prepReq = substr_replace($prepReq ,"",-4); //remove last " AND"
+            } 
 
             $req = $this->db->prepare($prepReq);
             $res = $req->execute($values);

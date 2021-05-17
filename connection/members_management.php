@@ -14,7 +14,7 @@ include('../views/header.php');
 
 <div class="flex p-4 w-100 overflow-auto" style="height: 100vh;">
 <h1>Members Management</h1> 
-<div id="info"><!----></div>
+<div class="pt-4" id="info"><!----></div>
 <div class="row justify-content-start">
     <div class="col-md-auto">
         <button id="addForm" type="button" class="formButton btn btn-outline-info" onclick="showAddForm()">Add Member</button>
@@ -23,8 +23,7 @@ include('../views/header.php');
         <button id="manageForm" type="button" class="formButton btn btn-outline-info" onclick="showManageForm()">Manage Members</button>
     </div>
 </div>
-<div id="form"><!----></div>
-<div id="formBis"><!----></div>
+<div id="form" class="pt-4 w-100"><!----></div>
 </div>
 <script src="management.js"></script> 
 <?php
