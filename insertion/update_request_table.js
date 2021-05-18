@@ -30,7 +30,7 @@ function changeColorLigne()
         if (indexNumAccess !== -1)
         {
             tableRow[indexNumAccess + 1].style.background = "#A9A9A9";
-            checks[indexNumAccess].setAttribute('disabled', true);
+            checks[indexNumAccess + 1].setAttribute('disabled', true);
             //checks[indexNumAccess].style.display = 'none';
         }
     }

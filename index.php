@@ -72,7 +72,7 @@ if(isset($GLOBALS['connectionError'])) {
             <input class="form-control" type="password" name="password" id="password" required="required">
             <label for="password">Password</label>
         </p>
-        <button class="w-100 btn btn-lg btn-outline-primary" type="submit">Connexion</button>
+        <button class="w-100 btn btn-lg btn-outline-primary" type="submit">Connect</button>
         <p class="checkbox_mb-3 text-center">
             <input type="checkbox" value="rememberMe" name="rememberMe"> Connect me Automatically
         </p>
