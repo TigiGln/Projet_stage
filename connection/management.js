@@ -40,7 +40,9 @@ function updateUser() {
                 document.getElementById("info").innerHTML = '<div class="alert alert-info" role="alert">Successfully Updated your information.</div>';
                 document.getElementById("menuUsername").innerHTML = username;
             } else if (http.status === 403) {
-            document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">Current password missmatch.</div>';
+                document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">This username already exists.</div>';
+            } else if (http.status === 405) {
+                 document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">Current password missmatch.</div>';
             } else {
             document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">Failed to Update.</div>';
             }
@@ -75,6 +77,8 @@ function addMember() {
                 cleanForm();
             } else if (http.status === 403) {
             document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">'+username+' already exists.</div>';
+            } else if (http.status === 401) {
+                document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">You don\'t have the rights to perfom this action.</div>';
             } else {
             document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">Failed to Add '+username+' as '+profile+'.</div>';
             }
@@ -113,15 +117,17 @@ function updateMember() {
     /* Handle request results */
     http.onreadystatechange = function() {
       if (http.readyState === 4) {
-          if (http.status === 200) {
-              document.getElementById("info").innerHTML = '<div class="alert alert-info" role="alert">Successfully Updated '+oldUsername+' as '+username+", "+profile+'.</div>';
-              cleanForm();
-              loadUsersList();
-          } else if (http.status === 403) {
+        if (http.status === 200) {
+            document.getElementById("info").innerHTML = '<div class="alert alert-info" role="alert">Successfully Updated '+oldUsername+' as '+username+", "+profile+'.</div>';
+            cleanForm();
+            loadUsersList();
+        } else if (http.status === 403) {
             document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">'+username+' don\'t exists.</div>';
-          } else {
+        } else if (http.status === 401) {
+                document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">You don\'t have the rights to perfom this action.</div>';
+        } else {
             document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">Failed to Update '+username+' as '+profile+'.</div>';
-          }
+        }
       }
     }
 }
@@ -158,9 +164,11 @@ function deleteMember() {
                 cleanForm();
                 loadUsersList();
             } else if (http.status === 403) {
-            document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">'+username+' Don\'t exists.</div>';
+                document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">'+username+' Don\'t exists.</div>';
+            } else if (http.status === 401) {
+                document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">You don\'t have the rights to perfom this action.</div>';
             } else {
-            document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">Failed to Delete '+username+'.</div>';
+                document.getElementById("info").innerHTML = '<div class="alert alert-danger" role="alert">Failed to Delete '+username+'.</div>';
             }
         }
     }
