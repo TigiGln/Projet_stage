@@ -6,7 +6,7 @@ require("../POO/class_saveload_strategies.php");
  * ArticleFetcher
  * 
  * Created on Fri Apr 30 2021
- * Latest update on Mon May 17 2021
+ * Latest update on Tue May 18 2021
  * Info - PHP Class to fetch the xml content of the articles.
  * Usage: refers to the readArticle.php file: Do the followings
  * Instantiate object, call doExist(NUMACCESS), is true call hasRights(), if true call fetch(), fetch() will return true if could fetch, false else with an error message.
@@ -174,6 +174,8 @@ class ArticleFetcher {
                 if($doi) {
                     /* use an xml file to save links, to avoid to fetch each time */
                     $doiString = "doi".str_replace("/", "_", $doi);
+                    $doiString = str_replace("(", "_", $doiString);
+                    $doiString = str_replace(")", "_", $doiString);
                     $doi2link = $this->saveload->loadAsXML("../utils/doi2link.xml", "DOI", $doiString, null);
                     if($doi2link != '["empty"]') { 
                         $link = substr($doi2link, 1, -1);
@@ -203,9 +205,10 @@ class ArticleFetcher {
                                 </form>
                                 </div>';
                                 return false; 
+                            } else {
+                                $datas = array("DOI", array(array($doiString, "value", $doi), array(array("link", $link))));
+                                $this->saveload->saveAsXML("../utils/doi2link.xml", $datas, true);
                             }
-                            $datas = array("DOI", array(array($doiString, "value", $doi), array(array("link", $link))));
-                            $this->saveload->saveAsXML("../utils/doi2link.xml", $datas, true);
                         }
                     }
                     if(isset($link) && !empty($link)) {
