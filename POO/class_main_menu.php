@@ -1,10 +1,9 @@
 <?php
-
 /**
  * MainMenu
  * 
  * Created on Tue Apr 22 2021
- * Latest update on Mon May 17 2021
+ * Latest update on Tue May 18 2021
  * Info - PHP Class for the main menu
  * @author Eddy Ikhlef <eddy.ikhlef@protonmail.com>
  */
@@ -40,9 +39,7 @@ class MainMenu {
         $this->setProcessedTasks(true);
         $this->setRejectedTasks(true);
         $this->setInsertion(true);
-        //todo later only for expert
-        $userProfile = $manager->getSpecific(array("profile"), array(array("id_user", $_SESSION['userID'])), "user")[0]['profile'];
-        $this->setMembersManagement($userProfile == "expert"); 
+        $this->setMembersManagement(true); 
     }
 
     /**
@@ -142,7 +139,7 @@ class MainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION['username'].'</strong>
+                                <strong id="menuUsername">'.$_SESSION['username'].'</strong>
                               </div>
                             </div>
                             <br>
@@ -194,7 +191,7 @@ class MainMenu {
                                 </form>
                               </div>
                               <div class="col-md-auto mt-1">
-                                <strong>'.$_SESSION['username'].'</strong>
+                                <strong id="menuUsername">'.$_SESSION['username'].'</strong>
                               </div>
                             </div>
                           </div>
@@ -315,5 +312,4 @@ class MainMenu {
     public function setMembersManagement($value) {
       if (is_bool($value)) { $this->MembersManagement = $value; }
   }
-}
-?>
+}?>

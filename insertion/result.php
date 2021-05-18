@@ -1,8 +1,6 @@
 <?php
     
     require "../POO/class_main_menu.php";
-    require "../POO/class_connexion.php";
-    require "../POO/class_manager_bd.php";
     require "../POO/class_article.php";
     require "request.php";
 ?>
