@@ -5,7 +5,7 @@
     require "../POO/class_article.php";
     require "../POO/manager_cazy.class.php";
     require "requete.php";
-    $manager_cazy = new ManagerCazy('10.1.22.207', 'extern_db', 'glyco', 'Horror3');
+    $manager_cazy = new ManagerCazy('host', 'db', 'login', 'password');
 ?>
 <?php
     include('../views/header.php');
